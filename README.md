@@ -21,53 +21,55 @@ Cathy can reset her password if she forgets her account log in information. She 
 - If both Bob and Cathy “like” each other, they will get access to the others contact card with information on how to contact them. These contact cards can be found in the “matches” page. When Cathy has new matches since the time she last accessed the ‘match’ page, the red card next to the ‘match’ button will indicate it. [Team Story] -> approval + contact sharing  
 - Cathy wants to message her added friend. She logs into the app with her password and her username previously generated. She goes to the menu bar in her home screen and selects "matches" to open a new window which has a list of all her matches (people she has “liked” and have “liked” her back). She clicks on one individuals and sees their contact information. She can contact them through this information. [Kensley’s Story] -> matches 
 - Cathy is happy since she is chatting with a cool person. She clicks the “log out” button to exit the app. [Team Story] -> log out  
-Proposed Entities for the Domain:  
+
+## Proposed Entities for the Domain:  
 
 User:  
+- String userId 
+- String username 
+- String password 
+- String gender 
+- String pronouns 
+- String sexualOrientation 
+- LocalDate dateOfBirth 
 
-String userId 
-String username 
-String password 
-String gender 
-String pronouns 
-String sexualOrientation 
-LocalDate dateOfBirth 
-Profile 
+Profile: 
+- List<String> interest 
+- List<String> personality 
+- List<String> lookingFor 
+- List<String> profilePhoto 
 
-List<String> interest 
-List<String> personality 
-List<String> lookingFor 
-List<String> profilePhoto 
-Compatibility 
+Compatibility:
+- User user1 
+- User user2 
+- Float compatibility 
 
-User user1 
-User user2 
-Float compatibility 
-Match 
+Match:
+- User user1 
+- Float preferredCompatibility 
+- List<String> matches 
 
-User user1 
-Float preferredCompatibility 
-List<String> matches 
-Swipe 
+Swipe:
+- String userFrom 
+- String userTo
 
-String userFrom 
-String userTo 
-Chat 
+Chat:
+- String requestID 
+- String approveID 
+- boolean approve 
+- String msgContent 
+- LocalDateTime msgTimestamp
 
-String requestID 
-String approveID 
-boolean approve 
-String msgContent 
-LocalDateTime msgTimestamp 
-Proposed API for the project: 
+## Proposed API for the project: 
 
 https://www.twilio.com/docs/messaging/api  
-Messaging API for the chat features of our program 
+- Messaging API for the chat features of our program 
 https://cloudinary.com/  
-Image storage API for profile pictures 
+- Image storage API for profile pictures 
 https://documentation.onesignal.com/reference/rest-api-overview 
-For push notifications, messaging, and create, store, and update users.  
-Scheduled Meeting Times + Mode of Communication:  
+- For push notifications, messaging, and create, store, and update users.  
+
+## Scheduled Meeting Times + Mode of Communication:  
 
 Meeting Time: Thursday at 8pm  
 
