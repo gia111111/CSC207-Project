@@ -11,7 +11,7 @@ Cathy is interested in having a romantic relationship. She accesses the dating p
 
 ## User Stories:  
 
-- Cathy is interested in having a romantic relationship. She creates an account with a username and password to access the app. She will also choose a security question and set an answer for identity verification. **[Team’s Story] -> create account (username, password, security question + answer)** 
+- Cathy is interested in having a romantic relationship. She creates an account with a username and password to access the app. She will also choose a security word. **[Team’s Story] -> create account (username, password, security word)** 
 - Cathy answers multiple choice questions regarding her interests, personality, personal background, romantic preferences, and what she’s looking for in a relationship. She will also choose her preferred method of communication and provide her contact information. She can also weight the question sections with percentages with a higher percentage indicating that she values the compatibility of this section of questions more (Note: the total percentages must equal 100). **[Team Story] -> creating profile, providing contact information, weighting each group of questions** 
 - Cathy can use her previously created account information to log into the account. **[Team Story] -> log in** 
 - Cathy can reset her password if she forgets her account log in information. She will press the “reset password” button on the initial log in page. The app will ask her to choose her security question and answer. Once she confirms her identity, she will reset her password. The app will return to the log in page. **[Team story] -> reset password**
