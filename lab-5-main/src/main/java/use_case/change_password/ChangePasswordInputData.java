@@ -7,19 +7,18 @@ public class ChangePasswordInputData {
 
     private final String password;
     private final String username;
-    private String securityCode;
 
-    public ChangePasswordInputData(String password, String username, String securityCode) {
+    public ChangePasswordInputData(String password, String username) {
         this.password = password;
         this.username = username;
-        this.securityCode = securityCode;
     }
 
     String getPassword() {
         return password;
     }
 
-    String getUsername() { return username;}
+    String getUsername() {
+        return username;
+    }
 
-    String getSecurityCode() { return securityCode;}
 }

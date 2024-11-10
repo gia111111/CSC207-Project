@@ -17,9 +17,4 @@ public interface User {
      */
     String getPassword();
 
-    /**
-     * Returns the security code of the user.
-     * @return the security code of the user.
-     */
-    String getSecurityCode();
 }

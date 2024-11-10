@@ -71,12 +71,12 @@ class SignupInteractorTest {
 
     @Test
     void failureUserExistsTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong", "securityCode");
+        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "pwd", "sc");
+        User user = factory.create("Paul", "pwd");
         userRepository.save(user);
 
         // This creates a presenter that tests whether the test case is as we expect.

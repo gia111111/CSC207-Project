@@ -19,11 +19,10 @@ public class SignupController {
      * @param username the username to sign up
      * @param password1 the password
      * @param password2 the password repeated
-     * @param securityCode the security code
      */
-    public void execute(String username, String password1, String password2, String securityCode) {
+    public void execute(String username, String password1, String password2, String securityWord) {
         final SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2, securityCode);
+                username, password1, password2, securityWord);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }
