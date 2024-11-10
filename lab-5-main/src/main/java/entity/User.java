@@ -19,7 +19,7 @@ public interface User {
 
     /**
      * Returns the security code of the user.
-     * @return the password of the user.
+     * @return the security code of the user.
      */
     String getSecurityCode();
 }
