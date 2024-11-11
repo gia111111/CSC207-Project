@@ -21,6 +21,11 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
 
     @Override
     public void execute(ChangePasswordInputData changePasswordInputData) {
+
+        final User user = userFactory.create(changePasswordInputData.getUsername(),
+                                             changePasswordInputData.getPassword(),
+                                             changePasswordInputData.getSecurityWord());
+        userDataAccessObject.changePassword(user);
         final String username = changePasswordInputData.getUsername();
         final String password = changePasswordInputData.getPassword();
         final String repeatPassword = changePasswordInputData.getRepeatPassword();
@@ -39,7 +44,6 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
                 userDataAccessObject.changePassword(user);
                 final ChangePasswordOutputData changePasswordOutputData= new ChangePasswordOutputData(user.getName(),false);
                 userPresenter.prepareSuccessView(changePasswordOutputData);
-
             }
 //            final User user = userFactory.create(username,
 //                    changePasswordInputData.getPassword());

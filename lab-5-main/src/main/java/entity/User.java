@@ -17,4 +17,10 @@ public interface User {
      */
     String getPassword();
 
+    /**
+     * Returns the security word of the user.
+     * @return the security word of the user.
+     */
+    String getSecurityWord();
+
 }
