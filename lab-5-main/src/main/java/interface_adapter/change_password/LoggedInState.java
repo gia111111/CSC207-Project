@@ -7,12 +7,16 @@ public class LoggedInState {
     private String username = "";
 
     private String password = "";
+    private String security = "";
+    // private String userNotExistError;
     private String passwordError;
     private String securityWord = "";
 
     public LoggedInState(LoggedInState copy) {
         username = copy.username;
         password = copy.password;
+        security = copy.security;
+        // userNotExistError = copy.userNotExistError;
         passwordError = copy.passwordError;
         securityWord = copy.securityWord;
     }
@@ -34,6 +38,10 @@ public class LoggedInState {
         this.password = password;
     }
 
+    public String getPasswordError() {
+        return passwordError;
+    }
+
     public void setPasswordError(String passwordError) {
         this.passwordError = passwordError;
     }
@@ -42,5 +50,27 @@ public class LoggedInState {
         return password;
     }
 
+
     public String getSecurityWord() { return securityWord; }
+
+//    public String getUserNotExistError() {
+//        return userNotExistError;
+//    }
+
+    public String getSecurity() {
+        return security;
+    }
+
+    public void setSecurity(String security) {
+        this.security = security;
+    }
+
+//    public String getRepeatPasswordError() {
+//        return passwordError;
+//    }
+
+//    public void setUserNotExistError(String userNotExistError) {
+//        this.userNotExistError = userNotExistError;
+//    }
+
 }

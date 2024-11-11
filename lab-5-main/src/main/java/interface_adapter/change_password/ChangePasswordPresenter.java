@@ -1,5 +1,6 @@
 package interface_adapter.change_password;
 
+import interface_adapter.signup.SignupState;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.change_password.ChangePasswordOutputData;
 
@@ -27,5 +28,9 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
     @Override
     public void prepareFailView(String error) {
         // note: this use case currently can't fail
+       final LoggedInState changePasswordState = loggedInViewModel.getState();
+       // changepasswordState.setUserNotExistError(error);
+       changePasswordState.setPasswordError(error);
+       loggedInViewModel.firePropertyChanged();
     }
 }

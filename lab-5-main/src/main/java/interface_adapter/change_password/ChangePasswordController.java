@@ -8,9 +8,12 @@ import use_case.change_password.ChangePasswordInputData;
  */
 public class ChangePasswordController {
     private final ChangePasswordInputBoundary userChangePasswordUseCaseInteractor;
+    // private final ChangePasswordInputBoundary userChangePasswordUseCaseInteractor2;
 
     public ChangePasswordController(ChangePasswordInputBoundary userChangePasswordUseCaseInteractor) {
         this.userChangePasswordUseCaseInteractor = userChangePasswordUseCaseInteractor;
+        // this.userChangePasswordUseCaseInteractor2 = userChangePasswordUseCaseInteractor2;
+
     }
 
     /**
@@ -23,5 +26,7 @@ public class ChangePasswordController {
         final ChangePasswordInputData changePasswordInputData = new ChangePasswordInputData(username, password, securityCode);
 
         userChangePasswordUseCaseInteractor.execute(changePasswordInputData);
+        // userChangePasswordUseCaseInteractor2.execute(changePasswordInputData);
+
     }
 }

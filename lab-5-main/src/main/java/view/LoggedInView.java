@@ -27,27 +27,36 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final LoggedInViewModel loggedInViewModel;
     private final JLabel passwordErrorField = new JLabel();
     private ChangePasswordController changePasswordController;
+//    private ChangePasswordController changePasswordController2;
     private LogoutController logoutController;
-
-    private final JLabel username;
 
     private final JButton logOut;
 
-    private final JTextField passwordInputField = new JTextField(15);
+    private final JTextField usernameInputField = new JTextField(15);
+    private final JTextField passwordInputField1 = new JTextField(15);
+    private final JTextField passwordInputField2 = new JTextField(15);
+    private final JTextField securityInputField = new JTextField(15);
     private final JButton changePassword;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel("Logged In Screen");
+        final JLabel title = new JLabel("Reset new password");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
+        final LabelTextPanel usernameInfo = new LabelTextPanel(
+                new JLabel("username"), usernameInputField);
+        final LabelTextPanel passwordInfo1 = new LabelTextPanel(
+                new JLabel("New password"), passwordInputField1);
+        final LabelTextPanel passwordInfo2 = new LabelTextPanel(
+                new JLabel("Repeat new password"), passwordInputField2);
+        final LabelTextPanel securityInfo = new LabelTextPanel(
+                new JLabel("Security question"),securityInputField);
 
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        username = new JLabel();
+
+        // final JLabel usernameInfo = new JLabel("Currently logged in: ");
+        // username = new JLabel();
 
         final JPanel buttons = new JPanel();
         logOut = new JButton("Log Out");
@@ -58,11 +67,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
+        passwordInputField1.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
                 final LoggedInState currentState = loggedInViewModel.getState();
-                currentState.setPassword(passwordInputField.getText());
+                currentState.setPassword(passwordInputField1.getText());
                 loggedInViewModel.setState(currentState);
             }
 
@@ -71,6 +80,54 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 documentListenerHelper();
             }
 
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
+
+        passwordInputField2.getDocument().addDocumentListener(new DocumentListener() {
+
+            private void documentListenerHelper() {
+//                if (passwordInputField1.getText().equals(passwordInputField2.getText())) {
+                    final LoggedInState currentState = loggedInViewModel.getState();
+                    currentState.setPassword(passwordInputField2.getText());
+                    loggedInViewModel.setState(currentState);
+                }
+//            }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
+
+        securityInputField.getDocument().addDocumentListener(new DocumentListener() {
+
+            private void documentListenerHelper() {
+//                if (passwordInputField1.getText().equals(passwordInputField2.getText())) {
+                final LoggedInState currentState = loggedInViewModel.getState();
+                currentState.setSecurity(securityInputField.getText());
+                loggedInViewModel.setState(currentState);
+            }
+            //            }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
             @Override
             public void removeUpdate(DocumentEvent e) {
                 documentListenerHelper();
@@ -92,10 +149,17 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                                 currentState.getUsername(),
                                 currentState.getPassword(),
                                 currentState.getSecurityWord()
+                                currentState.getPasswordError()
                         );
+//                      this.changePasswordController2.execute(
+//                                currentState.getUsername(),
+//                                currentState.getPassword(),
+//                                );
+
                     }
                 }
         );
+
 
         logOut.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -104,15 +168,19 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         // TODO: execute the logout use case through the Controller
                         // 1. get the state out of the loggedInViewModel. It contains the username.
                         // 2. Execute the logout Controller.
+                        final LoggedInState currentState = loggedInViewModel.getState();
+                        this.logoutController.execute(currentState.getUsername());
                     }
                 }
         );
 
         this.add(title);
+        // this.add(usernameInfo);
+        // this.add(username);
         this.add(usernameInfo);
-        this.add(username);
-
-        this.add(passwordInfo);
+        this.add(passwordInfo1);
+        this.add(passwordInfo2);
+        this.add(securityInfo);
         this.add(passwordErrorField);
         this.add(buttons);
     }
@@ -121,7 +189,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            username.setText(state.getUsername());
+            // username.setText(state.getUsername());
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
@@ -140,5 +208,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setLogoutController(LogoutController logoutController) {
         // TODO: save the logout controller in the instance variable.
+        this.logoutController = logoutController;
     }
 }
