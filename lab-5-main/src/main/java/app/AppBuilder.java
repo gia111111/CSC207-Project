@@ -178,7 +178,7 @@ public class AppBuilder {
         return this;
     }
     /**
-     * Creates the JFrame for the application and initially sets the SignupView to be displayed.
+     * Creates the JFrame for the application and initially sets the HomePageView to be displayed.
      * @return the application
      */
     public JFrame build() {
