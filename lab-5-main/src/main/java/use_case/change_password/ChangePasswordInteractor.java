@@ -21,12 +21,32 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
 
     @Override
     public void execute(ChangePasswordInputData changePasswordInputData) {
-        final User user = userFactory.create(changePasswordInputData.getUsername(),
-                                             changePasswordInputData.getPassword());
-        userDataAccessObject.changePassword(user);
+        final String username = changePasswordInputData.getUsername();
+        final String password = changePasswordInputData.getPassword();
+        final String repeatPassword = changePasswordInputData.getRepeatPassword();
+        if (!userDataAccessObject.existsByName(username)) {
+            userPresenter.prepareFailView(username + ": Account doesn't exist.");
+        }
+//        else if (!changePasswordInputData.getPassword().equals(changePasswordInputData.getRepeatPassword())) {
+//            userPresenter.prepareFailView("Passwords don't match.");
+//        }
+        else {
+            if (!password.equals(repeatPassword)){
+                userPresenter.prepareFailView("Passwords don't match.");
+            }
+            else{
+                final User user = userFactory.create(username,password);
+                userDataAccessObject.changePassword(user);
+                final ChangePasswordOutputData changePasswordOutputData= new ChangePasswordOutputData(user.getName(),false);
+                userPresenter.prepareSuccessView(changePasswordOutputData);
 
-        final ChangePasswordOutputData changePasswordOutputData = new ChangePasswordOutputData(user.getName(),
-                                                                                  false);
-        userPresenter.prepareSuccessView(changePasswordOutputData);
+            }
+//            final User user = userFactory.create(username,
+//                    changePasswordInputData.getPassword());
+//            userDataAccessObject.changePassword(user);
+//            final ChangePasswordOutputData changePasswordOutputData = new ChangePasswordOutputData(user.getName(),
+//                    false);
+//            userPresenter.prepareSuccessView(changePasswordOutputData);
+        }
     }
 }
