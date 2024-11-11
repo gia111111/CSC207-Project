@@ -30,4 +30,8 @@ public class ChangePasswordController {
         // userChangePasswordUseCaseInteractor2.execute(changePasswordInputData);
 
     }
+
+    public void switchToHomePageView() {
+        userChangePasswordUseCaseInteractor.switchToHomePageView();
+    }
 }
