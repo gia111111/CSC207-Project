@@ -16,7 +16,7 @@ public class HomePageController {
      * Navigates to the Login View.
      */
     public void switchToLoginView() {
-        viewManagerModel.setState("login");
+        viewManagerModel.setState("log in");
         viewManagerModel.firePropertyChanged();
     }
 
@@ -28,19 +28,12 @@ public class HomePageController {
         viewManagerModel.firePropertyChanged();
     }
 
-    /**
-     * Navigates to the Dashboard View.
-     */
-    public void switchToDashboardView() {
-        viewManagerModel.setState("logged in");
-        viewManagerModel.firePropertyChanged();
-    }
 
     /**
      * Navigates to the Reset Password View.
      */
     public void switchToResetPasswordView() {
-        viewManagerModel.setState("reset password");
+        viewManagerModel.setState("logged in");
         viewManagerModel.firePropertyChanged();
     }
 }
