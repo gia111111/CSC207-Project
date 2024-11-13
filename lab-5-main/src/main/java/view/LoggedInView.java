@@ -148,7 +148,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         this.changePasswordController.execute(
                                 currentState.getUsername(),
                                 currentState.getPassword(),
-                                currentState.getSecurityWord()
+                                currentState.getSecurityWord(),
                                 currentState.getPasswordError()
                         );
 //                      this.changePasswordController2.execute(

@@ -22,8 +22,8 @@ public class ChangePasswordController {
      * @param username the user whose password to change
      * @param securityCode the security code to verify the user
      */
-    public void execute(String password, String username, String securityCode) {
-        final ChangePasswordInputData changePasswordInputData = new ChangePasswordInputData(username, password, securityCode);
+    public void execute(String password, String username, String repeatPassword, String securityCode) {
+        final ChangePasswordInputData changePasswordInputData = new ChangePasswordInputData(username, password, repeatPassword, securityCode);
 
         userChangePasswordUseCaseInteractor.execute(changePasswordInputData);
         // userChangePasswordUseCaseInteractor2.execute(changePasswordInputData);

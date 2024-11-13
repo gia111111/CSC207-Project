@@ -24,7 +24,7 @@ import interface_adapter.login.LoginViewModel;
 public class HomePageView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "home";
     private final HomePageViewModel homeViewModel;
-    private final HomePageController homePageController;
+    private HomePageController homePageController;
 
     private final JButton toLoginButton;
     private final JButton toSignupButton;
@@ -104,5 +104,9 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
 
     public String getViewName() {
         return viewName;
+    }
+
+    public void setHomePageController(HomePageController controller) {
+        this.homePageController = controller;
     }
 }
