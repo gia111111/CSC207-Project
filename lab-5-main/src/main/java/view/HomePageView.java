@@ -28,7 +28,6 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
 
     private final JButton toLoginButton;
     private final JButton toSignupButton;
-    private final JButton toDashboardButton;
     private final JButton toResetPasswordButton;;
 
     public HomePageView(HomePageViewModel homeViewModel, HomePageController homePageController) {
@@ -59,42 +58,14 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
         add(toSignupButton);
         add(Box.createVerticalStrut(20));
 
-        toDashboardButton = new JButton(HomePageViewModel.DASHBOARD_BUTTON_LABEL);
-        toDashboardButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(toDashboardButton);
-        add(Box.createVerticalStrut(20));
 
         toResetPasswordButton = new JButton(HomePageViewModel.RESET_PASSWORD_BUTTON_LABEL);
         toResetPasswordButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(toResetPasswordButton);
 
-//        // Initialize and align buttons
-//        toLoginButton = new JButton(HomePageViewModel.LOGIN_BUTTON_LABEL);
-//        toLoginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        add(toLoginButton);
-//        add(Box.createVerticalStrut(20)); // Space between buttons
-//
-//        // Align buttons to the center
-//        toLoginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        toSignupButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        toDashboardButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        toResetPasswordButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-//
-//        // Add components to the panel
-//        add(Box.createVerticalStrut(50));
-//        add(titleLabel);
-//        add(Box.createVerticalStrut(20));
-//        add(toLoginButton);
-//        add(Box.createVerticalStrut(10));
-//        add(toSignupButton);
-//        add(Box.createVerticalStrut(10));
-//        add(toDashboardButton);
-//        add(Box.createVerticalStrut(10));
-//        add(toResetPasswordButton);
 
         toLoginButton.addActionListener(e -> homePageController.switchToLoginView());
         toSignupButton.addActionListener(e -> homePageController.switchToSignupView());
-        toDashboardButton.addActionListener(e -> homePageController.switchToDashboardView());
         toResetPasswordButton.addActionListener(e -> homePageController.switchToResetPasswordView());
     }
 
@@ -120,10 +91,6 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
             case "Sign Up":
                 System.out.println("Navigating to Sign Up");
                 homePageController.switchToSignupView();
-                break;
-            case "Dashboard":
-                System.out.println("Navigating to Dashboard");
-                homePageController.switchToDashboardView();
                 break;
             case "Reset Password":
                 System.out.println("Navigating to Reset Password");
