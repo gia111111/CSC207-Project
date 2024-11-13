@@ -5,17 +5,21 @@ package use_case.logout;
  */
 public class LogoutOutputData {
 
-    private String username;
-    private boolean useCaseFailed;
+    private final String username;
+    private final boolean useCaseFailed;
 
+    // Constructor to initialize the instance variables with the provided parameters
     public LogoutOutputData(String username, boolean useCaseFailed) {
-        // TODO: save the parameters in the instance variables.
+        this.username = username;
+        this.useCaseFailed = useCaseFailed;
     }
 
+    // Getter method to retrieve the username
     public String getUsername() {
         return username;
     }
 
+    // Getter method to check if the use case failed
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }
