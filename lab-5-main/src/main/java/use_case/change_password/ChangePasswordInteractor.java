@@ -2,6 +2,7 @@ package use_case.change_password;
 
 import entity.User;
 import entity.UserFactory;
+import interface_adapter.home.HomePageState;
 
 /**
  * The Change Password Interactor.
@@ -35,7 +36,8 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
                 userPresenter.prepareFailView("Passwords don't match.");
             }
             else{
-                final User user = userFactory.create(username,password);
+                // final User user = userFactory.create(username,password);
+                final User user = userDataAccessObject.get(changePasswordInputData.getUsername());
                 userDataAccessObject.changePassword(user);
                 final ChangePasswordOutputData changePasswordOutputData= new ChangePasswordOutputData(user.getName(),false);
                 userPresenter.prepareSuccessView(changePasswordOutputData);

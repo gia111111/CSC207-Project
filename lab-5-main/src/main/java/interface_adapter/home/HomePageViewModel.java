@@ -1,11 +1,13 @@
 package interface_adapter.home;
 
 import interface_adapter.ViewModel;
+import interface_adapter.login.LoginState;
+import interface_adapter.signup.SignupState;
 
 /**
  * The ViewModel for the Home Page View.
  */
-public class HomePageViewModel extends ViewModel<String>{
+public class HomePageViewModel extends ViewModel<HomePageState>{
     // Define labels for the buttons and title
     public static final String TITLE_LABEL = "Welcome to Code & Cupid";
     public static final String LOGIN_BUTTON_LABEL = "Log In";
@@ -18,6 +20,6 @@ public class HomePageViewModel extends ViewModel<String>{
      */
     public HomePageViewModel() {
         super("home");
-        setState("");
+        setState(new HomePageState());
     }
 }
