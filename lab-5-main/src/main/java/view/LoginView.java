@@ -71,8 +71,17 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        cancel.addActionListener(this);
-
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(cancel)) {
+                    // Define the behavior for the cancel button here
+                    System.out.println("Cancel button pressed");
+                    // Add additional logic as needed
+                    loginController.switchToHomeView();
+                }
+            }
+        });
         usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
