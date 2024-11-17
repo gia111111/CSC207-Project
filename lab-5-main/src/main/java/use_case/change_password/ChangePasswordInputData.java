@@ -26,5 +26,5 @@ public class ChangePasswordInputData {
 
     String getRepeatPassword() {return repeatPassword; }
 
-    String getSecurity() {return security;}
+    String getSecurityWord() {return security;}
 }

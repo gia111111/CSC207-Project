@@ -17,7 +17,7 @@ public class ChangePasswordInteractorTest {
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "password");
+        User user = factory.create("Paul", "password","security");
         userRepository.save(user);
 
         // This creates a successPresenter that tests whether the test case is as we expect.
@@ -65,7 +65,7 @@ public class ChangePasswordInteractorTest {
         // For this failure test, we need to add Paul to the data access repository before we change password, and
         // the passwords should not match.
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "password");
+        User user = factory.create("Paul", "password","security");
         userRepository.save(user);
 
         // This creates a presenter that tests whether the test case is as we expect.
@@ -94,7 +94,7 @@ public class ChangePasswordInteractorTest {
     @Test
     void failureUserExistsTest() {
         ChangePasswordInputData inputData = new ChangePasswordInputData("Paul", "password",
-                "wrong","security");
+                "password","security");
         ChangePasswordUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
@@ -113,6 +113,40 @@ public class ChangePasswordInteractorTest {
             @Override
             public void prepareFailView(String error) {
                 assertEquals("Paul: Account doesn't exist.", error);
+            }
+
+            @Override
+            public void switchToHomePageView() {
+                // This is expected
+            }
+        };
+
+        ChangePasswordInputBoundary interactor = new ChangePasswordInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void securityUnmatchTest() {
+        ChangePasswordInputData inputData = new ChangePasswordInputData("Paul", "password",
+                "password","wrong");
+        ChangePasswordUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+//         Add Paul to the repo so that when we check later they already exist
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Paul", "psw","security");
+        userRepository.save(user);
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        ChangePasswordOutputBoundary failurePresenter = new ChangePasswordOutputBoundary() {
+            @Override
+            public void prepareSuccessView(ChangePasswordOutputData user) {
+                // this should never be reached since the test case should fail
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Paul: Security word doesn't match.", error);
             }
 
             @Override
