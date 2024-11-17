@@ -59,8 +59,4 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
         }
 
     }
-
-    public void switchToHomePageView() {
-        userPresenter.switchToHomePageView();
-    }
 }

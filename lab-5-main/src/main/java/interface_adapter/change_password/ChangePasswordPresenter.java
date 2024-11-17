@@ -13,7 +13,6 @@ import javax.swing.*;
 public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoggedInViewModel loggedInViewModel;
-    private final HomePageViewModel homePageViewModel;
 
     public ChangePasswordPresenter(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -29,12 +28,6 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
 //        loggedInViewModel.firePropertyChanged("password");
         // On success, switch to the homepage view.;
 
-        // On success, switch to the login view.
-        final HomePageState homePageState = homePageViewModel.getState();
-        // homePageState.setUsername(response.getUsername());
-        this.homePageViewModel.setState(homePageState);
-        homePageViewModel.firePropertyChanged();
-
         // Switch to the login view after successful password change
         viewManagerModel.setState("log in");
         viewManagerModel.firePropertyChanged();
@@ -47,10 +40,5 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
        // changepasswordState.setUserNotExistError(error);
        changePasswordState.setPasswordError(error);
        loggedInViewModel.firePropertyChanged();
-    }
-
-    public void switchToHomePageView() {
-        viewManagerModel.setState(homePageViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
     }
 }

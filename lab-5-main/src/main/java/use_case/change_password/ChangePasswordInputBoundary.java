@@ -11,9 +11,4 @@ public interface ChangePasswordInputBoundary {
      */
     void execute(ChangePasswordInputData changePasswordInputData);
 
-    /**
-     * Executes the switch to homepage view use case.
-     */
-    void switchToHomePageView();
-
 }
