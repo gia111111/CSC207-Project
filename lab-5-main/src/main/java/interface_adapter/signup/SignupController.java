@@ -12,8 +12,8 @@ public class SignupController {
     private final SignupInputBoundary userSignupUseCaseInteractor;
     private final ViewManagerModel viewManagerModel;
 
-    public SignupController(SignupInputBoundary userSignupUseCaseInteractor,
-                            ViewManagerModel viewManagerModel) {
+
+    public SignupController(SignupInputBoundary userSignupUseCaseInteractor, ViewManagerModel viewManagerModel) {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
         this.viewManagerModel = viewManagerModel;
     }
@@ -36,6 +36,14 @@ public class SignupController {
      */
     public void switchToProfileView() {
         viewManagerModel.setState("profile");
+        viewManagerModel.firePropertyChanged();
+    }
+
+    /**
+     * Handles the Cancel action to switch back to the Home Page.
+     */
+    public void handleCancel() {
+        viewManagerModel.setState("home");
         viewManagerModel.firePropertyChanged();
     }
 }

@@ -1,5 +1,6 @@
 package interface_adapter.login;
 
+import interface_adapter.ViewManagerModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInputData;
 
@@ -9,9 +10,11 @@ import use_case.login.LoginInputData;
 public class LoginController {
 
     private final LoginInputBoundary loginUseCaseInteractor;
+    private final ViewManagerModel viewManagerModel;
 
-    public LoginController(LoginInputBoundary loginUseCaseInteractor) {
+    public LoginController(LoginInputBoundary loginUseCaseInteractor, ViewManagerModel viewManagerModel) {
         this.loginUseCaseInteractor = loginUseCaseInteractor;
+        this.viewManagerModel = viewManagerModel;
     }
 
     /**
@@ -26,7 +29,11 @@ public class LoginController {
         loginUseCaseInteractor.execute(loginInputData);
     }
 
-    public void switchToHomeView() {
-        loginUseCaseInteractor.switchToHomeView();
+    /**
+     * Handles the Cancel action to switch back to the homepage.
+     */
+    public void handleCancel() {
+        viewManagerModel.setState("home");
+        viewManagerModel.firePropertyChanged();
     }
 }

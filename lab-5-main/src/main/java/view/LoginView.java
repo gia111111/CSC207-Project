@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -71,17 +71,19 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource().equals(cancel)) {
-                    // Define the behavior for the cancel button here
-                    System.out.println("Cancel button pressed");
-                    // Add additional logic as needed
-                    loginController.switchToHomeView();
-                }
+        //cancel.addActionListener(this);
+//        cancel.addActionListener(e -> {
+//            // Assuming you have a CardLayout and "homepage" is the name of your homepage view.
+//            JPanel parentPanel = (JPanel) this.getParent();
+//            CardLayout layout = (CardLayout) parentPanel.getLayout();
+//            layout.show(parentPanel, "homepage");
+//        });
+        cancel.addActionListener(e -> {
+            if (loginController != null) {
+                loginController.handleCancel();
             }
         });
+
         usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
