@@ -168,7 +168,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         // 2. Execute the logout Controller.
                         final LoggedInState currentState = loggedInViewModel.getState();
                         this.logoutController.execute(currentState.getUsername());
-                        changePasswordController.switchToHomePageView();
+                        //changePasswordController.switchToHomePageView();
                     }
                 }
         );
