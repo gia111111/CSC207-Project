@@ -2,6 +2,7 @@ package interface_adapter.profile;
 
 import interface_adapter.ViewModel;
 
+
 public class ProfileViewModel extends ViewModel<ProfileState>{
     public static final String TITLE_LABEL = "Profile";
     public static final String SECTION_ONE = "Basic Information";
@@ -29,6 +30,7 @@ public class ProfileViewModel extends ViewModel<ProfileState>{
 
     public ProfileViewModel() {
         super("profile");
+
         setState(new ProfileState());
     }
 }

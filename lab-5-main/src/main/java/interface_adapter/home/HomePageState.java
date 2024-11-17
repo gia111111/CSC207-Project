@@ -1,7 +1,9 @@
-package interface_adapter.profile;
+package interface_adapter.home;
 
-public class ProfileState {
-
+/**
+ * The state for the Home Page View Model.
+ */
+public class HomePageState {
     private String currentView = "";
     private String errorMessage;
 
@@ -21,8 +23,9 @@ public class ProfileState {
         this.errorMessage = errorMessage;
     }
 
+    @Override
     public String toString() {
-        return "ProfileState{"
+        return "HomePageState{"
                 + "currentView='" + currentView + '\''
                 + ", errorMessage='" + errorMessage + '\''
                 + '}';

@@ -1,5 +1,6 @@
 package view;
 
+
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -9,10 +10,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
+
 import java.beans.PropertyChangeListener;
 
 public class ProfileView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "profile";
+
     private final ProfileViewModel profileViewModel;
     private final ProfileController profileController;
 

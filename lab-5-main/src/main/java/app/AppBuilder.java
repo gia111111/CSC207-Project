@@ -13,17 +13,25 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.home.HomePageController;
+import interface_adapter.home.HomePagePresenter;
+import interface_adapter.home.HomePageViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.profile.ProfileController;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.profile.ProfileViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.home.HomeInputBoundary;
+import use_case.home.HomeInteractor;
+import use_case.home.HomeOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -33,10 +41,7 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import view.LoggedInView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -55,17 +60,26 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final UserFactory userFactory = new CommonUserFactory();
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
+    private final HomePageViewModel homePageViewModel = new HomePageViewModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
 
+    private HomePageView homePageView;
     private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private ProfileViewModel profileViewModel;
+    private ProfileView profileView;
+
+    private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
+    private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
+    private final HomePageController homePageController = new HomePageController(viewManagerModel);
+    private final ProfileController profileController = new ProfileController(viewManagerModel);
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -104,17 +118,25 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addProfileView() {
+        profileViewModel = new ProfileViewModel();
+        profileView = new ProfileView(profileViewModel, profileController);
+        cardPanel.add(profileView, profileView.getViewName());
+        return this;
+    }
+
+
     /**
      * Adds the Signup Use Case to the application.
      * @return this builder
      */
     public AppBuilder addSignupUseCase() {
         final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-                signupViewModel, loginViewModel);
+                signupViewModel, profileViewModel);
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 userDataAccessObject, signupOutputBoundary, userFactory);
 
-        final SignupController controller = new SignupController(userSignupInteractor);
+        final SignupController controller = new SignupController(userSignupInteractor, viewManagerModel);
         signupView.setSignupController(controller);
         return this;
     }
@@ -125,11 +147,11 @@ public class AppBuilder {
      */
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                loggedInViewModel, loginViewModel, homePageViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
-        final LoginController loginController = new LoginController(loginInteractor);
+        final LoginController loginController = new LoginController(loginInteractor, viewManagerModel);
         loginView.setLoginController(loginController);
         return this;
     }
@@ -140,13 +162,13 @@ public class AppBuilder {
      */
     public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(loggedInViewModel);
+                new ChangePasswordPresenter(loggedInViewModel, viewManagerModel);
 
         final ChangePasswordInputBoundary changePasswordInteractor =
                 new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
 
         final ChangePasswordController changePasswordController =
-                new ChangePasswordController(changePasswordInteractor);
+                new ChangePasswordController(changePasswordInteractor, viewManagerModel);
         loggedInView.setChangePasswordController(changePasswordController);
         return this;
     }
@@ -168,16 +190,35 @@ public class AppBuilder {
     }
 
     /**
-     * Creates the JFrame for the application and initially sets the SignupView to be displayed.
+     * Adds the HomePageView to the application.
+     */
+    public AppBuilder addHomePageView() {
+        homePageView = new HomePageView(homePageViewModel, homePageController);
+        cardPanel.add(homePageView, homePageView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addHomePageUseCase() {
+        final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel,
+                signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
+        final HomeInputBoundary userHomeInteractor = new HomeInteractor(homeOutputBoundary);
+
+        final HomePageController controller = new HomePageController(viewManagerModel);
+        homePageView.setHomePageController(controller);
+        return this;
+    }
+
+    /**
+     * Creates the JFrame for the application and initially sets the HomePageView to be displayed.
      * @return the application
      */
     public JFrame build() {
-        final JFrame application = new JFrame("Login Example");
+        final JFrame application = new JFrame("Code & Cupid");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(signupView.getViewName());
+        viewManagerModel.setState(homePageView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

@@ -1,5 +1,6 @@
 package interface_adapter.signup;
 
+import interface_adapter.ViewManagerModel;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInputData;
 
@@ -9,9 +10,12 @@ import use_case.signup.SignupInputData;
 public class SignupController {
 
     private final SignupInputBoundary userSignupUseCaseInteractor;
+    private final ViewManagerModel viewManagerModel;
 
-    public SignupController(SignupInputBoundary userSignupUseCaseInteractor) {
+
+    public SignupController(SignupInputBoundary userSignupUseCaseInteractor, ViewManagerModel viewManagerModel) {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
+        this.viewManagerModel = viewManagerModel;
     }
 
     /**
@@ -30,7 +34,16 @@ public class SignupController {
     /**
      * Executes the "switch to LoginView" Use Case.
      */
-    public void switchToLoginView() {
-        userSignupUseCaseInteractor.switchToLoginView();
+    public void switchToProfileView() {
+        viewManagerModel.setState("profile");
+        viewManagerModel.firePropertyChanged();
+    }
+
+    /**
+     * Handles the Cancel action to switch back to the Home Page.
+     */
+    public void handleCancel() {
+        viewManagerModel.setState("home");
+        viewManagerModel.firePropertyChanged();
     }
 }
