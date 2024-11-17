@@ -35,7 +35,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private final JButton signUp;
     private final JButton cancel;
-    private final JButton toLogin;
+    private final JButton toProfile;
 
     public SignupView(SignupViewModel signupViewModel) {
         this.signupViewModel = signupViewModel;
@@ -54,8 +54,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(SignupViewModel.SECURITY_WORD_LABEL), securityWordInputField);
 
         final JPanel buttons = new JPanel();
-        toLogin = new JButton(SignupViewModel.TO_LOGIN_BUTTON_LABEL);
-        buttons.add(toLogin);
+        toProfile = new JButton(SignupViewModel.TO_LOGIN_BUTTON_LABEL);
+        buttons.add(toProfile);
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
@@ -79,10 +79,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        toLogin.addActionListener(
+        toProfile.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        signupController.switchToLoginView();
+                        signupController.switchToProfileView();
                     }
                 }
         );

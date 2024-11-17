@@ -3,6 +3,8 @@ package interface_adapter.signup;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.profile.ProfileState;
+import interface_adapter.profile.ProfileViewModel;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
 
@@ -12,27 +14,34 @@ import use_case.signup.SignupOutputData;
 public class SignupPresenter implements SignupOutputBoundary {
 
     private final SignupViewModel signupViewModel;
-    private final LoginViewModel loginViewModel;
+    //private final LoginViewModel loginViewModel;
+    private ProfileViewModel profileViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public SignupPresenter(ViewManagerModel viewManagerModel,
                            SignupViewModel signupViewModel,
-                           LoginViewModel loginViewModel) {
+                           ProfileViewModel profileViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
-        this.loginViewModel = loginViewModel;
+        //this.loginViewModel = loginViewModel;
+        this.profileViewModel = profileViewModel;
     }
 
     @Override
     public void prepareSuccessView(SignupOutputData response) {
         // On success, switch to the login view.
-        final LoginState loginState = loginViewModel.getState();
-        loginState.setUsername(response.getUsername());
-        this.loginViewModel.setState(loginState);
-        loginViewModel.firePropertyChanged();
+//        final LoginState loginState = loginViewModel.getState();
+//        loginState.setUsername(response.getUsername());
+//        this.loginViewModel.setState(loginState);
+//        loginViewModel.firePropertyChanged();
+//
+//        viewManagerModel.setState(loginViewModel.getViewName());
+//        viewManagerModel.firePropertyChanged();
+        final ProfileState profileState = profileViewModel.getState();
+        this.profileViewModel.setState(profileState);
+        profileViewModel.firePropertyChanged();
 
-        viewManagerModel.setState(loginViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setState("profile");
     }
 
     @Override
@@ -43,8 +52,9 @@ public class SignupPresenter implements SignupOutputBoundary {
     }
 
     @Override
-    public void switchToLoginView() {
-        viewManagerModel.setState(loginViewModel.getViewName());
+    public void switchToProfileView() {
+        //viewManagerModel.setState(loginViewModel.getViewName());
+        viewManagerModel.setState("profile");
         viewManagerModel.firePropertyChanged();
     }
 }
