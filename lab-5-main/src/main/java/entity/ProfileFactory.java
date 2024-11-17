@@ -8,7 +8,7 @@ public interface ProfileFactory {
      * Creates a new profile object.
      * @param name the name of the user
      * @param gender the gender of the user
-     *               true for Female and false for Male
+     *               three choices: Male, Female and Others
      * @param SexualOrientation the sexual orientation of the user
      *                          three choices: Male, Female, or Both
      * @param age the age of the user
@@ -18,5 +18,5 @@ public interface ProfileFactory {
      * @return the new profile object
      */
 
-    CommonProfile create(String name, boolean gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights);
+    CommonProfile create(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights);
 }

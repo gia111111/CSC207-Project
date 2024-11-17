@@ -15,9 +15,9 @@ public interface Profile {
 
     /**
      * Returns the gender of the user.
-     * @return the gender of the user( True for Female and False for male).
+     * @return the gender of the user( three options: Male, Female, and Others).
      */
-    boolean getGender();
+    String getGender();
 
     /**
      * Returns the sexual orientation of the user.

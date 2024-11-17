@@ -5,13 +5,13 @@ import java.util.List;
 public class CommonProfile implements Profile {
 
     private final String name;
-    private final boolean gender;
+    private final String gender;
     private final String SexualOrientation;
     private final int age;
     private final List<List<String>> answers;
     private final List<Integer> weights;
 
-    public CommonProfile(String name, boolean gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights) {
+    public CommonProfile(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights) {
         this.name = name;
         this.gender = gender;
         this.SexualOrientation = SexualOrientation;
@@ -24,7 +24,7 @@ public class CommonProfile implements Profile {
     public String getName() { return name;}
 
     @Override
-    public boolean getGender() { return gender; }
+    public String getGender() { return gender; }
 
     @Override
     public String getSexualOrientation() { return SexualOrientation; }
