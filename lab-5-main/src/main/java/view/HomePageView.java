@@ -109,4 +109,17 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
     public void setHomePageController(HomePageController controller) {
         this.homePageController = controller;
     }
+
+    //Getter Methods for Button
+    public JButton getToLoginButton() {
+        return toLoginButton;
+    }
+
+    public JButton getToSignupButton() {
+        return toSignupButton;
+    }
+
+    public JButton getToResetPasswordButton() {
+        return toResetPasswordButton;
+    }
 }

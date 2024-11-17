@@ -1,12 +1,11 @@
 package interface_adapter.change_password;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.home.HomePageState;
-import interface_adapter.home.HomePageViewModel;
-import interface_adapter.login.LoginState;
 import interface_adapter.signup.SignupState;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.change_password.ChangePasswordOutputData;
+
+import javax.swing.*;
 
 /**
  * The Presenter for the Change Password Use Case.
@@ -16,11 +15,9 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
     private final LoggedInViewModel loggedInViewModel;
     private final HomePageViewModel homePageViewModel;
 
-    public ChangePasswordPresenter(ViewManagerModel viewManagerModel,LoggedInViewModel loggedInViewModel,
-                                   HomePageViewModel homePageViewModel) {
-        this.viewManagerModel = viewManagerModel;
+    public ChangePasswordPresenter(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
         this.loggedInViewModel = loggedInViewModel;
-        this.homePageViewModel = homePageViewModel;
+        this.viewManagerModel = viewManagerModel;
     }
 
     @Override
@@ -38,8 +35,9 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
         this.homePageViewModel.setState(homePageState);
         homePageViewModel.firePropertyChanged();
 
-        this.viewManagerModel.setState(homePageViewModel.getViewName());
-        this.viewManagerModel.firePropertyChanged();
+        // Switch to the login view after successful password change
+        viewManagerModel.setState("log in");
+        viewManagerModel.firePropertyChanged();
     }
 
     @Override
