@@ -11,9 +11,9 @@ import javax.swing.*;
  * The Presenter for the Change Password Use Case.
  */
 public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
-
-    private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final LoggedInViewModel loggedInViewModel;
+    private final HomePageViewModel homePageViewModel;
 
     public ChangePasswordPresenter(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -26,7 +26,14 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
         // since the output data only contains the username, which remains the same.
         // We still fire the property changed event, but just to let the view know that
         // it can alert the user that their password was changed successfully..
-        loggedInViewModel.firePropertyChanged("password");
+//        loggedInViewModel.firePropertyChanged("password");
+        // On success, switch to the homepage view.;
+
+        // On success, switch to the login view.
+        final HomePageState homePageState = homePageViewModel.getState();
+        // homePageState.setUsername(response.getUsername());
+        this.homePageViewModel.setState(homePageState);
+        homePageViewModel.firePropertyChanged();
 
         // Switch to the login view after successful password change
         viewManagerModel.setState("log in");
@@ -40,5 +47,10 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
        // changepasswordState.setUserNotExistError(error);
        changePasswordState.setPasswordError(error);
        loggedInViewModel.firePropertyChanged();
+    }
+
+    public void switchToHomePageView() {
+        viewManagerModel.setState(homePageViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }

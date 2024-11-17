@@ -65,6 +65,8 @@ public class LoggedInState {
         this.security = security;
     }
 
+    
+
 //    public String getRepeatPasswordError() {
 //        return passwordError;
 //    }

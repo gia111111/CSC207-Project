@@ -26,7 +26,6 @@ public class ChangePasswordController {
 
     public void execute(String password, String username, String repeatPassword, String securityWord) {
         final ChangePasswordInputData changePasswordInputData = new ChangePasswordInputData(username, password, repeatPassword, securityWord);
-
         userChangePasswordUseCaseInteractor.execute(changePasswordInputData);
 
     }

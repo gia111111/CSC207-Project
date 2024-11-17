@@ -1,6 +1,8 @@
 package interface_adapter.home;
 
 import interface_adapter.ViewModel;
+import interface_adapter.login.LoginState;
+import interface_adapter.signup.SignupState;
 
 /**
  * The ViewModel for the Home Page View.

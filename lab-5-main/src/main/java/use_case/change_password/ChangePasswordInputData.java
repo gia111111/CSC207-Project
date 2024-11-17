@@ -4,17 +4,16 @@ package use_case.change_password;
  * The input data for the Change Password Use Case.
  */
 public class ChangePasswordInputData {
-
-    private final String password;
     private final String username;
+    private final String password;
     private final String repeatPassword;
-    private final String securityWord;
+    private final String security;
 
-    public ChangePasswordInputData(String password, String username, String repeatPassword, String securityWord) {
+    public ChangePasswordInputData(String username, String password, String repeatPassword, String security) {
         this.password = password;
         this.username = username;
         this.repeatPassword = repeatPassword;
-        this.securityWord = securityWord;
+        this.security = security;
     }
 
     String getPassword() {
@@ -25,8 +24,7 @@ public class ChangePasswordInputData {
         return username;
     }
 
+    String getRepeatPassword() {return repeatPassword; }
 
-    String getSecurityWord() { return securityWord; }
-
-    String getRepeatPassword() { return repeatPassword; }
+    String getSecurityWord() {return security;}
 }
