@@ -40,10 +40,10 @@ public class ChangePasswordInteractorTest {
                 fail("Use case failure is unexpected.");
             }
 
-            @Override
-            public void switchToHomePageView() {
-
-            }
+//            @Override
+//            public void switchToHomePageView() {
+//
+//            }
 
             // @Override
             // public void switchToLoginView() {
@@ -81,10 +81,10 @@ public class ChangePasswordInteractorTest {
                 assertEquals("Passwords don't match.", error);
             }
 
-            @Override
-            public void switchToHomePageView() {
-                // This is expected
-            }
+//            @Override
+//            public void switchToHomePageView() {
+//                // This is expected
+//            }
         };
 
         ChangePasswordInputBoundary interactor = new ChangePasswordInteractor(userRepository, failurePresenter, new CommonUserFactory());
@@ -115,10 +115,10 @@ public class ChangePasswordInteractorTest {
                 assertEquals("Paul: Account doesn't exist.", error);
             }
 
-            @Override
-            public void switchToHomePageView() {
-                // This is expected
-            }
+//            @Override
+//            public void switchToHomePageView() {
+//                // This is expected
+//            }
         };
 
         ChangePasswordInputBoundary interactor = new ChangePasswordInteractor(userRepository, failurePresenter, new CommonUserFactory());
@@ -149,10 +149,10 @@ public class ChangePasswordInteractorTest {
                 assertEquals("Paul: Security word doesn't match.", error);
             }
 
-            @Override
-            public void switchToHomePageView() {
-                // This is expected
-            }
+//            @Override
+//            public void switchToLoginView() {
+//                // This is expected
+//            }
         };
 
         ChangePasswordInputBoundary interactor = new ChangePasswordInteractor(userRepository, failurePresenter, new CommonUserFactory());

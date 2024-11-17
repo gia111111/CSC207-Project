@@ -35,7 +35,6 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        // note: this use case currently can't fail
        final LoggedInState changePasswordState = loggedInViewModel.getState();
        // changepasswordState.setUserNotExistError(error);
        changePasswordState.setPasswordError(error);
