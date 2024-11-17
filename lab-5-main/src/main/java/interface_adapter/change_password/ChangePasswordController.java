@@ -22,9 +22,9 @@ public class ChangePasswordController {
      * @param username the user whose password to change
      * @param repeatPassword the repeated password
      */
-    public void execute(String password, String username, String repeatPassword) {
+    public void execute(String password, String username, String repeatPassword, String security) {
         final ChangePasswordInputData changePasswordInputData =
-                new ChangePasswordInputData(username, password, repeatPassword);
+                new ChangePasswordInputData(username, password, repeatPassword, security);
 
         userChangePasswordUseCaseInteractor.execute(changePasswordInputData);
         // userChangePasswordUseCaseInteractor2.execute(changePasswordInputData);
