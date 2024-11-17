@@ -10,6 +10,7 @@ public class LoggedInState {
     private String security = "";
     // private String userNotExistError;
     private String passwordError;
+    private String securityWord = "";
 
     public LoggedInState(LoggedInState copy) {
         username = copy.username;
@@ -17,6 +18,7 @@ public class LoggedInState {
         security = copy.security;
         // userNotExistError = copy.userNotExistError;
         passwordError = copy.passwordError;
+        securityWord = copy.securityWord;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -48,6 +50,9 @@ public class LoggedInState {
         return password;
     }
 
+
+    public String getSecurityWord() { return securityWord; }
+
 //    public String getUserNotExistError() {
 //        return userNotExistError;
 //    }
@@ -69,4 +74,5 @@ public class LoggedInState {
 //    public void setUserNotExistError(String userNotExistError) {
 //        this.userNotExistError = userNotExistError;
 //    }
+
 }

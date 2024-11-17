@@ -14,6 +14,7 @@ import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.home.HomePageController;
+import interface_adapter.home.HomePagePresenter;
 import interface_adapter.home.HomePageViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -26,6 +27,9 @@ import interface_adapter.signup.SignupViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.home.HomeInputBoundary;
+import use_case.home.HomeInteractor;
+import use_case.home.HomeOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -56,7 +60,6 @@ public class AppBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final HomePageViewModel homePageViewModel = new HomePageViewModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
-    private final HomePageController homePageController = new HomePageController(viewManagerModel);
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
@@ -68,6 +71,10 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+
+    private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
+    private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
+    private final HomePageController homePageController = new HomePageController(viewManagerModel);
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -180,6 +187,17 @@ public class AppBuilder {
         cardPanel.add(homePageView, homePageView.getViewName());
         return this;
     }
+
+    public AppBuilder addHomePageUseCase() {
+        final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel,
+                signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
+        final HomeInputBoundary userHomeInteractor = new HomeInteractor(homeOutputBoundary);
+
+        final HomePageController controller = new HomePageController(viewManagerModel);
+        homePageView.setHomePageController(controller);
+        return this;
+    }
+
     /**
      * Creates the JFrame for the application and initially sets the HomePageView to be displayed.
      * @return the application
