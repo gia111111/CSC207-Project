@@ -40,7 +40,6 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
                 userPresenter.prepareFailView("Passwords don't match.");
             }
             else{
-                final User user = userFactory.create(username,password);
                 userDataAccessObject.changePassword(user);
                 final ChangePasswordOutputData changePasswordOutputData= new ChangePasswordOutputData(user.getName(),false);
                 userPresenter.prepareSuccessView(changePasswordOutputData);
