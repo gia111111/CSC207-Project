@@ -123,7 +123,7 @@ public class AppBuilder {
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 userDataAccessObject, signupOutputBoundary, userFactory);
 
-        final SignupController controller = new SignupController(userSignupInteractor);
+        final SignupController controller = new SignupController(userSignupInteractor, viewManagerModel);
         signupView.setSignupController(controller);
         return this;
     }
@@ -138,7 +138,7 @@ public class AppBuilder {
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 
-        final LoginController loginController = new LoginController(loginInteractor);
+        final LoginController loginController = new LoginController(loginInteractor, viewManagerModel);
         loginView.setLoginController(loginController);
         return this;
     }
@@ -149,13 +149,13 @@ public class AppBuilder {
      */
     public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(loggedInViewModel);
+                new ChangePasswordPresenter(loggedInViewModel, viewManagerModel);
 
         final ChangePasswordInputBoundary changePasswordInteractor =
                 new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
 
         final ChangePasswordController changePasswordController =
-                new ChangePasswordController(changePasswordInteractor);
+                new ChangePasswordController(changePasswordInteractor, viewManagerModel);
         loggedInView.setChangePasswordController(changePasswordController);
         return this;
     }

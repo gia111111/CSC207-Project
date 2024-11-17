@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -71,7 +71,18 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        cancel.addActionListener(this);
+        //cancel.addActionListener(this);
+//        cancel.addActionListener(e -> {
+//            // Assuming you have a CardLayout and "homepage" is the name of your homepage view.
+//            JPanel parentPanel = (JPanel) this.getParent();
+//            CardLayout layout = (CardLayout) parentPanel.getLayout();
+//            layout.show(parentPanel, "homepage");
+//        });
+        cancel.addActionListener(e -> {
+            if (loginController != null) {
+                loginController.handleCancel();
+            }
+        });
 
         usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
 
