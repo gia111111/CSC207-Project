@@ -36,4 +36,9 @@ public class HomePageController {
         viewManagerModel.setState("logged in");
         viewManagerModel.firePropertyChanged();
     }
+
+    public void switchToHomePageView() {
+        viewManagerModel.setState("home");
+        viewManagerModel.firePropertyChanged();
+    }
 }

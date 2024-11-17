@@ -151,6 +151,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                                 currentState.getSecurityWord(),
                                 currentState.getPasswordError()
                         );
+                        // After changing the password, redirect to the login view
+                        this.changePasswordController.redirectToLogin();
 //                      this.changePasswordController2.execute(
 //                                currentState.getUsername(),
 //                                currentState.getPassword(),
@@ -173,6 +175,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+
 
         this.add(title);
         // this.add(usernameInfo);
