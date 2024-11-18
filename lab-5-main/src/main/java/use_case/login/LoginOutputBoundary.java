@@ -16,5 +16,5 @@ public interface LoginOutputBoundary {
      */
     void prepareFailView(String errorMessage);
 
-    void switchToHomeView();
+//    void switchToHomeView();
 }

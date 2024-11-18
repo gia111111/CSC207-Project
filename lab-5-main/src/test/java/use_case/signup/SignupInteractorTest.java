@@ -14,7 +14,8 @@ class SignupInteractorTest {
 
     @Test
     void successTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "password", "securityWord");
+        SignupInputData inputData = new SignupInputData("Paul", "password", "password",
+                "security");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // This creates a successPresenter that tests whether the test case is as we expect.
@@ -32,7 +33,7 @@ class SignupInteractorTest {
             }
 
             @Override
-            public void switchToLoginView() {
+            public void switchToProfileView() {
                 // This is expected
             }
         };
@@ -43,7 +44,8 @@ class SignupInteractorTest {
 
     @Test
     void failurePasswordMismatchTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong", "securityWord");
+        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong",
+                "security");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // This creates a presenter that tests whether the test case is as we expect.
@@ -60,7 +62,7 @@ class SignupInteractorTest {
             }
 
             @Override
-            public void switchToLoginView() {
+            public void switchToProfileView() {
                 // This is expected
             }
         };
@@ -71,12 +73,13 @@ class SignupInteractorTest {
 
     @Test
     void failureUserExistsTest() {
-        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong", "securityWord");
+        SignupInputData inputData = new SignupInputData("Paul", "password", "wrong",
+                "security");
         SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
         UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "pwd", "sw");
+        User user = factory.create("Paul", "pwd","security");
         userRepository.save(user);
 
         // This creates a presenter that tests whether the test case is as we expect.
@@ -93,7 +96,7 @@ class SignupInteractorTest {
             }
 
             @Override
-            public void switchToLoginView() {
+            public void switchToProfileView() {
                 // This is expected
             }
         };

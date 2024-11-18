@@ -65,6 +65,16 @@ public class LoggedInState {
         this.security = security;
     }
 
+    public String toString() {
+        return "LoggedInState{"
+                + "username='" + username + '\''
+                + ", password='" + password + '\''
+                + ", security='" + security + '\''
+                + ", passwordError='" + passwordError + '\''
+                + ", securityWord='" + securityWord + '\''
+                + '}';
+    }
+
     
 
 //    public String getRepeatPasswordError() {
