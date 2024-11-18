@@ -19,6 +19,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final ProfileViewModel profileViewModel;
     private final ProfileController profileController;
 
+    private final JButton cancel;
     private final JButton save;
     private final JRadioButton a;
     private final JRadioButton b;
@@ -36,6 +37,14 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         save = new JButton(ProfileViewModel.SAVE_BUTTON_LABEL);
+        cancel = new JButton(ProfileViewModel.CANCEL_BUTTON_LABEL);
+
+        // Add action listener for the cancel button
+        cancel.addActionListener(e -> {
+            if (profileController != null) {
+                profileController.handleCancel();
+            }
+        });
 
         final JPanel section1 = new JPanel();
         section1.setLayout(new BoxLayout(section1, BoxLayout.Y_AXIS));
@@ -62,9 +71,17 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         section1.add(e);
 
         this.add(section1);
-        save.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(save);
+        //save.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //this.add(save);
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
+        buttonsPanel.add(save);
+        buttonsPanel.add(cancel);
 
+        save.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cancel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        this.add(buttonsPanel);
 
 
 
