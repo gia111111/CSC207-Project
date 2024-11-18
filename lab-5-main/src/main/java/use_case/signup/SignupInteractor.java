@@ -40,4 +40,5 @@ public class SignupInteractor implements SignupInputBoundary {
     public void switchToProfileView() {
         userPresenter.switchToProfileView();
     }
+
 }

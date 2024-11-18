@@ -13,6 +13,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.dashboard.DashBoardController;
+import interface_adapter.dashboard.DashBoardViewModel;
 import interface_adapter.home.HomePageController;
 import interface_adapter.home.HomePagePresenter;
 import interface_adapter.home.HomePageViewModel;
@@ -122,6 +124,15 @@ public class AppBuilder {
         profileViewModel = new ProfileViewModel();
         profileView = new ProfileView(profileViewModel, profileController);
         cardPanel.add(profileView, profileView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addDashboardView() {
+        final DashBoardViewModel dashBoardViewModel = new DashBoardViewModel();
+        final DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
+        final DashBoardView dashBoardView = new DashBoardView(dashBoardViewModel, dashBoardController);
+
+        cardPanel.add(dashBoardView, dashBoardView.getViewName());
         return this;
     }
 
