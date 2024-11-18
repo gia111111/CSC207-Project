@@ -9,7 +9,14 @@ public class ProfileController {
         this.viewManagerModel = viewManagerModel;
     }
 
+    public void handleCancel() {
+        // Switch back to the homepage or another view
+        viewManagerModel.setState("home");
+        viewManagerModel.firePropertyChanged();
+    }
+
 //    void switchToDashboardView(){
 //
 //    }
+
 }

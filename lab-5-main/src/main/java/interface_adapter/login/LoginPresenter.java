@@ -6,6 +6,7 @@ import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.home.HomePageViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
+import view.DashBoardView;
 
 /**
  * The Presenter for the Login Use Case.
@@ -35,7 +36,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         this.loggedInViewModel.setState(loggedInState);
         this.loggedInViewModel.firePropertyChanged();
 
-        this.viewManagerModel.setState(loggedInViewModel.getViewName());
+        this.viewManagerModel.setState("dashboard");
         this.viewManagerModel.firePropertyChanged();
     }
 

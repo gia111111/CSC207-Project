@@ -21,6 +21,7 @@ public class ProfileViewModel extends ViewModel<ProfileState>{
     public static final String FIVE_QONE = "Question 1 text: ";
     public static final String FIVE_QTWO = "Question 2 text: ";
     public static final String SAVE_BUTTON_LABEL = "Save";
+    public static final String CANCEL_BUTTON_LABEL = "Cancel";
 
     public static final String MC_A = "A";
     public static final String MC_B = "B";
