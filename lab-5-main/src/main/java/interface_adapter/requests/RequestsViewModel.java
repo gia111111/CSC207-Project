@@ -10,7 +10,7 @@ public class RequestsViewModel extends ViewModel <RequestsState> {
 
 
     public RequestsViewModel() {
-        super("sign up");
+        super("requests");
         setState(new RequestsState());
     }
 
