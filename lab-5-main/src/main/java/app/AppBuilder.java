@@ -80,11 +80,15 @@ public class AppBuilder {
     private LoginView loginView;
     private ProfileViewModel profileViewModel;
     private ProfileView profileView;
+    private DashBoardViewModel dashBoardViewModel;
+    private DashBoardView dashBoardView;
+
 
     private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
     private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
     private final ProfileController profileController = new ProfileController(viewManagerModel);
+    private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
 
     public AppBuilder() throws IOException {
         cardPanel.setLayout(cardLayout);
@@ -125,15 +129,14 @@ public class AppBuilder {
 
     public AppBuilder addProfileView() {
         profileViewModel = new ProfileViewModel();
-        profileView = new ProfileView(profileViewModel, profileController);
+        profileView = new ProfileView(profileViewModel);
         cardPanel.add(profileView, profileView.getViewName());
         return this;
     }
 
     public AppBuilder addDashboardView() {
-        final DashBoardViewModel dashBoardViewModel = new DashBoardViewModel();
-        final DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
-        final DashBoardView dashBoardView = new DashBoardView(dashBoardViewModel, dashBoardController);
+        dashBoardViewModel = new DashBoardViewModel();
+        dashBoardView = new DashBoardView(dashBoardViewModel, dashBoardController);
 
         cardPanel.add(dashBoardView, dashBoardView.getViewName());
         return this;
@@ -161,7 +164,7 @@ public class AppBuilder {
      */
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel, homePageViewModel);
+                loggedInViewModel, loginViewModel, dashBoardViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 remoteDataAccessObject, loginOutputBoundary);
 

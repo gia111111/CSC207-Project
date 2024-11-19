@@ -15,6 +15,11 @@ public class ProfileController {
         viewManagerModel.firePropertyChanged();
     }
 
+    public void saveSuccess() {
+        viewManagerModel.setState("dashboard");
+        viewManagerModel.firePropertyChanged();
+    }
+
 //    void switchToDashboardView(){
 //
 //    }

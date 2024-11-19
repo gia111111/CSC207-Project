@@ -20,12 +20,14 @@ public class Main {
                                             .addSignupView()
                                             .addLoggedInView()
                 .addProfileView()
+                .addDashboardView()
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addChangePasswordUseCase()
                                             .addHomePageUseCase()
                                             .addLogoutUseCase()
                                             .build();
+
 
         application.pack();
         application.setVisible(true);
