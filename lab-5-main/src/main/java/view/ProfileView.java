@@ -13,12 +13,15 @@ import java.awt.event.ActionListener;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ProfileView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "profile";
 
     private final ProfileViewModel profileViewModel;
-    private final ProfileController profileController;
+    private ProfileController profileController;
     private final JTextField age = new JTextField(10);
     private final JTextField section1_weight = new JTextField(10);
     private final JTextField section2_weight = new JTextField(10);
@@ -78,10 +81,13 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JRadioButton d5_2;
     private final JRadioButton e5_2;
 
-    public ProfileView(ProfileViewModel profileViewModel, ProfileController profileController) {
-        this.profileController = profileController;
+    private List<String> sectionAnswers;
+
+    public ProfileView(ProfileViewModel profileViewModel) {
         this.profileViewModel = profileViewModel;
         profileViewModel.addPropertyChangeListener(this);
+
+        sectionAnswers = new ArrayList<>();
 
         final JPanel content = new JPanel();
 
@@ -156,6 +162,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section1_label = new JLabel(ProfileViewModel.SECTION_ONE);
         section1_label.setFont(new Font(section1.getFont().getName(), section1.getFont().getStyle(), 18));
         section1.add(section1_label);
+//        String section1_answers = "";
         final JLabel one_one = new JLabel(ProfileViewModel.ONE_QONE);
         section1.add(one_one);
         ButtonGroup question1_1 = new ButtonGroup();
@@ -173,6 +180,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         mcq1_1.add(d1_1);
         mcq1_1.add(e1_1);
         section1.add(mcq1_1);
+//        section1_answers += getSelectedButtonText(question1_1);
         final JLabel one_two = new JLabel(ProfileViewModel.ONE_QTWO);
         section1.add(one_two);
         ButtonGroup question1_2 = new ButtonGroup();
@@ -190,7 +198,9 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         mcq1_2.add(d1_2);
         mcq1_2.add(e1_2);
         section1.add(mcq1_2);
+//        section1_answers += getSelectedButtonText(question1_2);
         content.add(section1);
+//        sectionAnswers.add(section1_answers);
 
         a2_1 = new JRadioButton(ProfileViewModel.MC_A);
         b2_1 = new JRadioButton(ProfileViewModel.MC_B);
@@ -448,15 +458,16 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     }
 
 
-
-//    private static String getSelectedButtonText(ButtonGroup group) {
-//        for (AbstractButton button : group.getElements()) {
-//            if (button.isSelected()) {
-//                return button.getText();
-//            }
-//        }
-//        return "No selection";
-//    }
+    public static String getSelectedButtonText(ButtonGroup group) {
+        Enumeration<AbstractButton> buttons = group.getElements();
+        while (buttons.hasMoreElements()) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+        return "Z"; // No button is selected
+    }
 
 
     @Override

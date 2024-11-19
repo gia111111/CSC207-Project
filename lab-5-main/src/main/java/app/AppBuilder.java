@@ -129,7 +129,7 @@ public class AppBuilder {
 
     public AppBuilder addProfileView() {
         profileViewModel = new ProfileViewModel();
-        profileView = new ProfileView(profileViewModel, profileController);
+        profileView = new ProfileView(profileViewModel);
         cardPanel.add(profileView, profileView.getViewName());
         return this;
     }

@@ -15,7 +15,7 @@ public class ProfileController {
         viewManagerModel.firePropertyChanged();
     }
 
-    public void save_success() {
+    public void saveSuccess() {
         viewManagerModel.setState("dashboard");
         viewManagerModel.firePropertyChanged();
     }
