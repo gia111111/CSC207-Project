@@ -31,7 +31,7 @@ public class EditProfileInputData {
 
     public int getAge() { return age; }
 
-    public List<List<String>> getAnswer() { return answers; }
+    public List<List<String>> getAnswers() { return answers; }
 
     public List<Integer> getWeights() { return weights; }
 }
