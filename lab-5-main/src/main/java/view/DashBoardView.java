@@ -64,6 +64,12 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
             }
         });
 
+        myProfile.addActionListener(e -> {
+            if (dashBoardController != null) {
+                dashBoardController.switchToProfile();
+            }
+        });
+
     }
 
     @Override

@@ -14,4 +14,9 @@ public class DashBoardController {
         viewManagerModel.setState("home");
         viewManagerModel.firePropertyChanged();
     }
+
+    public void switchToProfile() {
+        viewManagerModel.setState("profile");
+        viewManagerModel.firePropertyChanged();
+    }
 }

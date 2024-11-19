@@ -3,6 +3,7 @@ package interface_adapter.login;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.dashboard.DashBoardViewModel;
 import interface_adapter.home.HomePageViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
@@ -16,15 +17,15 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
     private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;
-    private final HomePageViewModel homePageViewModel;
+    private final DashBoardViewModel dashBoardViewModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           LoggedInViewModel loggedInViewModel,
-                          LoginViewModel loginViewModel, HomePageViewModel homePageViewModel) {
+                          LoginViewModel loginViewModel, DashBoardViewModel dashBoardViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel = loginViewModel;
-        this.homePageViewModel = homePageViewModel;
+        this.dashBoardViewModel = dashBoardViewModel;
     }
 
     @Override
