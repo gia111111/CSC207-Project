@@ -7,9 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.InMemoryUserDataAccessObject;
 import data_access.RemoteDataAccessObject;
+import entity.CommonProfileFactory;
 import entity.CommonUserFactory;
+import entity.ProfileFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
@@ -26,6 +27,7 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.profile.ProfileController;
+import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -33,6 +35,9 @@ import interface_adapter.profile.ProfileViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.createProfile.CreateProfileInputBoundary;
+import use_case.createProfile.CreateProfileInteractor;
+import use_case.createProfile.CreateProfileOutputBoundary;
 import use_case.home.HomeInputBoundary;
 import use_case.home.HomeInteractor;
 import use_case.home.HomeOutputBoundary;
@@ -63,6 +68,7 @@ public class AppBuilder {
     private final CardLayout cardLayout = new CardLayout();
     // thought question: is the hard dependency below a problem?
     private final UserFactory userFactory = new CommonUserFactory();
+    private final ProfileFactory profileFactory = new CommonProfileFactory();
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final HomePageViewModel homePageViewModel = new HomePageViewModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
@@ -87,7 +93,6 @@ public class AppBuilder {
     private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
     private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
-    private final ProfileController profileController = new ProfileController(viewManagerModel);
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
 
     public AppBuilder() throws IOException {
@@ -127,6 +132,10 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the Profile View to the application.
+     * @return this builder
+     */
     public AppBuilder addProfileView() {
         profileViewModel = new ProfileViewModel();
         profileView = new ProfileView(profileViewModel);
@@ -134,6 +143,10 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the Dashboard View to the application.
+     * @return this builder
+     */
     public AppBuilder addDashboardView() {
         dashBoardViewModel = new DashBoardViewModel();
         dashBoardView = new DashBoardView(dashBoardViewModel, dashBoardController);
@@ -222,6 +235,21 @@ public class AppBuilder {
 
         final HomePageController controller = new HomePageController(viewManagerModel);
         homePageView.setHomePageController(controller);
+        return this;
+    }
+
+    /**
+     * Adds the Profile Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addProfileUseCase() {
+        final CreateProfileOutputBoundary createProfileOutputBoundary =
+                new ProfilePresenter(profileViewModel, viewManagerModel);
+        final CreateProfileInputBoundary userCreateProfileInteractor =
+                new CreateProfileInteractor(remoteDataAccessObject, createProfileOutputBoundary, profileFactory);
+
+        final ProfileController profileController = new ProfileController(userCreateProfileInteractor, viewManagerModel);
+        profileView.setProfileController(profileController);
         return this;
     }
 
