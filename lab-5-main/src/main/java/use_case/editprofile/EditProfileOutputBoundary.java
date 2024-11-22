@@ -18,8 +18,8 @@ public interface EditProfileOutputBoundary {
     void prepareFailView(String errorMessage);
 
     /**
-     * Switches to the Profile View.
+     * Switches to the Dash Broad View.
      */
-    void switchToProfileView();
+    void switchToDashBroadView();
 
 }

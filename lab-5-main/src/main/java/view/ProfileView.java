@@ -483,4 +483,8 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     public String getViewName() {
         return viewName;
     }
+
+    public void setProfileController(ProfileController profileController) {
+        this.profileController = profileController;
+    }
 }

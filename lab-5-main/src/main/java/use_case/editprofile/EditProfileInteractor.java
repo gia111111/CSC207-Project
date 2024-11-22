@@ -15,7 +15,7 @@ public class EditProfileInteractor {
     
     public void execute(EditProfileInputData editProfileInputData) {
         userDataAccessObject.save(editProfileInputData);
-        userPresenter.switchToProfileView();
+        userPresenter.switchToDashBroadView();
     }
 
 }
