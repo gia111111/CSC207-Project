@@ -5,6 +5,7 @@ import use_case.createProfile.CreateProfileInputBoundary;
 import use_case.createProfile.CreateProfileInputData;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProfileController {
 
@@ -25,7 +26,7 @@ public class ProfileController {
      * @param answers the answers to the questions
      * @param weights the weights of the answers
      */
-    public void execute(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights) {
+    public void execute(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
         final CreateProfileInputData createProfileInputData = new CreateProfileInputData(name, gender, SexualOrientation, age, answers, weights);
         userCreateProfileUseCaseInteractor.execute(createProfileInputData);
     }
