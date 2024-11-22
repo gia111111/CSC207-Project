@@ -1,6 +1,7 @@
 package use_case.editprofile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The Input Data for the Edit Profile Use Case.
@@ -12,9 +13,9 @@ public class EditProfileInputData {
     private final String SexualOrientation;
     private final int age;
     private final List<List<String>> answers;
-    private final List<Integer> weights;
+    private final Map<String, Integer> weights;
 
-    public EditProfileInputData(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights) {
+    public EditProfileInputData(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
         this.name = name;
         this.gender = gender;
         this.SexualOrientation = SexualOrientation;
@@ -33,5 +34,5 @@ public class EditProfileInputData {
 
     public List<List<String>> getAnswers() { return answers; }
 
-    public List<Integer> getWeights() { return weights; }
+    public Map<String, Integer> getWeights() { return weights; }
 }

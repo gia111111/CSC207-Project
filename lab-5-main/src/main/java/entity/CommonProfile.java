@@ -37,5 +37,5 @@ public class CommonProfile implements Profile {
     public List<List<String>> getAnswer() { return answers; }
 
     @Override
-    public List<Integer> getWeights() { return weights; }
+    public Map<String, Integer> getWeights() { return weights; }
 }

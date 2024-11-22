@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The representation of a profile in our program.
@@ -41,5 +42,5 @@ public interface Profile {
      * Returns the weights of the answers by sections for the user.
      * @return the weights of the answers by sections for the user.
      */
-    List<Integer> getWeights();
+    Map<String, Integer> getWeights();
 }
