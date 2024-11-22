@@ -5,6 +5,7 @@ import use_case.editprofile.EditProfileInputBoundary;
 import use_case.editprofile.EditProfileInputData;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for the EditProfile Use Case.
@@ -31,7 +32,7 @@ public class EditProfileController {
      * @param answers the answers to the questions
      * @param weights the weights of the answers
      */
-    public void execute(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights) {
+    public void execute(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
         final EditProfileInputData editProfileInputData = new EditProfileInputData(name, gender, SexualOrientation, age, answers, weights);
         userEditProfileUseCaseInteractor.execute(editProfileInputData);
     }
