@@ -39,6 +39,7 @@ public class ProfilePresenter implements CreateProfileOutputBoundary {
 
     @Override
     public void switchToDashBoardView() {
-
+        viewManagerModel.setState("dashboard");
+        viewManagerModel.firePropertyChanged();
     }
 }

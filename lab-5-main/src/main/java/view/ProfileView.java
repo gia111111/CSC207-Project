@@ -2,6 +2,7 @@ package view;
 
 
 import interface_adapter.profile.ProfileController;
+import interface_adapter.profile.ProfileState;
 import interface_adapter.profile.ProfileViewModel;
 
 import javax.swing.*;
@@ -802,6 +803,33 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         save.setAlignmentX(Component.CENTER_ALIGNMENT);
         cancel.setAlignmentX(Component.CENTER_ALIGNMENT);
         content.add(buttonsPanel);
+
+        save.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(save)) {
+
+                            final ProfileState currentState = profileViewModel.getState();
+
+                            profileController.execute(
+                                    currentState.getName(),
+                                    currentState.getGender(),
+                                    currentState.getSexualOrientation(),
+                                    currentState.getAgeValue(),
+                                    currentState.getSectionAnswers(),
+                                    currentState.getSectionWeights()
+                            );
+                        }
+
+                    }
+                }
+        );
+
+        cancel.addActionListener(evt -> {
+            if (profileController != null) {
+                profileController.handleCancel();
+            }
+        });
 
         this.add(content);
         this.setVisible(true);

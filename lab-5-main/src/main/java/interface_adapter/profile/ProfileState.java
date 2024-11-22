@@ -1,6 +1,7 @@
 package interface_adapter.profile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The state for the Profile View Model.
@@ -10,9 +11,9 @@ public class ProfileState {
     private String name;
     private String gender;
     private String sexualOrientation;
-    private int age;
-    private List<String> questions;
-    private List<String> answers;
+    private int ageValue;
+    private List<List<String>> sectionAnswers;
+    private Map<String, Integer> sectionWeights;
     private String errorMessage = "Please fill in all fields.";
 
     public String getName() {
@@ -27,16 +28,16 @@ public class ProfileState {
         return sexualOrientation;
     }
 
-    public int getAge() {
-        return age;
+    public int getAgeValue() {
+        return ageValue;
     }
 
-    public List<String> getQuestions() {
-        return questions;
+    public List<List<String>> getSectionAnswers() {
+        return sectionAnswers;
     }
 
-    public List<String> getAnswers() {
-        return answers;
+    public Map<String, Integer> getSectionWeights() {
+        return sectionWeights;
     }
 
     public void setName(String name) {
@@ -51,16 +52,16 @@ public class ProfileState {
         this.sexualOrientation = sexualOrientation;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAgeValue(int ageValue) {
+        this.ageValue = ageValue;
     }
 
-    public void setQuestions(List<String> questions) {
-        this.questions = questions;
+    public void setSectionAnswers(List<List<String>> sectionAnswers) {
+        this.sectionAnswers = sectionAnswers;
     }
 
-    public void setAnswers(List<String> answers) {
-        this.answers = answers;
+    public void setAnswers(Map<String, Integer> answers) {
+        this.sectionWeights = answers;
     }
 
     public String getErrorMessage() {
@@ -77,9 +78,9 @@ public class ProfileState {
                 + ", name='" + name + '\''
                 + ", gender=" + gender
                 + ", sexualOrientation='" + sexualOrientation + '\''
-                + ", age=" + age
-                + ", questions=" + questions
-                + ", answers=" + answers
+                + ", age=" + ageValue
+                + ", questions=" + sectionAnswers
+                + ", answers=" + sectionWeights
                 + '}';
     }
 } 
