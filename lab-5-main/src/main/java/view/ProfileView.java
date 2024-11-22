@@ -28,7 +28,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JTextField section3_weight = new JTextField(10);
     private final JTextField section4_weight = new JTextField(10);
     private final JTextField section5_weight = new JTextField(10);
-    private final JButton cancel;
     private final JButton save;
     private final JRadioButton a1_1;
     private final JRadioButton b1_1;
@@ -309,14 +308,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         content.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         save = new JButton(ProfileViewModel.SAVE_BUTTON_LABEL);
-        cancel = new JButton(ProfileViewModel.CANCEL_BUTTON_LABEL);
-
-        // Add action listener for the cancel button
-        cancel.addActionListener(e -> {
-            if (profileController != null) {
-                profileController.handleCancel();
-            }
-        });
 
         final JPanel basic_info = new JPanel();
         basic_info.setLayout(new BoxLayout(basic_info, BoxLayout.PAGE_AXIS));
@@ -799,9 +790,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
         buttonsPanel.add(save);
-        buttonsPanel.add(cancel);
         save.setAlignmentX(Component.CENTER_ALIGNMENT);
-        cancel.setAlignmentX(Component.CENTER_ALIGNMENT);
         content.add(buttonsPanel);
 
         save.addActionListener(
@@ -825,11 +814,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
-        cancel.addActionListener(evt -> {
-            if (profileController != null) {
-                profileController.handleCancel();
-            }
-        });
 
         this.add(content);
         this.setVisible(true);
