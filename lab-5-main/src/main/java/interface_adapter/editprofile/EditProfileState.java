@@ -1,12 +1,11 @@
-package interface_adapter.profile;
+package interface_adapter.editprofile;
 
 import java.util.List;
 
 /**
- * The state for the Profile View Model.
+ * The state for the EditProfile View Model.
  */
-public class ProfileState {
-    
+public class EditProfileState {
     private String name;
     private String gender;
     private String sexualOrientation;
@@ -18,45 +17,44 @@ public class ProfileState {
     public String getName() {
         return name;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getGender() {
         return gender;
-    }
-
-    public String getSexualOrientation() {
-        return sexualOrientation;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public List<String> getQuestions() {
-        return questions;
-    }
-
-    public List<String> getAnswers() {
-        return answers;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    public String getSexualOrientation() {
+        return sexualOrientation;
+    }
+
     public void setSexualOrientation(String sexualOrientation) {
         this.sexualOrientation = sexualOrientation;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public void setAge(int age) {
         this.age = age;
     }
 
+    public List<String> getQuestions() {
+        return questions;
+    }
+
     public void setQuestions(List<String> questions) {
         this.questions = questions;
+    }
+
+    public List<String> getAnswers() {
+        return answers;
     }
 
     public void setAnswers(List<String> answers) {
@@ -73,13 +71,15 @@ public class ProfileState {
 
     @Override
     public String toString() {
-        return "ProfileState{"
-                + ", name='" + name + '\''
-                + ", gender=" + gender
-                + ", sexualOrientation='" + sexualOrientation + '\''
-                + ", age=" + age
-                + ", questions=" + questions
-                + ", answers=" + answers
-                + '}';
+        return "EditProfileState{" +
+                "name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", sexualOrientation='" + sexualOrientation + '\'' +
+                ", age=" + age +
+                ", questions=" + questions +
+                ", answers=" + answers +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
     }
-} 
+}
+

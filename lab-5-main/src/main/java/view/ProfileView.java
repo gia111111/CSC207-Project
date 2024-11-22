@@ -821,6 +821,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         return viewName;
     }
 
+
     public List<List<String>> getSectionAnswers() {
         return sectionAnswers;
     }
@@ -888,5 +889,10 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         });
 
         return questionMcq;
+    }
+
+    public void setProfileController(ProfileController profileController) {
+        this.profileController = profileController;
+
     }
 }
