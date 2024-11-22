@@ -3,9 +3,7 @@ package app;
 import java.awt.CardLayout;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import data_access.RemoteDataAccessObject;
 import entity.CommonProfileFactory;
@@ -261,7 +259,9 @@ public class AppBuilder {
         final JFrame application = new JFrame("Code & Cupid");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        application.add(cardPanel);
+//        application.add(cardPanel);
+        JScrollPane scroll = new JScrollPane(cardPanel);
+        application.add(scroll);
 
         viewManagerModel.setState(homePageView.getViewName());
         viewManagerModel.firePropertyChanged();

@@ -1,6 +1,7 @@
 package use_case.createProfile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The input data for the Create Profile Use Case.
@@ -12,9 +13,9 @@ public class CreateProfileInputData {
     private final String sexualOrientation;
     private final int age;
     private final List<List<String>> answers;
-    private final List<Integer> weights;
+    private final Map<String, Integer> weights;
 
-    public CreateProfileInputData(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights) {
+    public CreateProfileInputData(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
         this.name = name;
         this.gender = gender;
         this.sexualOrientation = SexualOrientation;
@@ -31,7 +32,7 @@ public class CreateProfileInputData {
 
     public int getAge() { return age; }
 
-    public List<Integer> getWeights() { return weights; }
+    public Map<String, Integer> getWeights() { return weights; }
 
     public List<List<String>> getAnswers() { return answers;}
 }

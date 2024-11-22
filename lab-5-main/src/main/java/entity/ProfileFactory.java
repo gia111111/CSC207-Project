@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProfileFactory {
 
@@ -18,5 +19,5 @@ public interface ProfileFactory {
      * @return the new profile object
      */
 
-    CommonProfile create(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, List<Integer> weights);
+    CommonProfile create(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights);
 }
