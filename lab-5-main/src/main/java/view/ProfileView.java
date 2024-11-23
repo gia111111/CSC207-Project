@@ -284,6 +284,13 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JRadioButton d5_10;
     private final JRadioButton e5_10;
 
+    private final JRadioButton female;
+    private final JRadioButton male;
+    private final JRadioButton other;
+    private final JRadioButton female_so;
+    private final JRadioButton male_so;
+    private final JRadioButton both;
+
     private String gender;
     private String sexualOrientation;
     private int ageValue;
@@ -316,9 +323,9 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         basic_label.setFont(new Font(basic_label.getFont().getName(), basic_label.getFont().getStyle(), 18));
         basic_info.add(basic_label);
         final JLabel b_gender = new JLabel(ProfileViewModel.BQ_GENDER);
-        final JButton female = new JButton("Female");
-        final JButton male = new JButton("Male");
-        final JButton other = new JButton("other");
+        female = new JRadioButton("Female");
+        male = new JRadioButton("Male");
+        other = new JRadioButton("other");
         final ButtonGroup basic_gender = new ButtonGroup();
         basic_info.add(b_gender);
         basic_gender.add(female);
@@ -345,9 +352,9 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
         final JLabel b_sexualOrientation = new JLabel(ProfileViewModel.BQ_SEXUAL_ORIENTATION);
         basic_info.add(b_sexualOrientation);
-        final JButton female_so = new JButton("Female");
-        final JButton male_so = new JButton("Male");
-        final JButton both = new JButton("Both");
+        female_so = new JRadioButton("Female");
+        male_so = new JRadioButton("Male");
+        both = new JRadioButton("Both");
         final ButtonGroup basic_so = new ButtonGroup();
         basic_so.add(female_so);
         basic_so.add(male_so);
@@ -801,7 +808,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
                             final ProfileState currentState = profileViewModel.getState();
 
                             profileController.execute(
-                                    currentState.getName(),
                                     currentState.getGender(),
                                     currentState.getSexualOrientation(),
                                     currentState.getAgeValue(),

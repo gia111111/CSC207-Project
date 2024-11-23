@@ -12,4 +12,6 @@ public interface CreateProfileDataAccessInterface {
      * @param profile the profile to save
      */
     void save(Profile profile);
+
+    String getCurrentUsername();
 }

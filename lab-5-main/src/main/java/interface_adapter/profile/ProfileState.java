@@ -1,5 +1,8 @@
 package interface_adapter.profile;
 
+import data_access.InMemoryUserDataAccessObject;
+import data_access.RemoteDataAccessObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +17,7 @@ public class ProfileState {
     private int ageValue;
     private List<List<String>> sectionAnswers;
     private Map<String, Integer> sectionWeights;
+    private RemoteDataAccessObject dataAccessObject;
     private String errorMessage = "Please fill in all fields.";
 
     public String getName() {
@@ -40,12 +44,18 @@ public class ProfileState {
         return sectionWeights;
     }
 
+    public RemoteDataAccessObject getDataAccessObject() {return dataAccessObject;}
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setDataAccessObject(RemoteDataAccessObject dataAccessObject) {
+        this.dataAccessObject = dataAccessObject;
     }
 
     public void setSexualOrientation(String sexualOrientation) {

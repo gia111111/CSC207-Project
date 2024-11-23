@@ -1,5 +1,7 @@
 package app;
 
+import data_access.RemoteDataAccessObject;
+
 import javax.swing.JFrame;
 import java.io.IOException;
 
@@ -26,6 +28,7 @@ public class Main {
                                             .addChangePasswordUseCase()
                                             .addHomePageUseCase()
                                             .addLogoutUseCase()
+                .addProfileUseCase()
                                             .build();
 
 

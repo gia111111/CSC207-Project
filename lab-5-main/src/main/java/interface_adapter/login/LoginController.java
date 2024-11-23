@@ -1,5 +1,6 @@
 package interface_adapter.login;
 
+import data_access.RemoteDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInputData;
@@ -11,10 +12,12 @@ public class LoginController {
 
     private final LoginInputBoundary loginUseCaseInteractor;
     private final ViewManagerModel viewManagerModel;
+    private final RemoteDataAccessObject dataAccessObject;
 
-    public LoginController(LoginInputBoundary loginUseCaseInteractor, ViewManagerModel viewManagerModel) {
+    public LoginController(LoginInputBoundary loginUseCaseInteractor, ViewManagerModel viewManagerModel, RemoteDataAccessObject dataAccessObject) {
         this.loginUseCaseInteractor = loginUseCaseInteractor;
         this.viewManagerModel = viewManagerModel;
+        this.dataAccessObject = dataAccessObject;
     }
 
     /**
@@ -27,6 +30,8 @@ public class LoginController {
                 username, password);
 
         loginUseCaseInteractor.execute(loginInputData);
+        dataAccessObject.setCurrentUsername(username);
+        System.out.println(dataAccessObject.getCurrentUsername());
     }
 
     /**

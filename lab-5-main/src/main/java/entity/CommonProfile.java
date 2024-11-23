@@ -1,5 +1,7 @@
 package entity;
 
+import data_access.RemoteDataAccessObject;
+
 import java.util.List;
 import java.util.Map;
 

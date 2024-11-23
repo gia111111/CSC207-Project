@@ -164,7 +164,7 @@ public class AppBuilder {
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
                 remoteDataAccessObject, signupOutputBoundary, userFactory);
 
-        final SignupController controller = new SignupController(userSignupInteractor, viewManagerModel);
+        final SignupController controller = new SignupController(userSignupInteractor, viewManagerModel, remoteDataAccessObject);
         signupView.setSignupController(controller);
         return this;
     }
@@ -179,7 +179,7 @@ public class AppBuilder {
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 remoteDataAccessObject, loginOutputBoundary);
 
-        final LoginController loginController = new LoginController(loginInteractor, viewManagerModel);
+        final LoginController loginController = new LoginController(loginInteractor, viewManagerModel, remoteDataAccessObject);
         loginView.setLoginController(loginController);
         return this;
     }
@@ -236,6 +236,14 @@ public class AppBuilder {
         return this;
     }
 
+//    public AppBuilder addCreateProfileUseCase() {
+//        final CreateProfileOutputBoundary createProfileOutputBoundary = new ProfilePresenter(profileViewModel, viewManagerModel);
+//        final CreateProfileInputBoundary createProfileInteracter = new CreateProfileInteractor(remoteDataAccessObject, createProfileOutputBoundary, profileFactory);
+//        final ProfileController profileController = new ProfileController(createProfileInteracter, viewManagerModel);
+//        profileView.setProfileController(profileController);
+//        return this;
+//    }
+
     /**
      * Adds the Profile Use Case to the application.
      * @return this builder
@@ -246,7 +254,7 @@ public class AppBuilder {
         final CreateProfileInputBoundary userCreateProfileInteractor =
                 new CreateProfileInteractor(remoteDataAccessObject, createProfileOutputBoundary, profileFactory);
 
-        final ProfileController profileController = new ProfileController(userCreateProfileInteractor, viewManagerModel);
+        final ProfileController profileController = new ProfileController(userCreateProfileInteractor, viewManagerModel, remoteDataAccessObject);
         profileView.setProfileController(profileController);
         return this;
     }
