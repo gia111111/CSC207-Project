@@ -37,11 +37,16 @@ public class RequestsPresenter implements RequestsOutputBoundary {
 
     @Override
     public void switchToDashBoardView() {
+        viewManagerModel.setState("dashboard");
+        viewManagerModel.firePropertyChanged();
+
 
     }
 
     @Override
     public void switchToManageRequestView(RequestsInputData requestsInputData){
+        viewManagerModel.setState("manage request");
+        viewManagerModel.firePropertyChanged();
 
 }
 

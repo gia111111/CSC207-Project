@@ -2,9 +2,11 @@ package view;
 
 import entity.Request;
 import interface_adapter.dashboard.DashBoardViewModel;
+import interface_adapter.login.LoginState;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfileViewModel;
 import interface_adapter.requests.RequestsController;
+import interface_adapter.requests.RequestsState;
 import interface_adapter.requests.RequestsViewModel;
 
 import javax.swing.*;
@@ -53,9 +55,19 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
         back = new JButton(requestsViewModel.BACK_BUTTON_LABEL);
         this.add(back);
         // Add action listener for the "View profile" button
+        viewProfile.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(viewProfile)) {
+                            final RequestsState currentState = requestsViewModel.getState();
 
-
-
+                            requestController.execute(
+                                    currentState.getRequestName()
+                            );
+                        }
+                    }
+                }
+        );
         // Add action listener for the "back" button
         back.addActionListener(e -> {
             if (requestController != null) {

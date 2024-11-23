@@ -1,6 +1,7 @@
 package use_case.manageRequest;
 
 import entity.Match;
+import entity.Profile;
 import entity.Request;
 
 public interface ManageRequestUserDataAccessInterface {
@@ -19,6 +20,8 @@ public interface ManageRequestUserDataAccessInterface {
     String getContactMethod(String username);
 
     String getContactInfo(String username);
+
+    Profile getProfile(String username);
 
     }
 
