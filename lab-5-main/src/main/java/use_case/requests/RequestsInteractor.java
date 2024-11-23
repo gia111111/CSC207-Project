@@ -1,7 +1,5 @@
 package use_case.requests;
 
-import use_case.home.HomeOutputBoundary;
-
 public class RequestsInteractor implements RequestsInputBoundary{
     private final RequestsOutputBoundary userPresenter;
 
@@ -11,13 +9,15 @@ public class RequestsInteractor implements RequestsInputBoundary{
     }
 
     @Override
+    public void execute(RequestsInputData requestInputData) {
+        userPresenter.switchToManageRequestView(requestInputData);
+    }
+
+
+    @Override
     public void switchToDashBoardView(){
         userPresenter.switchToDashBoardView();
     }
 
-    @Override
-    public void switchToViewProfileView(){
-        userPresenter.switchToViewProfileView();
-    }
 
 }

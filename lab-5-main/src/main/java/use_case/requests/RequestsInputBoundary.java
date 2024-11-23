@@ -1,6 +1,11 @@
 package use_case.requests;
 
 public interface RequestsInputBoundary {
-    void switchToViewProfileView();
+
+    // void execute(RequestInputData createProfileInputData);
+
+
     void switchToDashBoardView();
+
+    void execute(RequestsInputData requestsInputData);
 }

@@ -1,17 +1,27 @@
 package interface_adapter.requests;
 
 public class RequestsState {
-    private String currentState;
+    private String requestName;
+    private String errorMessage;
 
-    public RequestsState() {
-        this.currentState = "";
+//   // public RequestsState() {
+//        this.currentState = "";
+//    }
+
+    public String getRequestName(){
+        return requestName;
     }
 
-    public String getCurrentState(){
-        return currentState;
+    public void setRequestName(String name) {
+        this.requestName = name;
     }
 
-    public void setCurrentState(String currentState) {
-        this.currentState = currentState;
+    public void setErrorMessage(String error) {
+        this.errorMessage = error;
+
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

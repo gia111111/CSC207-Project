@@ -14,14 +14,12 @@ public interface RequestsOutputBoundary {
      */
     void prepareFailView(String errorMessage);
 
-    /**
-     * Switches to the ViewProfile View.
-     */
-    void switchToViewProfileView();
 
     /**
      * Switches to the Dashboard View.
      */
     void switchToDashBoardView();
+
+    void switchToManageRequestView(RequestsInputData requestsInputData);
 
 }

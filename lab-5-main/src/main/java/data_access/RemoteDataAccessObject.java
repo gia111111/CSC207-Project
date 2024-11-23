@@ -33,7 +33,8 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     private final Firestore db;
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
+        // FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
+        FileInputStream serviceAccount = new FileInputStream("/Users/abigail/IdeaProjects/CSC207-Project/lab-5-main/src/credential.json");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();

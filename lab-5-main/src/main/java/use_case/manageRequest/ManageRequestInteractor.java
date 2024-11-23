@@ -3,20 +3,21 @@ package use_case.manageRequest;
 import entity.Match;
 import entity.Request;
 
-public class ManageRequestInteractor {
+public class ManageRequestInteractor implements ManageRequestInputBoundary{
     private final ManageRequestUserDataAccessInterface requestDataAccessObject;
     private final ManageRequestOutputBoundary requestPresenter;
-    private final ManageRequestInputData inputData;
+    // private final ManageRequestInputData inputData;
 
     public ManageRequestInteractor(ManageRequestUserDataAccessInterface manageRequestUserDataAccessInterface,
                                    ManageRequestOutputBoundary manageRequestOutputBoundary,
                                    ManageRequestInputData inputData) {
         this.requestDataAccessObject = manageRequestUserDataAccessInterface;
         this.requestPresenter = manageRequestOutputBoundary;
-        this.inputData = inputData;
+        // this.inputData = inputData;
     }
 
-    public void accept() {
+    @Override
+    public void accept(ManageRequestInputData inputData) {
         final Match match = new Match(inputData.getRequestName(),
                 requestDataAccessObject.getContactMethod(inputData.getRequestName()),
                 requestDataAccessObject.getContactInfo(inputData.getRequestName()));
@@ -27,7 +28,8 @@ public class ManageRequestInteractor {
         requestPresenter.prepareSuccessView(manageRequestOutputData);
     }
 
-    public void reject() {
+    @Override
+    public void reject(ManageRequestInputData inputData) {
         Request request = new Request(inputData.getRequestName(), inputData.getScores(), inputData.getStatus());
         requestDataAccessObject.delete(request);
         final ManageRequestOutputData manageRequestOutputData =
@@ -35,8 +37,9 @@ public class ManageRequestInteractor {
         requestPresenter.prepareSuccessView(manageRequestOutputData);
     }
 
-    public void switchToProfileView() {
-        requestPresenter.switchToRequestView();
+    @Override
+    public void switchToRequestsView() {
+        requestPresenter.switchToRequestsView();
     }
 }
 

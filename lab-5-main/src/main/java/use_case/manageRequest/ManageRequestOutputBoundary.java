@@ -16,6 +16,6 @@ public interface ManageRequestOutputBoundary {
     /**
      * Switches to the Request View.
      */
-    void switchToRequestView();
+    void switchToRequestsView();
 }
 
