@@ -1,7 +1,7 @@
 package view;
 
-import entity.Match;
-import entity.Request;
+import entity.Matches;
+import entity.Requests;
 import interface_adapter.matches.MatchesViewModel;
 import interface_adapter.matches.MatchesController;
 
@@ -18,10 +18,10 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
     private final String viewName = "matches";
     private final MatchesViewModel matchesViewModel;
     private final MatchesController matchesController;
-    private final List<Match> matchess;
+    private final List<Matches> matchess;
     private final JButton back;
 
-    public MatchesView(MatchesController matchesControllerr, MatchesViewModel matchesViewModel, List<Match> matches){
+    public MatchesView(MatchesController matchesControllerr, MatchesViewModel matchesViewModel, List<Matches> matches){
             this.matchesViewModel = matchesViewModel;
             this.matchesController = matchesControllerr;
             this.matchess = matches;
@@ -35,7 +35,7 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
 
             for(int i = 1; i <= matchess.size(); i++) {
                 final JPanel match = new JPanel();
-                Match matchi = matches.get(i);
+                Matches matchi = matches.get(i);
                 JLabel username = new JLabel(matchi.getName());
                 JLabel contactMethod = new JLabel(String.valueOf(matchi.getContactMethod()));
                 JLabel contactInfo = new JLabel(String.valueOf(matchi.getContactInfo()));
