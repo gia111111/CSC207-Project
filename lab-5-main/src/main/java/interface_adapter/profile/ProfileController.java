@@ -24,14 +24,21 @@ public class ProfileController {
     /**
      * Executes the CreateProfile Use Case.
      * @param gender the gender of the user
-     * @param SexualOrientation the sexual orientation of the user
+     * @param sexualOrientation the sexual orientation of the user
      * @param age the age of the user
      * @param answers the answers to the questions
      * @param weights the weights of the answers
      */
-    public void execute(String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
-        final CreateProfileInputData createProfileInputData = new CreateProfileInputData(gender, SexualOrientation, age, answers, weights, remoteDataAccessObject);
+    public void execute(String gender, String sexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
+        final CreateProfileInputData createProfileInputData = new CreateProfileInputData(gender, sexualOrientation, age, answers, weights, remoteDataAccessObject);
         userCreateProfileUseCaseInteractor.execute(createProfileInputData);
+//        remoteDataAccessObject.setGender(gender);
+//        remoteDataAccessObject.setSexualOrientation(sexualOrientation);
+//        remoteDataAccessObject.setSectionAnswers(answers);
+//        remoteDataAccessObject.setSectionWeights(weights);
+//        System.out.println(remoteDataAccessObject.getGender());
+//        System.out.println(remoteDataAccessObject.getSectionWeights());
+
     }
 
     /**x

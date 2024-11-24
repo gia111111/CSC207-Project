@@ -21,6 +21,8 @@ import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
@@ -31,9 +33,15 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         LogoutUserDataAccessInterface {
 
     private final Firestore db;
+    private String currentUsername;
+    private String gender;
+    private String sexualOrientation;
+    private int age;
+    private List<List<String>> sectionAnswers;
+    private Map<String, Integer> sectionWeights;
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
+        FileInputStream serviceAccount = new FileInputStream("/Users/vickichen/Downloads/csc207-765dd-firebase-adminsdk-zgsb1-4e0e76fc06.json");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
@@ -91,12 +99,62 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
      */
     @Override
     public String getCurrentUsername() {
-        return "";
+        return this.currentUsername;
+    }
+
+    @Override
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    @Override
+    public void setSexualOrientation(String sexualOrientation) {
+        this.sexualOrientation = sexualOrientation;
+    }
+
+    @Override
+    public void setAgeValue(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public void setSectionAnswers(List<List<String>> sectionAnswers) {
+        this.sectionAnswers = sectionAnswers;
+    }
+
+    @Override
+    public void setSectionWeights(Map<String, Integer> sectionWeights) {
+        this.sectionWeights = sectionWeights;
+    }
+
+    @Override
+    public String getGender() {
+        return this.gender;
+    }
+
+    @Override
+    public String getSexualOrientation() {
+        return this.sexualOrientation;
+    }
+
+    @Override
+    public int getAgeValue() {
+        return this.age;
+    }
+
+    @Override
+    public List<List<String>> getSectionAnswers() {
+        return this.sectionAnswers;
+    }
+
+    @Override
+    public Map<String, Integer> getSectionWeights() {
+        return this.sectionWeights;
     }
 
     @Override
     public void setCurrentUsername(String username) {
-
+        this.currentUsername = username;
     }
 
     /**

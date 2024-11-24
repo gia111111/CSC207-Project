@@ -3,6 +3,8 @@ package interface_adapter.profile;
 import data_access.InMemoryUserDataAccessObject;
 import data_access.RemoteDataAccessObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,17 +14,17 @@ import java.util.Map;
 public class ProfileState {
     
     private String name;
-    private String gender;
-    private String sexualOrientation;
-    private int ageValue;
-    private List<List<String>> sectionAnswers;
-    private Map<String, Integer> sectionWeights;
+    private String gender = "";
+    private String sexualOrientation = "";
+    private int ageValue = 0;
+    private List<List<String>> sectionAnswers = new ArrayList<>(List.of(new ArrayList<>(), new ArrayList<>(),
+            new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+    private Map<String, Integer> sectionWeights = new HashMap<>();
     private RemoteDataAccessObject dataAccessObject;
     private String errorMessage = "Please fill in all fields.";
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
+
 
     public String getGender() {
         return gender;
@@ -70,7 +72,7 @@ public class ProfileState {
         this.sectionAnswers = sectionAnswers;
     }
 
-    public void setAnswers(Map<String, Integer> answers) {
+    public void setSectionWeights(Map<String, Integer> answers) {
         this.sectionWeights = answers;
     }
 
