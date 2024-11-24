@@ -8,15 +8,15 @@ import com.google.firebase.FirebaseOptions;
 import com.google.cloud.firestore.Firestore;
 
 import com.google.firebase.cloud.FirestoreClient;
-import entity.CommonUser;
-import entity.Profile;
-import entity.User;
+import entity.*;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.createProfile.CreateProfileDataAccessInterface;
 import use_case.editprofile.EditProfileInputData;
 import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.manageRequest.ManageRequestUserDataAccessInterface;
+import use_case.requests.RequestUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
@@ -28,7 +28,9 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         CreateProfileDataAccessInterface,
         EditProfileUserDataAccessInterface,
-        LogoutUserDataAccessInterface {
+        LogoutUserDataAccessInterface,
+        ManageRequestUserDataAccessInterface,
+        RequestUserDataAccessInterface {
 
     private final Firestore db;
 
@@ -122,5 +124,33 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.update("age", editProfileInputData.getAge());
         docRef.update("answers", editProfileInputData.getAnswers());
         docRef.update("weights", editProfileInputData.getWeights());
+    }
+
+
+    @Override
+    public void save(Match match) {
+        DocumentReference docRef = db.collection("matches").document(match.getName());
+        docRef.set(match);
+
+    }
+
+    @Override
+    public void delete(Request request) {
+
+    }
+
+    @Override
+    public String getContactMethod(String username) {
+        return "";
+    }
+
+    @Override
+    public String getContactInfo(String username) {
+        return "";
+    }
+
+    @Override
+    public Profile getProfile(String username) {
+        return null;
     }
 }

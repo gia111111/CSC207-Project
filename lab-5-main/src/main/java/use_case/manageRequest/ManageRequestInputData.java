@@ -23,4 +23,8 @@ public class ManageRequestInputData {
     public String getRequestName() {
         return requestName;
     }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 }

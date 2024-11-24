@@ -49,25 +49,39 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
             request.add(status);
             request.add(viewProfile);
             request.setLayout(new BoxLayout(request,BoxLayout.X_AXIS));
+            // Add action listener for the "View profile" button
+            viewProfile.addActionListener(
+                    new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (evt.getSource().equals(viewProfile)) {
+                                // final RequestsState currentState = requestsViewModel.getState();
+
+                                requestController.execute(
+                                        requesti.getName()
+                                );
+                            }
+                        }
+                    }
+            );
             this.add(request);
         }
 
         back = new JButton(requestsViewModel.BACK_BUTTON_LABEL);
         this.add(back);
-        // Add action listener for the "View profile" button
-        viewProfile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(viewProfile)) {
-                            final RequestsState currentState = requestsViewModel.getState();
-
-                            requestController.execute(
-                                    currentState.getRequestName()
-                            );
-                        }
-                    }
-                }
-        );
+//        // Add action listener for the "View profile" button
+//        viewProfile.addActionListener(
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(viewProfile)) {
+//                            final RequestsState currentState = requestsViewModel.getState();
+//
+//                            requestController.execute(
+//                                    currentState.getRequestName()
+//                            );
+//                        }
+//                    }
+//                }
+//        );
         // Add action listener for the "back" button
         back.addActionListener(e -> {
             if (requestController != null) {

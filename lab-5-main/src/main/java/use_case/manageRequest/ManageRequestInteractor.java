@@ -18,6 +18,7 @@ public class ManageRequestInteractor implements ManageRequestInputBoundary{
 
     @Override
     public void accept(ManageRequestInputData inputData) {
+        inputData.setStatus(true);
         final Match match = new Match(inputData.getRequestName(),
                 requestDataAccessObject.getContactMethod(inputData.getRequestName()),
                 requestDataAccessObject.getContactInfo(inputData.getRequestName()));
@@ -30,6 +31,7 @@ public class ManageRequestInteractor implements ManageRequestInputBoundary{
 
     @Override
     public void reject(ManageRequestInputData inputData) {
+        inputData.setStatus(false);
         Request request = new Request(inputData.getRequestName(), inputData.getScores(), inputData.getStatus());
         requestDataAccessObject.delete(request);
         final ManageRequestOutputData manageRequestOutputData =
