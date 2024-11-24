@@ -11,16 +11,20 @@ import com.google.firebase.cloud.FirestoreClient;
 import entity.CommonUser;
 import entity.Profile;
 import entity.User;
+import entity.Match;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.createProfile.CreateProfileDataAccessInterface;
 import use_case.editprofile.EditProfileInputData;
 import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.match.MatchDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
@@ -28,12 +32,13 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         CreateProfileDataAccessInterface,
         EditProfileUserDataAccessInterface,
-        LogoutUserDataAccessInterface {
+        MatchDataAccessInterface,
+        LogoutUserDataAccessInterface{
 
     private final Firestore db;
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
+        FileInputStream serviceAccount = new FileInputStream("/Users/kensleyzhou/IdeaProjects/Week9_login/CSC207-Project/lab-5-main/src/credentials");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
@@ -121,5 +126,15 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.update("age", editProfileInputData.getAge());
         docRef.update("answers", editProfileInputData.getAnswers());
         docRef.update("weights", editProfileInputData.getWeights());
+    }
+
+    @Override
+    public void saveMatch(String username, Match match) {
+
+    }
+
+    @Override
+    public List<Match> getMatches(String username) {
+        return List.of();
     }
 }

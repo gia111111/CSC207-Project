@@ -1,12 +1,16 @@
 package data_access;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import entity.Match;
 import entity.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.match.MatchDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 /**
@@ -16,9 +20,12 @@ import use_case.signup.SignupUserDataAccessInterface;
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
+        MatchDataAccessInterface,
         LogoutUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
+
+    private final Map<String, List<Match>> matchStorage = new HashMap<>();
 
     private String currentUsername;
 
@@ -51,5 +58,16 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public String getCurrentUsername() {
         return this.currentUsername;
+    }
+
+    @Override
+    public void saveMatch(String username, Match match) {
+        matchStorage.putIfAbsent(username, new ArrayList<>());
+        matchStorage.get(username).add(match);
+    }
+
+    @Override
+    public List<Match> getMatches(String username) {
+        return matchStorage.getOrDefault(username, new ArrayList<>());
     }
 }
