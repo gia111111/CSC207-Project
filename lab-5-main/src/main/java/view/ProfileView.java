@@ -30,6 +30,8 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JTextField section3_weight = new JTextField(10);
     private final JTextField section4_weight = new JTextField(10);
     private final JTextField section5_weight = new JTextField(10);
+    private final JTextField contactMethod = new JTextField(10);
+    private final JTextField contactInfo = new JTextField(10);
     private final JButton save;
     private final JRadioButton a1_1;
     private final JRadioButton b1_1;
@@ -364,6 +366,17 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         basic_age.setAlignmentX(Component.LEFT_ALIGNMENT);
         basic_info.add(basic_age);
         content.add(basic_info);
+
+        final LabelTextPanel contact_method = new LabelTextPanel(new JLabel(ProfileViewModel.CONTACT_METHOD), contactMethod);
+        final LabelTextPanel contact_info = new LabelTextPanel(new JLabel(ProfileViewModel.CONTACT_INFO), contactInfo);
+        contact_method.setLayout(new BoxLayout(contact_method, BoxLayout.X_AXIS));
+        contact_info.setLayout(new BoxLayout(contact_info, BoxLayout.X_AXIS));
+        contact_method.setAlignmentX(Component.LEFT_ALIGNMENT);
+        contact_info.setAlignmentX(Component.LEFT_ALIGNMENT);
+        basic_info.add(contact_method);
+        basic_info.add(contact_info);
+        content.add(contact_method);
+        content.add(contact_info);
 
         a1_1 = new JRadioButton(ProfileViewModel.MC_A);
         b1_1 = new JRadioButton(ProfileViewModel.MC_B);
@@ -827,17 +840,20 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
                                     currentState.getSectionAnswers(),
                                     currentState.getSectionWeights()
                             );
+                            System.out.println(currentState.getName());
                             System.out.println(currentState.getSectionAnswers());
                             System.out.println(currentState.getSectionWeights());
                             System.out.println(currentState.getAgeValue());
                             System.out.println(currentState.getGender());
                             System.out.println(currentState.getSexualOrientation());
+                            profileController.saveContact(currentState.getContactMethod(), currentState.getContactInfo());
                         }
-
                     }
                 }
         );
 
+        addContactInfoListener();
+        addContactMethodListener();
         addSection1WeightListener();
         addSection2WeightListener();
         addSection3WeightListener();
@@ -845,11 +861,59 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         addSection5WeightListener();
         addAgeListener();
 
-
-
         this.add(content);
         this.setVisible(true);
 
+    }
+
+    private void addContactMethodListener() {
+        contactMethod.getDocument().addDocumentListener(new DocumentListener() {
+
+            private void documentListenerHelper() {
+                final ProfileState currentState = profileViewModel.getState();
+                currentState.setContactMethod(contactMethod.getText());
+                profileViewModel.setState(currentState);
+            }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
+    }
+
+    private void addContactInfoListener() {
+        contactInfo.getDocument().addDocumentListener(new DocumentListener() {
+
+            private void documentListenerHelper() {
+                final ProfileState currentState = profileViewModel.getState();
+                currentState.setContactMethod(contactInfo.getText());
+                profileViewModel.setState(currentState);
+            }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
     }
 
     private void addAgeListener() {
@@ -884,7 +948,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
             private void documentListenerHelper() {
                 sectionWeights.put("section1", Integer.parseInt(section1_weight.getText()));
                 final ProfileState currentState = profileViewModel.getState();
-                currentState.getSectionWeights().put("section2", Integer.parseInt(section1_weight.getText()));
+                currentState.getSectionWeights().put("section1", Integer.parseInt(section1_weight.getText()));
                 profileViewModel.setState(currentState);
             }
             @Override
@@ -1027,12 +1091,10 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
 
     public List<List<String>> getSectionAnswers() {
-        System.out.println(sectionAnswers);
         return sectionAnswers;
     }
 
     public String getGender() {
-        System.out.println(gender);
         return gender;
     }
 

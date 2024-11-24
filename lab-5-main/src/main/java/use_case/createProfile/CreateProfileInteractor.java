@@ -33,7 +33,12 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
 //        final Map<String, Integer> sectionWeights = createProfileInputData.getWeights();
 
         final Profile profile = profileFactory.create(createProfileInputData.getName(), createProfileInputData.getGender(), createProfileInputData.getSexualOrientation(), createProfileInputData.getAge(), createProfileInputData.getAnswers(), createProfileInputData.getWeights());
-        System.out.println(profile.getName());
+//        System.out.println(profile.getName());
+//        System.out.println(profile.getAge());
+//        System.out.println(profile.getWeights());
+//        System.out.println(profile.getSexualOrientation());
+//        System.out.println(profile.getAnswer());
+//        System.out.println(profile.getWeights());
         profileDataAccessObject.save(profile);
 
         final CreateProfileOutputData createProfileOutputData = new CreateProfileOutputData(profile.getName(), false);

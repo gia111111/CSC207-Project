@@ -20,6 +20,8 @@ public class ProfileState {
     private List<List<String>> sectionAnswers = new ArrayList<>(List.of(new ArrayList<>(), new ArrayList<>(),
             new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
     private Map<String, Integer> sectionWeights = new HashMap<>();
+    private String contactMethod;
+    private String contactInfo;
     private RemoteDataAccessObject dataAccessObject;
     private String errorMessage = "Please fill in all fields.";
 
@@ -45,6 +47,10 @@ public class ProfileState {
     public Map<String, Integer> getSectionWeights() {
         return sectionWeights;
     }
+
+    public String getContactMethod() {return contactMethod;}
+
+    public String getContactInfo() {return contactInfo;}
 
     public RemoteDataAccessObject getDataAccessObject() {return dataAccessObject;}
 
@@ -74,6 +80,14 @@ public class ProfileState {
 
     public void setSectionWeights(Map<String, Integer> answers) {
         this.sectionWeights = answers;
+    }
+
+    public void setContactMethod(String contactMethod) {
+        this.contactMethod = contactMethod;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
     }
 
     public String getErrorMessage() {
