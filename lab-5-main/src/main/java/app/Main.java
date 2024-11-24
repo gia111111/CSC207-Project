@@ -26,6 +26,7 @@ public class Main {
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addChangePasswordUseCase()
+                                            .addProfileUseCase()
                                             .addHomePageUseCase()
                                             .addLogoutUseCase()
                 .addProfileUseCase()
