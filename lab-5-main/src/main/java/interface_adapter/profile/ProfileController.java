@@ -31,14 +31,25 @@ public class ProfileController {
      */
     public void execute(String gender, String sexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
         final CreateProfileInputData createProfileInputData = new CreateProfileInputData(gender, sexualOrientation, age, answers, weights, remoteDataAccessObject);
+//        System.out.println("blub" + createProfileInputData.getName());
+//        System.out.println(createProfileInputData.getAge());
+//        System.out.println(createProfileInputData.getGender());
+//        System.out.println(createProfileInputData.getAnswers());
+//        System.out.println(createProfileInputData.getSexualOrientation());
+//        System.out.println(createProfileInputData.getWeights());
         userCreateProfileUseCaseInteractor.execute(createProfileInputData);
-//        remoteDataAccessObject.setGender(gender);
-//        remoteDataAccessObject.setSexualOrientation(sexualOrientation);
-//        remoteDataAccessObject.setSectionAnswers(answers);
-//        remoteDataAccessObject.setSectionWeights(weights);
+        remoteDataAccessObject.setGender(gender);
+        remoteDataAccessObject.setSexualOrientation(sexualOrientation);
+        remoteDataAccessObject.setSectionAnswers(answers);
+        remoteDataAccessObject.setSectionWeights(weights);
 //        System.out.println(remoteDataAccessObject.getGender());
 //        System.out.println(remoteDataAccessObject.getSectionWeights());
 
+    }
+
+    public void saveContact(String contactMethod, String contactInfo) {
+        remoteDataAccessObject.setContactInfo(contactInfo);
+        remoteDataAccessObject.setContactMethod(contactMethod);
     }
 
     /**x

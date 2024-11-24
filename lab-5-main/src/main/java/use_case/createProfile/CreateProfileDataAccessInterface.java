@@ -38,6 +38,14 @@ public interface CreateProfileDataAccessInterface {
 
     Map<String, Integer> getSectionWeights();
 
+    void setContactMethod(String contactMethod);
+
+    void setContactInfo(String contactInfo);
+
+    String getContactMethod();
+
+    String getContactInfo();
+
 
 
 

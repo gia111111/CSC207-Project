@@ -31,7 +31,6 @@ public class LoginController {
 
         loginUseCaseInteractor.execute(loginInputData);
         dataAccessObject.setCurrentUsername(username);
-        System.out.println(dataAccessObject.getCurrentUsername());
     }
 
     /**

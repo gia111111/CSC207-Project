@@ -39,6 +39,8 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     private int age;
     private List<List<String>> sectionAnswers;
     private Map<String, Integer> sectionWeights;
+    private String contactMethod;
+    private String contactInfo;
 
     public RemoteDataAccessObject() throws IOException {
         FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
@@ -153,6 +155,26 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     }
 
     @Override
+    public void setContactMethod(String contactMethod) {
+        this.contactMethod = contactMethod;
+    }
+
+    @Override
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
+    @Override
+    public String getContactMethod() {
+        return this.contactMethod;
+    }
+
+    @Override
+    public String getContactInfo() {
+        return this.contactInfo;
+    }
+
+    @Override
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
     }
@@ -162,6 +184,13 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
      */
     @Override
     public void save(Profile profile) {
+        System.out.println("Saving profile: " + profile.getName());
+        System.out.println(profile.getWeights());
+        System.out.println(profile.getAnswer());
+        System.out.println(profile.getGender());
+        System.out.println(profile.getAge());
+        System.out.println("hello" + this.getCurrentUsername());
+
         DocumentReference docRef = db.collection("profiles").document(profile.getName());
         docRef.set(profile);
     }

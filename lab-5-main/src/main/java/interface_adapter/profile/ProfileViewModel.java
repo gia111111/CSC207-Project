@@ -9,6 +9,8 @@ public class ProfileViewModel extends ViewModel<ProfileState>{
     public static final String BQ_GENDER = "Please indicate the gender(s) you self-identify with: ";
     public static final String BQ_SEXUAL_ORIENTATION = "Please indicate your sexual orientation: ";
     public static final String BQ_AGE = "Please enter your age: ";
+    public static final String CONTACT_METHOD = "Contact Method: ";
+    public static final String CONTACT_INFO = "Contact Information (ie. username, ID): ";
 
     public static final String SECTION_ONE = "Section 1";
     public static final String ONE_QONE = "Question 1 text: ";
