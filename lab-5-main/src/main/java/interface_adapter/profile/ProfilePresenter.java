@@ -29,16 +29,19 @@ public class ProfilePresenter implements CreateProfileOutputBoundary {
         profileViewModel.firePropertyChanged();
 
         viewManagerModel.setState("dashboard");
+
     }
 
     public void prepareFailView(String error) {
         final ProfileState profileState = profileViewModel.getState();
         profileState.setErrorMessage(error);
         profileViewModel.firePropertyChanged();
+
     }
 
     @Override
     public void switchToDashBoardView() {
-
+        viewManagerModel.setState("dashboard");
+        viewManagerModel.firePropertyChanged();
     }
 }

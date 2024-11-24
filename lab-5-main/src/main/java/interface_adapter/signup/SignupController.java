@@ -1,5 +1,6 @@
 package interface_adapter.signup;
 
+import data_access.RemoteDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInputData;
@@ -11,11 +12,13 @@ public class SignupController {
 
     private final SignupInputBoundary userSignupUseCaseInteractor;
     private final ViewManagerModel viewManagerModel;
+    private final RemoteDataAccessObject remoteDataAccessObject;
 
 
-    public SignupController(SignupInputBoundary userSignupUseCaseInteractor, ViewManagerModel viewManagerModel) {
+    public SignupController(SignupInputBoundary userSignupUseCaseInteractor, ViewManagerModel viewManagerModel, RemoteDataAccessObject remoteDataAccessObject) {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
         this.viewManagerModel = viewManagerModel;
+        this.remoteDataAccessObject = remoteDataAccessObject;
     }
 
     /**
@@ -29,6 +32,8 @@ public class SignupController {
                 username, password1, password2, securityWord);
 
         userSignupUseCaseInteractor.execute(signupInputData);
+        remoteDataAccessObject.setCurrentUsername(username);
+        System.out.println(remoteDataAccessObject.getCurrentUsername());
     }
 
     /**

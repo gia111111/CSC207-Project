@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import interface_adapter.profile.ProfileState;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
@@ -40,6 +41,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.signupViewModel = signupViewModel;
         signupViewModel.addPropertyChangeListener(this);
 
+        final JPanel content = new JPanel();
         final JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -71,6 +73,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                                     currentState.getRepeatPassword(),
                                     currentState.getSecurityWord()
                                     );
+                            System.out.println(currentState.getPassword());
                         }
                     }
                 }
@@ -88,14 +91,16 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         addRepeatPasswordListener();
         addSecurityQuestionListener();
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(passwordInfo);
-        this.add(repeatPasswordInfo);
-        this.add(securityWordInfo);
-        this.add(buttons);
+        content.add(title);
+        content.add(usernameInfo);
+        content.add(passwordInfo);
+        content.add(repeatPasswordInfo);
+        content.add(securityWordInfo);
+        content.add(buttons);
+
+        this.add(content);
     }
 
     private void addUsernameListener() {
@@ -222,4 +227,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public void setSignupController(SignupController controller) {
         this.signupController = controller;
     }
+
+    public String getUsername() {return usernameInputField.getText();}
+
 }
