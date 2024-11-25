@@ -1,6 +1,7 @@
 package view;
 
 
+import interface_adapter.login.LoginState;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfileState;
 import interface_adapter.profile.ProfileViewModel;
@@ -24,6 +25,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
     private final ProfileViewModel profileViewModel;
     private ProfileController profileController;
+    private final JLabel profileErrorField = new JLabel();
     private final JTextField age = new JTextField(10);
     private final JTextField section1_weight = new JTextField(10);
     private final JTextField section2_weight = new JTextField(10);
@@ -176,11 +178,11 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
     private List<List<String>> sectionAnswers;
     private Map<String, Integer> sectionWeights;
-//    private List<String> section1Answers;
-//    private List<String> section2Answers;
-//    private List<String> section3Answers;
-//    private List<String> section4Answers;
-//    private List<String> section5Answers;
+    private List<String> section1Answers;
+    private List<String> section2Answers;
+    private List<String> section3Answers;
+    private List<String> section4Answers;
+    private List<String> section5Answers;
 
 
     public ProfileView(ProfileViewModel profileViewModel) {
@@ -218,28 +220,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         basic_info.add(female);
         basic_info.add(male);
         basic_info.add(other);
-        final ProfileState currentState1 = profileViewModel.getState();
-        female.addActionListener(evt -> {
-            if (female.isSelected() == true) {
-                this.gender = female.getText();
-                currentState1.setGender(female.getText());
-                profileViewModel.setState(currentState1);
-            }
-        });
-        male.addActionListener(evt -> {
-            if (male.isSelected() == true) {
-                this.gender = male.getText();
-                currentState1.setGender(male.getText());
-                profileViewModel.setState(currentState1);
-            }
-        });
-        other.addActionListener(evt -> {
-            if (other.isSelected() == true) {
-                this.gender = other.getText();
-                currentState1.setGender(other.getText());
-                profileViewModel.setState(currentState1);
-            }
-        });
+        extractGender(female, male, other);
 
         final JLabel b_sexualOrientation = new JLabel(ProfileViewModel.BQ_SEXUAL_ORIENTATION);
         basic_info.add(b_sexualOrientation);
@@ -253,28 +234,8 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         basic_info.add(female_so);
         basic_info.add(male_so);
         basic_info.add(both);
-        final ProfileState currentState2 = profileViewModel.getState();
-        female_so.addActionListener(evt -> {
-            if (female_so.isSelected() == true) {
-                this.sexualOrientation = female_so.getText();
-                currentState2.setSexualOrientation(female_so.getText());
-                profileViewModel.setState(currentState2);
-            }
-        });
-        male_so.addActionListener(evt -> {
-            if (male_so.isSelected() == true) {
-                this.sexualOrientation = male_so.getText();
-                currentState2.setSexualOrientation(male_so.getText());
-                profileViewModel.setState(currentState2);
-            }
-        });
-        both.addActionListener(evt -> {
-            if (both.isSelected() == true) {
-                this.sexualOrientation = both.getText();
-                currentState2.setSexualOrientation(both.getText());
-                profileViewModel.setState(currentState2);
-            }
-        });
+        extractSexualOrientation(female_so, male_so, both);
+
         final LabelTextPanel basic_age = new LabelTextPanel(
                 new JLabel(ProfileViewModel.BQ_AGE), age);
         basic_age.setLayout(new BoxLayout(basic_age, BoxLayout.X_AXIS));
@@ -325,15 +286,20 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section1_label = new JLabel(ProfileViewModel.SECTION_ONE);
         section1_label.setFont(new Font(section1.getFont().getName(), section1.getFont().getStyle(), 18));
         section1.add(section1_label);
-//        this.section1Answers = new ArrayList<>();
-        section1.add(questionMcq(ProfileViewModel.ONE_QONE, a1_1, b1_1, c1_1, d1_1, e1_1, 0));
-        section1.add(questionMcq(ProfileViewModel.ONE_QTWO, a1_2, b1_2, c1_2, d1_2, e1_2, 0));
-        section1.add(questionMcq(ProfileViewModel.ONE_QTHREE, a1_3, b1_3, c1_3, d1_3, e1_3, 0));
-        section1.add(questionMcq(ProfileViewModel.ONE_QFOUR, a1_4, b1_4, c1_4, d1_4, e1_4, 0));
-        section1.add(questionMcq(ProfileViewModel.ONE_QFIVE, a1_5, b1_5, c1_5, d1_5, e1_5,0));
+        this.section1Answers = new ArrayList<>();
+        section1.add(questionMcq(ProfileViewModel.ONE_QONE, a1_1, b1_1, c1_1, d1_1, e1_1));
+        section1.add(questionMcq(ProfileViewModel.ONE_QTWO, a1_2, b1_2, c1_2, d1_2, e1_2));
+        section1.add(questionMcq(ProfileViewModel.ONE_QTHREE, a1_3, b1_3, c1_3, d1_3, e1_3));
+        section1.add(questionMcq(ProfileViewModel.ONE_QFOUR, a1_4, b1_4, c1_4, d1_4, e1_4));
+        section1.add(questionMcq(ProfileViewModel.ONE_QFIVE, a1_5, b1_5, c1_5, d1_5, e1_5));
+        extracted1(a1_1, b1_1, c1_1, d1_1, e1_1);
+        extracted1(a1_2, b1_2, c1_2, d1_2, e1_2);
+        extracted1(a1_3, b1_3, c1_3, d1_3, e1_3);
+        extracted1(a1_4, b1_4, c1_4, d1_4, e1_4);
+        extracted1(a1_5, b1_5, c1_5, d1_5, e1_5);
 
         content.add(section1);
-//        sectionAnswers.add(section1Answers);
+        sectionAnswers.add(section1Answers);
 
 
         a2_1 = new JRadioButton(ProfileViewModel.MC_A);
@@ -368,15 +334,20 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section2_label = new JLabel(ProfileViewModel.SECTION_TWO);
         section2_label.setFont(new Font(section2.getFont().getName(), section2.getFont().getStyle(), 18));
         section2.add(section2_label);
-//        this.section2Answers = new ArrayList<>();
-        section2.add(questionMcq(ProfileViewModel.TWO_QONE, a2_1, b2_1, c2_1, d2_1, e2_1, 1));
-        section2.add(questionMcq(ProfileViewModel.TWO_QTWO, a2_2, b2_2, c2_2, d2_2, e2_2, 1));
-        section2.add(questionMcq(ProfileViewModel.TWO_QTHREE, a2_3, b2_3, c2_3, d2_3, e2_3, 1));
-        section2.add(questionMcq(ProfileViewModel.TWO_QFOUR, a2_4, b2_4, c2_4, d2_4, e2_4, 1));
-        section2.add(questionMcq(ProfileViewModel.TWO_QFIVE, a2_5, b2_5, c2_5, d2_5, e2_5, 1));
+        this.section2Answers = new ArrayList<>();
+        section2.add(questionMcq(ProfileViewModel.TWO_QONE, a2_1, b2_1, c2_1, d2_1, e2_1));
+        section2.add(questionMcq(ProfileViewModel.TWO_QTWO, a2_2, b2_2, c2_2, d2_2, e2_2));
+        section2.add(questionMcq(ProfileViewModel.TWO_QTHREE, a2_3, b2_3, c2_3, d2_3, e2_3));
+        section2.add(questionMcq(ProfileViewModel.TWO_QFOUR, a2_4, b2_4, c2_4, d2_4, e2_4));
+        section2.add(questionMcq(ProfileViewModel.TWO_QFIVE, a2_5, b2_5, c2_5, d2_5, e2_5));
+        extracted2(a2_1, b2_1, c2_1, d2_1, e2_1);
+        extracted2(a2_2, b2_2, c2_2, d2_2, e2_2);
+        extracted2(a2_3, b2_3, c2_3, d2_3, e2_3);
+        extracted2(a2_4, b2_4, c2_4, d2_4, e2_4);
+        extracted2(a2_5, b2_5, c2_5, d2_5, e2_5);
 
         content.add(section2);
-//        sectionAnswers.add(section2Answers);
+        sectionAnswers.add(section2Answers);
 
         a3_1 = new JRadioButton(ProfileViewModel.MC_A);
         b3_1 = new JRadioButton(ProfileViewModel.MC_B);
@@ -411,15 +382,20 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section3_label = new JLabel(ProfileViewModel.SECTION_THREE);
         section3_label.setFont(new Font(section3.getFont().getName(), section3.getFont().getStyle(), 18));
         section3.add(section3_label);
-//        this.section3Answers = new ArrayList<>();
-        section3.add(questionMcq(ProfileViewModel.THREE_QONE, a3_1, b3_1, c3_1, d3_1, e3_1, 2));
-        section3.add(questionMcq(ProfileViewModel.THREE_QTWO, a3_2, b3_2, c3_2, d3_2, e3_2, 2));
-        section3.add(questionMcq(ProfileViewModel.THREE_QTHREE, a3_3, b3_3, c3_3, d3_3, e3_3, 2));
-        section3.add(questionMcq(ProfileViewModel.THREE_QFOUR, a3_4, b3_4, c3_4, d3_4, e3_4, 2));
-        section3.add(questionMcq(ProfileViewModel.THREE_QFIVE, a3_5, b3_5, c3_5, d3_5, e3_5, 2));
+        this.section3Answers = new ArrayList<>();
+        section3.add(questionMcq(ProfileViewModel.THREE_QONE, a3_1, b3_1, c3_1, d3_1, e3_1));
+        section3.add(questionMcq(ProfileViewModel.THREE_QTWO, a3_2, b3_2, c3_2, d3_2, e3_2));
+        section3.add(questionMcq(ProfileViewModel.THREE_QTHREE, a3_3, b3_3, c3_3, d3_3, e3_3));
+        section3.add(questionMcq(ProfileViewModel.THREE_QFOUR, a3_4, b3_4, c3_4, d3_4, e3_4));
+        section3.add(questionMcq(ProfileViewModel.THREE_QFIVE, a3_5, b3_5, c3_5, d3_5, e3_5));
+        extracted3(a3_1, b3_1, c3_1, d3_1, e3_1);
+        extracted3(a3_2, b3_2, c3_2, d3_2, e3_2);
+        extracted3(a3_3, b3_3, c3_3, d3_3, e3_3);
+        extracted3(a3_4, b3_4, c3_4, d3_4, e3_4);
+        extracted3(a3_5, b3_5, c3_5, d3_5, e3_5);
 
         content.add(section3);
-//        sectionAnswers.add(section3Answers);
+        sectionAnswers.add(section3Answers);
 
         a4_1 = new JRadioButton(ProfileViewModel.MC_A);
         b4_1 = new JRadioButton(ProfileViewModel.MC_B);
@@ -453,15 +429,20 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section4_label = new JLabel(ProfileViewModel.SECTION_FOUR);
         section4_label.setFont(new Font(section4.getFont().getName(), section4.getFont().getStyle(), 18));
         section4.add(section4_label);
-//        this.section4Answers = new ArrayList<>();
-        section4.add(questionMcq(ProfileViewModel.FOUR_QONE, a4_1, b4_1, c4_1, d4_1, e4_1, 3));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QTWO, a4_2, b4_2, c4_2, d4_2, e4_2, 3));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QTHREE, a4_3, b4_3, c4_3, d4_3, e4_3, 3));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QFOUR, a4_4, b4_4, c4_4, d4_4, e4_4, 3));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QFIVE, a4_5, b4_5, c4_5, d4_5, e4_5, 3));
+        this.section4Answers = new ArrayList<>();
+        section4.add(questionMcq(ProfileViewModel.FOUR_QONE, a4_1, b4_1, c4_1, d4_1, e4_1));
+        section4.add(questionMcq(ProfileViewModel.FOUR_QTWO, a4_2, b4_2, c4_2, d4_2, e4_2));
+        section4.add(questionMcq(ProfileViewModel.FOUR_QTHREE, a4_3, b4_3, c4_3, d4_3, e4_3));
+        section4.add(questionMcq(ProfileViewModel.FOUR_QFOUR, a4_4, b4_4, c4_4, d4_4, e4_4));
+        section4.add(questionMcq(ProfileViewModel.FOUR_QFIVE, a4_5, b4_5, c4_5, d4_5, e4_5));
+        extracted4(a4_1, b4_1, c4_1, d4_1, e4_1);
+        extracted4(a4_2, b4_2, c4_2, d4_2, e4_2);
+        extracted4(a4_3, b4_3, c4_3, d4_3, e4_3);
+        extracted4(a4_4, b4_4, c4_4, d4_4, e4_4);
+        extracted4(a4_5, b4_5, c4_5, d4_5, e4_5);
 
         content.add(section4);
-//        sectionAnswers.add(section4Answers);
+        sectionAnswers.add(section4Answers);
 
         a5_1 = new JRadioButton(ProfileViewModel.MC_A);
         b5_1 = new JRadioButton(ProfileViewModel.MC_B);
@@ -496,15 +477,20 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section5_label = new JLabel(ProfileViewModel.SECTION_FIVE);
         section5_label.setFont(new Font(section5.getFont().getName(), section5.getFont().getStyle(), 18));
         section5.add(section5_label);
-//        this.section5Answers = new ArrayList<>();
-        section5.add(questionMcq(ProfileViewModel.FIVE_QONE, a5_1, b5_1, c5_1, d5_1, e5_1, 4));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QTWO, a5_2, b5_2, c5_2, d5_2, e5_2, 4));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QTHREE, a5_3, b5_3, c5_3, d5_3, e5_3, 4));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QFOUR, a5_4, b5_4, c5_4, d5_4, e5_4, 4));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QFIVE, a5_5, b5_5, c5_5, d5_5, e5_5, 4));
+        this.section5Answers = new ArrayList<>();
+        section5.add(questionMcq(ProfileViewModel.FIVE_QONE, a5_1, b5_1, c5_1, d5_1, e5_1));
+        section5.add(questionMcq(ProfileViewModel.FIVE_QTWO, a5_2, b5_2, c5_2, d5_2, e5_2));
+        section5.add(questionMcq(ProfileViewModel.FIVE_QTHREE, a5_3, b5_3, c5_3, d5_3, e5_3));
+        section5.add(questionMcq(ProfileViewModel.FIVE_QFOUR, a5_4, b5_4, c5_4, d5_4, e5_4));
+        section5.add(questionMcq(ProfileViewModel.FIVE_QFIVE, a5_5, b5_5, c5_5, d5_5, e5_5));
+        extracted5(a5_1, b5_1, c5_1, d5_1, e5_1);
+        extracted5(a5_2, b5_2, c5_2, d5_2, e5_2);
+        extracted5(a5_3, b5_3, c5_3, d5_3, e5_3);
+        extracted5(a5_4, b5_4, c5_4, d5_4, e5_4);
+        extracted5(a5_5, b5_5, c5_5, d5_5, e5_5);
 
         content.add(section5);
-//        sectionAnswers.add(section5Answers);
+        sectionAnswers.add(section5Answers);
 
 
         final JPanel weight = new JPanel();
@@ -564,6 +550,8 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
+        content.add(profileErrorField);
+
         addContactInfoListener();
         addContactMethodListener();
         addSection1WeightListener();
@@ -608,7 +596,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
             private void documentListenerHelper() {
                 final ProfileState currentState = profileViewModel.getState();
-                currentState.setContactMethod(contactInfo.getText());
+                currentState.setContactInfo(contactInfo.getText());
                 profileViewModel.setState(currentState);
             }
             @Override
@@ -793,7 +781,8 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        final ProfileState state = (ProfileState) evt.getNewValue();
+        profileErrorField.setText(state.getErrorMessage());
     }
 
     public String getViewName() {
@@ -820,7 +809,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         return sectionWeights;
     }
 
-    public JPanel questionMcq(String question, JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, JRadioButton e, int i) {
+    public JPanel questionMcq(String question, JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, JRadioButton e) {
         final JPanel questionMcq = new JPanel();
         questionMcq.setLayout(new FlowLayout(FlowLayout.LEADING, 10, 10));
         questionMcq.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -837,42 +826,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         questionMcq.add(c);
         questionMcq.add(d);
         questionMcq.add(e);
-        final ProfileState currentState = profileViewModel.getState();
-        a.addActionListener(evt -> {
-            if (a.isSelected() == true) {
-                currentState.getSectionAnswers().get(i).add(a.getText());
-                profileViewModel.setState(currentState);
-            }
-        });
-
-        b.addActionListener(evt -> {
-            if (b.isSelected() == true) {
-                currentState.getSectionAnswers().get(i).add(a.getText());
-                profileViewModel.setState(currentState);
-            }
-        });
-
-        c.addActionListener(evt -> {
-            if (c.isSelected() == true) {
-                currentState.getSectionAnswers().get(i).add(a.getText());
-                profileViewModel.setState(currentState);
-            }
-        });
-
-        d.addActionListener(evt -> {
-            if (d.isSelected() == true) {
-                currentState.getSectionAnswers().get(i).add(a.getText());
-                profileViewModel.setState(currentState);
-            }
-        });
-
-        e.addActionListener(evt -> {
-            if (e.isSelected() == true) {
-                currentState.getSectionAnswers().get(i).add(a.getText());
-                profileViewModel.setState(currentState);
-            }
-        });
-
         return questionMcq;
     }
 
@@ -881,35 +834,40 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
-                currentState.getSectionAnswers().get(0).add(a.getText());
+                section1Answers.add(a.getText());
+                currentState.getSectionAnswers().put("section 1", section1Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
-                currentState.getSectionAnswers().get(0).add(b.getText());
+                section1Answers.add(b.getText());
+                currentState.getSectionAnswers().put("section 1", section1Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
-                currentState.getSectionAnswers().get(0).add(c.getText());
+                section1Answers.add(c.getText());
+                currentState.getSectionAnswers().put("section 1", section1Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
-                currentState.getSectionAnswers().get(0).add(d.getText());
+                section1Answers.add(d.getText());
+                currentState.getSectionAnswers().put("section 1", section1Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
-                currentState.getSectionAnswers().get(0).add(e.getText());
+                section1Answers.add(e.getText());
+                currentState.getSectionAnswers().put("section 1", section1Answers);
                 profileViewModel.setState(currentState);
             }
         });
@@ -920,35 +878,40 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
-                currentState.getSectionAnswers().get(1).add(a.getText());
+                section2Answers.add(a.getText());
+                currentState.getSectionAnswers().put("section 2", section2Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
-                currentState.getSectionAnswers().get(1).add(b.getText());
+                section2Answers.add(b.getText());
+                currentState.getSectionAnswers().put("section 2", section2Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
-                currentState.getSectionAnswers().get(1).add(c.getText());
+                section2Answers.add(c.getText());
+                currentState.getSectionAnswers().put("section 2", section2Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
-                currentState.getSectionAnswers().get(1).add(d.getText());
+                section2Answers.add(d.getText());
+                currentState.getSectionAnswers().put("section 2", section2Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
-                currentState.getSectionAnswers().get(1).add(e.getText());
+                section2Answers.add(e.getText());
+                currentState.getSectionAnswers().put("section 2", section2Answers);
                 profileViewModel.setState(currentState);
             }
         });
@@ -959,35 +922,40 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
-                currentState.getSectionAnswers().get(2).add(a.getText());
+                section3Answers.add(a.getText());
+                currentState.getSectionAnswers().put("section 3", section3Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
-                currentState.getSectionAnswers().get(2).add(b.getText());
+                section3Answers.add(b.getText());
+                currentState.getSectionAnswers().put("section 3", section3Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
-                currentState.getSectionAnswers().get(2).add(c.getText());
+                section3Answers.add(c.getText());
+                currentState.getSectionAnswers().put("section 3", section3Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
-                currentState.getSectionAnswers().get(2).add(d.getText());
+                section3Answers.add(d.getText());
+                currentState.getSectionAnswers().put("section 3", section3Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
-                currentState.getSectionAnswers().get(2).add(e.getText());
+                section3Answers.add(e.getText());
+                currentState.getSectionAnswers().put("section 3", section3Answers);
                 profileViewModel.setState(currentState);
             }
         });
@@ -998,35 +966,40 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
-                currentState.getSectionAnswers().get(3).add(a.getText());
+                section4Answers.add(a.getText());
+                currentState.getSectionAnswers().put("section 4", section4Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
-                currentState.getSectionAnswers().get(3).add(b.getText());
+                section4Answers.add(b.getText());
+                currentState.getSectionAnswers().put("section 4", section4Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
-                currentState.getSectionAnswers().get(3).add(c.getText());
+                section4Answers.add(c.getText());
+                currentState.getSectionAnswers().put("section 4", section4Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
-                currentState.getSectionAnswers().get(3).add(d.getText());
+                section4Answers.add(d.getText());
+                currentState.getSectionAnswers().put("section 4", section4Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
-                currentState.getSectionAnswers().get(3).add(e.getText());
+                section4Answers.add(e.getText());
+                currentState.getSectionAnswers().put("section 4", section4Answers);
                 profileViewModel.setState(currentState);
             }
         });
@@ -1037,35 +1010,40 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
-                currentState.getSectionAnswers().get(4).add(a.getText());
+                section5Answers.add(a.getText());
+                currentState.getSectionAnswers().put("section 5", section5Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
-                currentState.getSectionAnswers().get(4).add(b.getText());
+                section5Answers.add(b.getText());
+                currentState.getSectionAnswers().put("section 5", section5Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
-                currentState.getSectionAnswers().get(4).add(c.getText());
+                section5Answers.add(c.getText());
+                currentState.getSectionAnswers().put("section 5", section5Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
-                currentState.getSectionAnswers().get(4).add(d.getText());
+                section5Answers.add(d.getText());
+                currentState.getSectionAnswers().put("section 5", section5Answers);
                 profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
-                currentState.getSectionAnswers().get(4).add(e.getText());
+                section5Answers.add(e.getText());
+                currentState.getSectionAnswers().put("section 5", section5Answers);
                 profileViewModel.setState(currentState);
             }
         });

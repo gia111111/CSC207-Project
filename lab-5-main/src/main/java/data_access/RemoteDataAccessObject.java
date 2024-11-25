@@ -193,21 +193,22 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         //docRef.set(profile);
 
         DocumentReference docRef = db.collection("profiles").document(profile.getName());
+        docRef.set(profile);
         System.out.println("save" + profile.getAnswer());
         System.out.println("save" + profile.getWeights());
 
-        ArrayList<String> blub = new ArrayList<>();
-        blub.add("hello");
-        blub.add("bye");
-        ArrayList<String> blip = new ArrayList<>();
-        blip.add("murp");
-        blip.add("aur");
-        HashMap<String, List<String>> hi = new HashMap<>();
-        hi.put("section1", blub);
-        hi.put("section2", blip);
-
-        docRef.set(Map.of("name", profile.getName(), "age", profile.getAge(), "gender", profile.getGender(),
-                "sexual orientation", profile.getSexualOrientation(),"answers",hi,"weights", profile.getWeights()));
+//        ArrayList<String> blub = new ArrayList<>();
+//        blub.add("hello");
+//        blub.add("bye");
+//        ArrayList<String> blip = new ArrayList<>();
+//        blip.add("murp");
+//        blip.add("aur");
+//        HashMap<String, List<String>> hi = new HashMap<>();
+//        hi.put("section1", blub);
+//        hi.put("section2", blip);
+//
+//        docRef.set(Map.of("name", profile.getName(), "age", profile.getAge(), "gender", profile.getGender(),
+//                "sexual orientation", profile.getSexualOrientation(),"answers",hi,"weights", profile.getWeights()));
 
 
 
