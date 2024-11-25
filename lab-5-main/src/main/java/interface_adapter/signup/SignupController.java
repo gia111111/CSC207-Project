@@ -6,7 +6,7 @@ import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInputData;
 
 /**
- * Controller for the Signup Use Case.
+ * Controller for the Signup Use Case3674844989\\87468\74\\1``````````````````````````````````E
  */
 public class SignupController {
 

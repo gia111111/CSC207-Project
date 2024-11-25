@@ -37,11 +37,13 @@ public class SignupPresenter implements SignupOutputBoundary {
 //
 //        viewManagerModel.setState(loginViewModel.getViewName());
 //        viewManagerModel.firePropertyChanged();
-        final ProfileState profileState = profileViewModel.getState();
-        this.profileViewModel.setState(profileState);
-        profileViewModel.firePropertyChanged();
+        final SignupState signupState = signupViewModel.getState();
+        signupState.setUsername(response.getUsername());
+        this.signupViewModel.setState(signupState);
+        signupViewModel.firePropertyChanged();
 
         viewManagerModel.setState("profile");
+        viewManagerModel.firePropertyChanged();
     }
 
     @Override

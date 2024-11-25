@@ -9,7 +9,7 @@ import java.util.Map;
 public class CommonProfileFactory implements ProfileFactory {
 
     @Override
-    public CommonProfile create(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
-        return new CommonProfile(name, gender, SexualOrientation, age, answers, weights);
+    public CommonProfile create(String name, String gender, String SexualOrientation, int age, Map<String, List<String>> answers, Map<String, Integer> weights, String contactInfo, String contactMethod) {
+        return new CommonProfile(name, gender, SexualOrientation, age, answers, weights, contactInfo, contactMethod);
     }
 }

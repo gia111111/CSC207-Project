@@ -14,11 +14,13 @@ public class ProfileController {
     private final CreateProfileInputBoundary userCreateProfileUseCaseInteractor;
     private final ViewManagerModel viewManagerModel;
     private final RemoteDataAccessObject remoteDataAccessObject;
+//    private final String username;
 
     public ProfileController(CreateProfileInputBoundary userCreateProfileUseCaseInteractor, ViewManagerModel viewManagerModel, RemoteDataAccessObject dataAccessObject) {
         this.userCreateProfileUseCaseInteractor = userCreateProfileUseCaseInteractor;
         this.viewManagerModel = viewManagerModel;
         this.remoteDataAccessObject = dataAccessObject;
+//        this.username = dataAccessObject.getCurrentUsername();
     }
 
     /**
@@ -29,28 +31,21 @@ public class ProfileController {
      * @param answers the answers to the questions
      * @param weights the weights of the answers
      */
-    public void execute(String gender, String sexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
-        final CreateProfileInputData createProfileInputData = new CreateProfileInputData(gender, sexualOrientation, age, answers, weights, remoteDataAccessObject);
-//        System.out.println("blub" + createProfileInputData.getName());
-//        System.out.println(createProfileInputData.getAge());
-//        System.out.println(createProfileInputData.getGender());
-//        System.out.println(createProfileInputData.getAnswers());
-//        System.out.println(createProfileInputData.getSexualOrientation());
-//        System.out.println(createProfileInputData.getWeights());
+    public void execute(String gender, String sexualOrientation, int age, Map<String, List<String>> answers, Map<String, Integer> weights, String contactMethod, String contactInfo) {
+        final CreateProfileInputData createProfileInputData = new CreateProfileInputData(gender, sexualOrientation, age, answers, weights, contactMethod, contactInfo, remoteDataAccessObject);
         userCreateProfileUseCaseInteractor.execute(createProfileInputData);
+
         remoteDataAccessObject.setGender(gender);
         remoteDataAccessObject.setSexualOrientation(sexualOrientation);
         remoteDataAccessObject.setSectionAnswers(answers);
         remoteDataAccessObject.setSectionWeights(weights);
+        remoteDataAccessObject.setContactInfo(contactInfo);
+        remoteDataAccessObject.setContactMethod(contactMethod);
 //        System.out.println(remoteDataAccessObject.getGender());
 //        System.out.println(remoteDataAccessObject.getSectionWeights());
 
     }
 
-    public void saveContact(String contactMethod, String contactInfo) {
-        remoteDataAccessObject.setContactInfo(contactInfo);
-        remoteDataAccessObject.setContactMethod(contactMethod);
-    }
 
     /**x
      * Executes the "switch to DashboardView" Use Case.

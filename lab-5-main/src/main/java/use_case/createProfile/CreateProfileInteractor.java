@@ -32,37 +32,29 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
 //        final List<List<String>> sectionAnswers = createProfileInputData.getAnswers();
 //        final Map<String, Integer> sectionWeights = createProfileInputData.getWeights();
 
-        final Profile profile = profileFactory.create(createProfileInputData.getName(), createProfileInputData.getGender(), createProfileInputData.getSexualOrientation(), createProfileInputData.getAge(), createProfileInputData.getAnswers(), createProfileInputData.getWeights());
-//        System.out.println(profile.getName());
-//        System.out.println(profile.getAge());
-//        System.out.println(profile.getWeights());
-//        System.out.println(profile.getSexualOrientation());
-//        System.out.println(profile.getAnswer());
-//        System.out.println(profile.getWeights());
-        profileDataAccessObject.save(profile);
+        final Profile profile = profileFactory.create(createProfileInputData.getName(),
+                createProfileInputData.getGender(),
+                createProfileInputData.getSexualOrientation(),
+                createProfileInputData.getAge(),
+                createProfileInputData.getAnswers(),
+                createProfileInputData.getWeights(),
+                createProfileInputData.getContactInfo(),
+                createProfileInputData.getContactMethod());
 
-        final CreateProfileOutputData createProfileOutputData = new CreateProfileOutputData(profile.getName(), false);
-        profilePresenter.prepareSuccessView(createProfileOutputData);
+        if ((profile.getGender() == "") || (profile.getSexualOrientation() == "") || (profile.getAge() == 0) || (profile.getAnswer().size() != 5)
+        || (profile.getAnswer().get("section 1").size() != 5) || (profile.getAnswer().get("section 2").size() != 5) || (profile.getAnswer().get("section 3").size() != 5)
+        || (profile.getAnswer().get("section 4").size() != 5) || (profile.getAnswer().get("section 5").size() != 5) || (profile.getWeights().size() != 5)
+        || ((profile.getWeights().get("section1") + profile.getWeights().get("section2") + profile.getWeights().get("section3") + profile.getWeights().get("section4") + profile.getWeights().get("section5") != 100)|| (profile.getContactMethod() == "") || (profile.getContactInfo() == ""))) {
+            profilePresenter.prepareFailView("Please answer every question!");
+        }
+        else {
 
-//        if (gender != null && sexualOrientation != null && ageValue != 0 && sectionAnswers.size() == 5 && sectionAnswers.get(0).size() == 10
-//        && sectionAnswers.get(1).size()==10 && sectionAnswers.get(2).size()==10 && sectionAnswers.get(3).size()==10 && sectionAnswers.get(4).size()==10
-//        && sectionWeights.size()==5) {
-//            final Profile profile = profileFactory.create(createProfileInputData.getName(), createProfileInputData.getGender(), createProfileInputData.getSexualOrientation(), createProfileInputData.getAge(), createProfileInputData.getAnswers(), createProfileInputData.getWeights());
-//            profileDataAccessObject.save(profile);
-//
-//            final CreateProfileOutputData createProfileOutputData = new CreateProfileOutputData(profile.getName(), false);
-//            profilePresenter.prepareSuccessView(createProfileOutputData);
-//        }
-//        else {
-//            System.out.println("failing");
-//            System.out.println(gender);
-//            System.out.println(sexualOrientation);
-//            System.out.println(ageValue);
-//            System.out.println(sectionAnswers);
-//            System.out.println(sectionWeights);
-//            profilePresenter.prepareFailView("Please answer every question!");
-//
-//        }
+            profileDataAccessObject.save(profile);
+
+            final CreateProfileOutputData createProfileOutputData = new CreateProfileOutputData(profile.getName(), false);
+            profilePresenter.prepareSuccessView(createProfileOutputData);
+
+        }
 
     }
 
