@@ -10,11 +10,27 @@ import java.util.List;
 public class Matches {
     private HashMap<String, List<String>> matches;
 
+    public Matches() {
+        this.matches = new HashMap<>();
+    }
+
     public Matches(HashMap<String, List<String>> matches) {
         this.matches = matches;
     }
 
     public HashMap<String, List<String>> getMatches() {
         return matches;
+    }
+
+    public void setMatches(HashMap<String, List<String>> matches) {
+        this.matches = matches;
+    }
+
+    public void addMatch(String matchName, List<String> contactInfo) {
+        matches.put(matchName, contactInfo);
+    }
+
+    public boolean hasMatch(String matchName) {
+        return matches.containsKey(matchName);
     }
 }

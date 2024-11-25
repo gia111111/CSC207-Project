@@ -2,14 +2,12 @@ package app;
 
 import java.awt.CardLayout;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.*;
 
 import data_access.RemoteDataAccessObject;
-import entity.CommonProfileFactory;
-import entity.CommonUserFactory;
-import entity.ProfileFactory;
-import entity.UserFactory;
+import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
@@ -24,6 +22,7 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.matches.MatchesController;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfilePresenter;
 import interface_adapter.signup.SignupController;
@@ -45,6 +44,7 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.matches.MatchInputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -92,6 +92,8 @@ public class AppBuilder {
     private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
+    private MatchInputBoundary matchInputBoundary;
+    private MatchesController matchesController = new MatchesController(viewManagerModel, matchInputBoundary);
 
     public AppBuilder() throws IOException {
         cardPanel.setLayout(cardLayout);
@@ -256,6 +258,17 @@ public class AppBuilder {
 
         final ProfileController profileController = new ProfileController(userCreateProfileInteractor, viewManagerModel, remoteDataAccessObject);
         profileView.setProfileController(profileController);
+        return this;
+    }
+
+    public AppBuilder addMatchView() {
+        Matches matches = new Matches();
+        // Populate Matches with sample data (replace with real data retrieval in the future)
+        matches.addMatch("John Doe", List.of("Phone", "123-456-7890"));
+        matches.addMatch("Jane Smith", List.of("Email", "jane@example.com"));
+
+        MatchesView matchView = new MatchesView(matches, matchesController);
+        cardPanel.add(matchView, "matchView");
         return this;
     }
 

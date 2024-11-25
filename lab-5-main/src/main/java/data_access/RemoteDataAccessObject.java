@@ -9,6 +9,7 @@ import com.google.cloud.firestore.Firestore;
 
 import com.google.firebase.cloud.FirestoreClient;
 import entity.CommonUser;
+import entity.Matches;
 import entity.Profile;
 import entity.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
@@ -17,10 +18,12 @@ import use_case.editprofile.EditProfileInputData;
 import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.matches.MatchDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -30,6 +33,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         CreateProfileDataAccessInterface,
         EditProfileUserDataAccessInterface,
+        MatchDataAccessInterface,
         LogoutUserDataAccessInterface {
 
     private final Firestore db;
@@ -208,5 +212,63 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.update("age", editProfileInputData.getAge());
         docRef.update("answers", editProfileInputData.getAnswers());
         docRef.update("weights", editProfileInputData.getWeights());
+    }
+
+    @Override
+    public void saveMatch(String username, Matches matches) {
+        DocumentReference docRef = db.collection("matches").document(username);
+
+        try {
+            // Fetch existing matches
+            DocumentSnapshot document = docRef.get().get();
+            HashMap<String, List<String>> matches = new HashMap<>();
+
+            if (document.exists()) {
+                matches = (HashMap<String, List<String>>) document.get("matches");
+            }
+
+            // Add or update the match
+            matches.put(matchName, contactInfo);
+
+            // Save updated matches map back to Firestore
+            docRef.set(Map.of("matches", matches));
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public HashMap<String, List<String>> getMatches(String username) {
+        DocumentReference docRef = db.collection("matches").document(username);
+
+        try {
+            // Fetch user's matches
+            DocumentSnapshot document = docRef.get().get();
+            if (document.exists()) {
+                return (HashMap<String, List<String>>) document.get("matches");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        // Return an empty map if no matches are found
+        return new HashMap<>();
+    }
+
+    @Override
+    public boolean matchExists(String username, String matchName) {
+        DocumentReference docRef = db.collection("matches").document(username);
+
+        try {
+            DocumentSnapshot document = docRef.get().get();
+            if (document.exists()) {
+                HashMap<String, List<String>> matches = (HashMap<String, List<String>>) document.get("matches");
+                return matches != null && matches.containsKey(matchName);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }
