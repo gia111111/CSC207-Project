@@ -13,15 +13,15 @@ import java.util.Map;
  */
 public class ProfileState {
     
-    private String name;
+    private String name = "";
     private String gender = "";
     private String sexualOrientation = "";
     private int ageValue = 0;
     private List<List<String>> sectionAnswers = new ArrayList<>(List.of(new ArrayList<>(), new ArrayList<>(),
             new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
     private Map<String, Integer> sectionWeights = new HashMap<>();
-    private String contactMethod;
-    private String contactInfo;
+    private String contactMethod = "";
+    private String contactInfo = "";
     private RemoteDataAccessObject dataAccessObject;
     private String errorMessage = "Please fill in all fields.";
 

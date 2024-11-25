@@ -25,6 +25,7 @@ public class ProfilePresenter implements CreateProfileOutputBoundary {
     @Override
     public void prepareSuccessView(CreateProfileOutputData outputData) {
         final ProfileState profileState = profileViewModel.getState();
+        profileState.setName(outputData.getName());
         this.profileViewModel.setState(profileState);
         profileViewModel.firePropertyChanged();
 

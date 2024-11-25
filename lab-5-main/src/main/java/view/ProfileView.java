@@ -58,31 +58,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JRadioButton c1_5;
     private final JRadioButton d1_5;
     private final JRadioButton e1_5;
-    private final JRadioButton a1_6;
-    private final JRadioButton b1_6;
-    private final JRadioButton c1_6;
-    private final JRadioButton d1_6;
-    private final JRadioButton e1_6;
-    private final JRadioButton a1_7;
-    private final JRadioButton b1_7;
-    private final JRadioButton c1_7;
-    private final JRadioButton d1_7;
-    private final JRadioButton e1_7;
-    private final JRadioButton a1_8;
-    private final JRadioButton b1_8;
-    private final JRadioButton c1_8;
-    private final JRadioButton d1_8;
-    private final JRadioButton e1_8;
-    private final JRadioButton a1_9;
-    private final JRadioButton b1_9;
-    private final JRadioButton c1_9;
-    private final JRadioButton d1_9;
-    private final JRadioButton e1_9;
-    private final JRadioButton a1_10;
-    private final JRadioButton b1_10;
-    private final JRadioButton c1_10;
-    private final JRadioButton d1_10;
-    private final JRadioButton e1_10;
 
     private final JRadioButton a2_1;
     private final JRadioButton b2_1;
@@ -109,31 +84,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JRadioButton c2_5;
     private final JRadioButton d2_5;
     private final JRadioButton e2_5;
-    private final JRadioButton a2_6;
-    private final JRadioButton b2_6;
-    private final JRadioButton c2_6;
-    private final JRadioButton d2_6;
-    private final JRadioButton e2_6;
-    private final JRadioButton a2_7;
-    private final JRadioButton b2_7;
-    private final JRadioButton c2_7;
-    private final JRadioButton d2_7;
-    private final JRadioButton e2_7;
-    private final JRadioButton a2_8;
-    private final JRadioButton b2_8;
-    private final JRadioButton c2_8;
-    private final JRadioButton d2_8;
-    private final JRadioButton e2_8;
-    private final JRadioButton a2_9;
-    private final JRadioButton b2_9;
-    private final JRadioButton c2_9;
-    private final JRadioButton d2_9;
-    private final JRadioButton e2_9;
-    private final JRadioButton a2_10;
-    private final JRadioButton b2_10;
-    private final JRadioButton c2_10;
-    private final JRadioButton d2_10;
-    private final JRadioButton e2_10;
 
     private final JRadioButton a3_1;
     private final JRadioButton b3_1;
@@ -160,31 +110,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JRadioButton c3_5;
     private final JRadioButton d3_5;
     private final JRadioButton e3_5;
-    private final JRadioButton a3_6;
-    private final JRadioButton b3_6;
-    private final JRadioButton c3_6;
-    private final JRadioButton d3_6;
-    private final JRadioButton e3_6;
-    private final JRadioButton a3_7;
-    private final JRadioButton b3_7;
-    private final JRadioButton c3_7;
-    private final JRadioButton d3_7;
-    private final JRadioButton e3_7;
-    private final JRadioButton a3_8;
-    private final JRadioButton b3_8;
-    private final JRadioButton c3_8;
-    private final JRadioButton d3_8;
-    private final JRadioButton e3_8;
-    private final JRadioButton a3_9;
-    private final JRadioButton b3_9;
-    private final JRadioButton c3_9;
-    private final JRadioButton d3_9;
-    private final JRadioButton e3_9;
-    private final JRadioButton a3_10;
-    private final JRadioButton b3_10;
-    private final JRadioButton c3_10;
-    private final JRadioButton d3_10;
-    private final JRadioButton e3_10;
 
     private final JRadioButton a4_1;
     private final JRadioButton b4_1;
@@ -211,31 +136,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JRadioButton c4_5;
     private final JRadioButton d4_5;
     private final JRadioButton e4_5;
-    private final JRadioButton a4_6;
-    private final JRadioButton b4_6;
-    private final JRadioButton c4_6;
-    private final JRadioButton d4_6;
-    private final JRadioButton e4_6;
-    private final JRadioButton a4_7;
-    private final JRadioButton b4_7;
-    private final JRadioButton c4_7;
-    private final JRadioButton d4_7;
-    private final JRadioButton e4_7;
-    private final JRadioButton a4_8;
-    private final JRadioButton b4_8;
-    private final JRadioButton c4_8;
-    private final JRadioButton d4_8;
-    private final JRadioButton e4_8;
-    private final JRadioButton a4_9;
-    private final JRadioButton b4_9;
-    private final JRadioButton c4_9;
-    private final JRadioButton d4_9;
-    private final JRadioButton e4_9;
-    private final JRadioButton a4_10;
-    private final JRadioButton b4_10;
-    private final JRadioButton c4_10;
-    private final JRadioButton d4_10;
-    private final JRadioButton e4_10;
 
     private final JRadioButton a5_1;
     private final JRadioButton b5_1;
@@ -262,31 +162,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final JRadioButton c5_5;
     private final JRadioButton d5_5;
     private final JRadioButton e5_5;
-    private final JRadioButton a5_6;
-    private final JRadioButton b5_6;
-    private final JRadioButton c5_6;
-    private final JRadioButton d5_6;
-    private final JRadioButton e5_6;
-    private final JRadioButton a5_7;
-    private final JRadioButton b5_7;
-    private final JRadioButton c5_7;
-    private final JRadioButton d5_7;
-    private final JRadioButton e5_7;
-    private final JRadioButton a5_8;
-    private final JRadioButton b5_8;
-    private final JRadioButton c5_8;
-    private final JRadioButton d5_8;
-    private final JRadioButton e5_8;
-    private final JRadioButton a5_9;
-    private final JRadioButton b5_9;
-    private final JRadioButton c5_9;
-    private final JRadioButton d5_9;
-    private final JRadioButton e5_9;
-    private final JRadioButton a5_10;
-    private final JRadioButton b5_10;
-    private final JRadioButton c5_10;
-    private final JRadioButton d5_10;
-    private final JRadioButton e5_10;
 
     private final JRadioButton female;
     private final JRadioButton male;
@@ -301,11 +176,11 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
     private List<List<String>> sectionAnswers;
     private Map<String, Integer> sectionWeights;
-    private List<String> section1Answers;
-    private List<String> section2Answers;
-    private List<String> section3Answers;
-    private List<String> section4Answers;
-    private List<String> section5Answers;
+//    private List<String> section1Answers;
+//    private List<String> section2Answers;
+//    private List<String> section3Answers;
+//    private List<String> section4Answers;
+//    private List<String> section5Answers;
 
 
     public ProfileView(ProfileViewModel profileViewModel) {
@@ -343,8 +218,28 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         basic_info.add(female);
         basic_info.add(male);
         basic_info.add(other);
-        extractGender(female, male, other);
-
+        final ProfileState currentState1 = profileViewModel.getState();
+        female.addActionListener(evt -> {
+            if (female.isSelected() == true) {
+                this.gender = female.getText();
+                currentState1.setGender(female.getText());
+                profileViewModel.setState(currentState1);
+            }
+        });
+        male.addActionListener(evt -> {
+            if (male.isSelected() == true) {
+                this.gender = male.getText();
+                currentState1.setGender(male.getText());
+                profileViewModel.setState(currentState1);
+            }
+        });
+        other.addActionListener(evt -> {
+            if (other.isSelected() == true) {
+                this.gender = other.getText();
+                currentState1.setGender(other.getText());
+                profileViewModel.setState(currentState1);
+            }
+        });
 
         final JLabel b_sexualOrientation = new JLabel(ProfileViewModel.BQ_SEXUAL_ORIENTATION);
         basic_info.add(b_sexualOrientation);
@@ -358,8 +253,28 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         basic_info.add(female_so);
         basic_info.add(male_so);
         basic_info.add(both);
-        extractSexualOrientation(female_so, male_so, both);
-
+        final ProfileState currentState2 = profileViewModel.getState();
+        female_so.addActionListener(evt -> {
+            if (female_so.isSelected() == true) {
+                this.sexualOrientation = female_so.getText();
+                currentState2.setSexualOrientation(female_so.getText());
+                profileViewModel.setState(currentState2);
+            }
+        });
+        male_so.addActionListener(evt -> {
+            if (male_so.isSelected() == true) {
+                this.sexualOrientation = male_so.getText();
+                currentState2.setSexualOrientation(male_so.getText());
+                profileViewModel.setState(currentState2);
+            }
+        });
+        both.addActionListener(evt -> {
+            if (both.isSelected() == true) {
+                this.sexualOrientation = both.getText();
+                currentState2.setSexualOrientation(both.getText());
+                profileViewModel.setState(currentState2);
+            }
+        });
         final LabelTextPanel basic_age = new LabelTextPanel(
                 new JLabel(ProfileViewModel.BQ_AGE), age);
         basic_age.setLayout(new BoxLayout(basic_age, BoxLayout.X_AXIS));
@@ -403,31 +318,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         c1_5 = new JRadioButton(ProfileViewModel.MC_C);
         d1_5 = new JRadioButton(ProfileViewModel.MC_D);
         e1_5 = new JRadioButton(ProfileViewModel.MC_E);
-        a1_6 = new JRadioButton(ProfileViewModel.MC_A);
-        b1_6 = new JRadioButton(ProfileViewModel.MC_B);
-        c1_6 = new JRadioButton(ProfileViewModel.MC_C);
-        d1_6 = new JRadioButton(ProfileViewModel.MC_D);
-        e1_6 = new JRadioButton(ProfileViewModel.MC_E);
-        a1_7 = new JRadioButton(ProfileViewModel.MC_A);
-        b1_7 = new JRadioButton(ProfileViewModel.MC_B);
-        c1_7 = new JRadioButton(ProfileViewModel.MC_C);
-        d1_7 = new JRadioButton(ProfileViewModel.MC_D);
-        e1_7 = new JRadioButton(ProfileViewModel.MC_E);
-        a1_8 = new JRadioButton(ProfileViewModel.MC_A);
-        b1_8 = new JRadioButton(ProfileViewModel.MC_B);
-        c1_8 = new JRadioButton(ProfileViewModel.MC_C);
-        d1_8 = new JRadioButton(ProfileViewModel.MC_D);
-        e1_8 = new JRadioButton(ProfileViewModel.MC_E);
-        a1_9 = new JRadioButton(ProfileViewModel.MC_A);
-        b1_9 = new JRadioButton(ProfileViewModel.MC_B);
-        c1_9= new JRadioButton(ProfileViewModel.MC_C);
-        d1_9 = new JRadioButton(ProfileViewModel.MC_D);
-        e1_9 = new JRadioButton(ProfileViewModel.MC_E);
-        a1_10 = new JRadioButton(ProfileViewModel.MC_A);
-        b1_10 = new JRadioButton(ProfileViewModel.MC_B);
-        c1_10 = new JRadioButton(ProfileViewModel.MC_C);
-        d1_10 = new JRadioButton(ProfileViewModel.MC_D);
-        e1_10 = new JRadioButton(ProfileViewModel.MC_E);
 
         final JPanel section1 = new JPanel();
         section1.setLayout(new BoxLayout(section1, BoxLayout.PAGE_AXIS));
@@ -435,30 +325,15 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section1_label = new JLabel(ProfileViewModel.SECTION_ONE);
         section1_label.setFont(new Font(section1.getFont().getName(), section1.getFont().getStyle(), 18));
         section1.add(section1_label);
-        this.section1Answers = new ArrayList<>();
-        section1.add(questionMcq(ProfileViewModel.ONE_QONE, a1_1, b1_1, c1_1, d1_1, e1_1));
-        section1.add(questionMcq(ProfileViewModel.ONE_QTWO, a1_2, b1_2, c1_2, d1_2, e1_2));
-        section1.add(questionMcq(ProfileViewModel.ONE_QTHREE, a1_3, b1_3, c1_3, d1_3, e1_3));
-        section1.add(questionMcq(ProfileViewModel.ONE_QFOUR, a1_4, b1_4, c1_4, d1_4, e1_4));
-        section1.add(questionMcq(ProfileViewModel.ONE_QFIVE, a1_5, b1_5, c1_5, d1_5, e1_5));
-        section1.add(questionMcq(ProfileViewModel.ONE_QSIX, a1_6, b1_6, c1_6, d1_6, e1_6));
-        section1.add(questionMcq(ProfileViewModel.ONE_QSEVEN, a1_7, b1_7, c1_7, d1_7, e1_7));
-        section1.add(questionMcq(ProfileViewModel.ONE_QEIGHT, a1_8, b1_8, c1_8, d1_8, e1_8));
-        section1.add(questionMcq(ProfileViewModel.ONE_QNINE, a1_9, b1_9, c1_9, d1_9, e1_9));
-        section1.add(questionMcq(ProfileViewModel.ONE_QTEN, a1_10, b1_10, c1_10, d1_10, e1_10));
-        extracted1(a1_1, b1_1, c1_1, d1_1, e1_1);
-        extracted1(a1_2, b1_2, c1_2, d1_2, e1_2);
-        extracted1(a1_3, b1_3, c1_3, d1_3, e1_3);
-        extracted1(a1_4, b1_4, c1_4, d1_4, e1_4);
-        extracted1(a1_5, b1_5, c1_5, d1_5, e1_5);
-        extracted1(a1_6, b1_6, c1_6, d1_6, e1_6);
-        extracted1(a1_7, b1_7, c1_7, d1_7, e1_7);
-        extracted1(a1_8, b1_8, c1_8, d1_8, e1_8);
-        extracted1(a1_9, b1_9, c1_9, d1_9, e1_9);
-        extracted1(a1_10, b1_10, c1_10, d1_10, e1_10);
+//        this.section1Answers = new ArrayList<>();
+        section1.add(questionMcq(ProfileViewModel.ONE_QONE, a1_1, b1_1, c1_1, d1_1, e1_1, 0));
+        section1.add(questionMcq(ProfileViewModel.ONE_QTWO, a1_2, b1_2, c1_2, d1_2, e1_2, 0));
+        section1.add(questionMcq(ProfileViewModel.ONE_QTHREE, a1_3, b1_3, c1_3, d1_3, e1_3, 0));
+        section1.add(questionMcq(ProfileViewModel.ONE_QFOUR, a1_4, b1_4, c1_4, d1_4, e1_4, 0));
+        section1.add(questionMcq(ProfileViewModel.ONE_QFIVE, a1_5, b1_5, c1_5, d1_5, e1_5,0));
 
         content.add(section1);
-        sectionAnswers.add(section1Answers);
+//        sectionAnswers.add(section1Answers);
 
 
         a2_1 = new JRadioButton(ProfileViewModel.MC_A);
@@ -486,31 +361,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         c2_5 = new JRadioButton(ProfileViewModel.MC_C);
         d2_5 = new JRadioButton(ProfileViewModel.MC_D);
         e2_5 = new JRadioButton(ProfileViewModel.MC_E);
-        a2_6 = new JRadioButton(ProfileViewModel.MC_A);
-        b2_6 = new JRadioButton(ProfileViewModel.MC_B);
-        c2_6 = new JRadioButton(ProfileViewModel.MC_C);
-        d2_6 = new JRadioButton(ProfileViewModel.MC_D);
-        e2_6 = new JRadioButton(ProfileViewModel.MC_E);
-        a2_7 = new JRadioButton(ProfileViewModel.MC_A);
-        b2_7 = new JRadioButton(ProfileViewModel.MC_B);
-        c2_7 = new JRadioButton(ProfileViewModel.MC_C);
-        d2_7 = new JRadioButton(ProfileViewModel.MC_D);
-        e2_7 = new JRadioButton(ProfileViewModel.MC_E);
-        a2_8 = new JRadioButton(ProfileViewModel.MC_A);
-        b2_8 = new JRadioButton(ProfileViewModel.MC_B);
-        c2_8 = new JRadioButton(ProfileViewModel.MC_C);
-        d2_8 = new JRadioButton(ProfileViewModel.MC_D);
-        e2_8 = new JRadioButton(ProfileViewModel.MC_E);
-        a2_9 = new JRadioButton(ProfileViewModel.MC_A);
-        b2_9 = new JRadioButton(ProfileViewModel.MC_B);
-        c2_9 = new JRadioButton(ProfileViewModel.MC_C);
-        d2_9 = new JRadioButton(ProfileViewModel.MC_D);
-        e2_9 = new JRadioButton(ProfileViewModel.MC_E);
-        a2_10 = new JRadioButton(ProfileViewModel.MC_A);
-        b2_10 = new JRadioButton(ProfileViewModel.MC_B);
-        c2_10 = new JRadioButton(ProfileViewModel.MC_C);
-        d2_10 = new JRadioButton(ProfileViewModel.MC_D);
-        e2_10 = new JRadioButton(ProfileViewModel.MC_E);
 
         final JPanel section2 = new JPanel();
         section2.setLayout(new BoxLayout(section2, BoxLayout.PAGE_AXIS));
@@ -518,30 +368,15 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section2_label = new JLabel(ProfileViewModel.SECTION_TWO);
         section2_label.setFont(new Font(section2.getFont().getName(), section2.getFont().getStyle(), 18));
         section2.add(section2_label);
-        this.section2Answers = new ArrayList<>();
-        section2.add(questionMcq(ProfileViewModel.TWO_QONE, a2_1, b2_1, c2_1, d2_1, e2_1));
-        section2.add(questionMcq(ProfileViewModel.TWO_QTWO, a2_2, b2_2, c2_2, d2_2, e2_2));
-        section2.add(questionMcq(ProfileViewModel.TWO_QTHREE, a2_3, b2_3, c2_3, d2_3, e2_3));
-        section2.add(questionMcq(ProfileViewModel.TWO_QFOUR, a2_4, b2_4, c2_4, d2_4, e2_4));
-        section2.add(questionMcq(ProfileViewModel.TWO_QFIVE, a2_5, b2_5, c2_5, d2_5, e2_5));
-        section2.add(questionMcq(ProfileViewModel.TWO_QSIX, a2_6, b2_6, c2_6, d2_6, e2_6));
-        section2.add(questionMcq(ProfileViewModel.TWO_QSEVEN, a2_7, b2_7, c2_7, d2_7, e2_7));
-        section2.add(questionMcq(ProfileViewModel.TWO_QEIGHT, a2_8, b2_8, c2_8, d2_8, e2_8));
-        section2.add(questionMcq(ProfileViewModel.TWO_QNINE, a2_9, b2_9, c2_9, d2_9, e2_9));
-        section2.add(questionMcq(ProfileViewModel.TWO_QTEN, a2_10, b2_10, c2_10, d2_10, e2_10));
-        extracted2(a2_1, b2_1, c2_1, d2_1, e2_1);
-        extracted2(a2_2, b2_2, c2_2, d2_2, e2_2);
-        extracted2(a2_3, b2_3, c2_3, d2_3, e2_3);
-        extracted2(a2_4, b2_4, c2_4, d2_4, e2_4);
-        extracted2(a2_5, b2_5, c2_5, d2_5, e2_5);
-        extracted2(a2_6, b2_6, c2_6, d2_6, e2_6);
-        extracted2(a2_7, b2_7, c2_7, d2_7, e2_7);
-        extracted2(a2_8, b2_8, c2_8, d2_8, e2_8);
-        extracted2(a2_9, b2_9, c2_9, d2_9, e2_9);
-        extracted2(a2_10, b2_10, c2_10, d2_10, e2_10);
+//        this.section2Answers = new ArrayList<>();
+        section2.add(questionMcq(ProfileViewModel.TWO_QONE, a2_1, b2_1, c2_1, d2_1, e2_1, 1));
+        section2.add(questionMcq(ProfileViewModel.TWO_QTWO, a2_2, b2_2, c2_2, d2_2, e2_2, 1));
+        section2.add(questionMcq(ProfileViewModel.TWO_QTHREE, a2_3, b2_3, c2_3, d2_3, e2_3, 1));
+        section2.add(questionMcq(ProfileViewModel.TWO_QFOUR, a2_4, b2_4, c2_4, d2_4, e2_4, 1));
+        section2.add(questionMcq(ProfileViewModel.TWO_QFIVE, a2_5, b2_5, c2_5, d2_5, e2_5, 1));
 
         content.add(section2);
-        sectionAnswers.add(section2Answers);
+//        sectionAnswers.add(section2Answers);
 
         a3_1 = new JRadioButton(ProfileViewModel.MC_A);
         b3_1 = new JRadioButton(ProfileViewModel.MC_B);
@@ -568,31 +403,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         c3_5 = new JRadioButton(ProfileViewModel.MC_C);
         d3_5 = new JRadioButton(ProfileViewModel.MC_D);
         e3_5 = new JRadioButton(ProfileViewModel.MC_E);
-        a3_6 = new JRadioButton(ProfileViewModel.MC_A);
-        b3_6 = new JRadioButton(ProfileViewModel.MC_B);
-        c3_6 = new JRadioButton(ProfileViewModel.MC_C);
-        d3_6 = new JRadioButton(ProfileViewModel.MC_D);
-        e3_6 = new JRadioButton(ProfileViewModel.MC_E);
-        a3_7 = new JRadioButton(ProfileViewModel.MC_A);
-        b3_7 = new JRadioButton(ProfileViewModel.MC_B);
-        c3_7 = new JRadioButton(ProfileViewModel.MC_C);
-        d3_7 = new JRadioButton(ProfileViewModel.MC_D);
-        e3_7 = new JRadioButton(ProfileViewModel.MC_E);
-        a3_8 = new JRadioButton(ProfileViewModel.MC_A);
-        b3_8 = new JRadioButton(ProfileViewModel.MC_B);
-        c3_8 = new JRadioButton(ProfileViewModel.MC_C);
-        d3_8 = new JRadioButton(ProfileViewModel.MC_D);
-        e3_8 = new JRadioButton(ProfileViewModel.MC_E);
-        a3_9 = new JRadioButton(ProfileViewModel.MC_A);
-        b3_9 = new JRadioButton(ProfileViewModel.MC_B);
-        c3_9 = new JRadioButton(ProfileViewModel.MC_C);
-        d3_9 = new JRadioButton(ProfileViewModel.MC_D);
-        e3_9 = new JRadioButton(ProfileViewModel.MC_E);
-        a3_10 = new JRadioButton(ProfileViewModel.MC_A);
-        b3_10 = new JRadioButton(ProfileViewModel.MC_B);
-        c3_10 = new JRadioButton(ProfileViewModel.MC_C);
-        d3_10 = new JRadioButton(ProfileViewModel.MC_D);
-        e3_10 = new JRadioButton(ProfileViewModel.MC_E);
+
 
         final JPanel section3 = new JPanel();
         section3.setLayout(new BoxLayout(section3, BoxLayout.PAGE_AXIS));
@@ -600,30 +411,15 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section3_label = new JLabel(ProfileViewModel.SECTION_THREE);
         section3_label.setFont(new Font(section3.getFont().getName(), section3.getFont().getStyle(), 18));
         section3.add(section3_label);
-        this.section3Answers = new ArrayList<>();
-        section3.add(questionMcq(ProfileViewModel.THREE_QONE, a3_1, b3_1, c3_1, d3_1, e3_1));
-        section3.add(questionMcq(ProfileViewModel.THREE_QTWO, a3_2, b3_2, c3_2, d3_2, e3_2));
-        section3.add(questionMcq(ProfileViewModel.THREE_QTHREE, a3_3, b3_3, c3_3, d3_3, e3_3));
-        section3.add(questionMcq(ProfileViewModel.THREE_QFOUR, a3_4, b3_4, c3_4, d3_4, e3_4));
-        section3.add(questionMcq(ProfileViewModel.THREE_QFIVE, a3_5, b3_5, c3_5, d3_5, e3_5));
-        section3.add(questionMcq(ProfileViewModel.THREE_QSIX, a3_6, b3_6, c3_6, d3_6, e3_6));
-        section3.add(questionMcq(ProfileViewModel.THREE_QSEVEN, a3_7, b3_7, c3_7, d3_7, e3_7));
-        section3.add(questionMcq(ProfileViewModel.THREE_QEIGHT, a3_8, b3_8, c3_8, d3_8, e3_8));
-        section3.add(questionMcq(ProfileViewModel.THREE_QNINE, a3_9, b3_9, c3_9, d3_9, e3_9));
-        section3.add(questionMcq(ProfileViewModel.THREE_QTEN, a3_10, b3_10, c3_10, d3_10, e3_10));
-        extracted3(a3_1, b3_1, c3_1, d3_1, e3_1);
-        extracted3(a3_2, b3_2, c3_2, d3_2, e3_2);
-        extracted3(a3_3, b3_3, c3_3, d3_3, e3_3);
-        extracted3(a3_4, b3_4, c3_4, d3_4, e3_4);
-        extracted3(a3_5, b3_5, c3_5, d3_5, e3_5);
-        extracted3(a3_6, b3_6, c3_6, d3_6, e3_6);
-        extracted3(a3_7, b3_7, c3_7, d3_7, e3_7);
-        extracted3(a3_8, b3_8, c3_8, d3_8, e3_8);
-        extracted3(a3_9, b3_9, c3_9, d3_9, e3_9);
-        extracted3(a3_10, b3_10, c3_10, d3_10, e3_10);
+//        this.section3Answers = new ArrayList<>();
+        section3.add(questionMcq(ProfileViewModel.THREE_QONE, a3_1, b3_1, c3_1, d3_1, e3_1, 2));
+        section3.add(questionMcq(ProfileViewModel.THREE_QTWO, a3_2, b3_2, c3_2, d3_2, e3_2, 2));
+        section3.add(questionMcq(ProfileViewModel.THREE_QTHREE, a3_3, b3_3, c3_3, d3_3, e3_3, 2));
+        section3.add(questionMcq(ProfileViewModel.THREE_QFOUR, a3_4, b3_4, c3_4, d3_4, e3_4, 2));
+        section3.add(questionMcq(ProfileViewModel.THREE_QFIVE, a3_5, b3_5, c3_5, d3_5, e3_5, 2));
 
         content.add(section3);
-        sectionAnswers.add(section3Answers);
+//        sectionAnswers.add(section3Answers);
 
         a4_1 = new JRadioButton(ProfileViewModel.MC_A);
         b4_1 = new JRadioButton(ProfileViewModel.MC_B);
@@ -650,31 +446,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         c4_5 = new JRadioButton(ProfileViewModel.MC_C);
         d4_5 = new JRadioButton(ProfileViewModel.MC_D);
         e4_5 = new JRadioButton(ProfileViewModel.MC_E);
-        a4_6 = new JRadioButton(ProfileViewModel.MC_A);
-        b4_6 = new JRadioButton(ProfileViewModel.MC_B);
-        c4_6 = new JRadioButton(ProfileViewModel.MC_C);
-        d4_6 = new JRadioButton(ProfileViewModel.MC_D);
-        e4_6 = new JRadioButton(ProfileViewModel.MC_E);
-        a4_7 = new JRadioButton(ProfileViewModel.MC_A);
-        b4_7 = new JRadioButton(ProfileViewModel.MC_B);
-        c4_7 = new JRadioButton(ProfileViewModel.MC_C);
-        d4_7 = new JRadioButton(ProfileViewModel.MC_D);
-        e4_7 = new JRadioButton(ProfileViewModel.MC_E);
-        a4_8 = new JRadioButton(ProfileViewModel.MC_A);
-        b4_8 = new JRadioButton(ProfileViewModel.MC_B);
-        c4_8 = new JRadioButton(ProfileViewModel.MC_C);
-        d4_8 = new JRadioButton(ProfileViewModel.MC_D);
-        e4_8 = new JRadioButton(ProfileViewModel.MC_E);
-        a4_9 = new JRadioButton(ProfileViewModel.MC_A);
-        b4_9 = new JRadioButton(ProfileViewModel.MC_B);
-        c4_9 = new JRadioButton(ProfileViewModel.MC_C);
-        d4_9 = new JRadioButton(ProfileViewModel.MC_D);
-        e4_9 = new JRadioButton(ProfileViewModel.MC_E);
-        a4_10 = new JRadioButton(ProfileViewModel.MC_A);
-        b4_10 = new JRadioButton(ProfileViewModel.MC_B);
-        c4_10 = new JRadioButton(ProfileViewModel.MC_C);
-        d4_10 = new JRadioButton(ProfileViewModel.MC_D);
-        e4_10 = new JRadioButton(ProfileViewModel.MC_E);
 
         final JPanel section4 = new JPanel();
         section4.setLayout(new BoxLayout(section4, BoxLayout.PAGE_AXIS));
@@ -682,30 +453,15 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section4_label = new JLabel(ProfileViewModel.SECTION_FOUR);
         section4_label.setFont(new Font(section4.getFont().getName(), section4.getFont().getStyle(), 18));
         section4.add(section4_label);
-        this.section4Answers = new ArrayList<>();
-        section4.add(questionMcq(ProfileViewModel.FOUR_QONE, a4_1, b4_1, c4_1, d4_1, e4_1));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QTWO, a4_2, b4_2, c4_2, d4_2, e4_2));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QTHREE, a4_3, b4_3, c4_3, d4_3, e4_3));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QFOUR, a4_4, b4_4, c4_4, d4_4, e4_4));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QFIVE, a4_5, b4_5, c4_5, d4_5, e4_5));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QSIX, a4_6, b4_6, c4_6, d4_6, e4_6));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QSEVEN, a4_7, b4_7, c4_7, d4_7, e4_7));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QEIGHT, a4_8, b4_8, c4_8, d4_8, e4_8));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QNINE, a4_9, b4_9, c4_9, d4_9, e4_9));
-        section4.add(questionMcq(ProfileViewModel.FOUR_QTEN, a4_10, b4_10, c4_10, d4_10, e4_10));
-        extracted4(a4_1, b4_1, c4_1, d4_1, e4_1);
-        extracted4(a4_2, b4_2, c4_2, d4_2, e4_2);
-        extracted4(a4_3, b4_3, c4_3, d4_3, e4_3);
-        extracted4(a4_4, b4_4, c4_4, d4_4, e4_4);
-        extracted4(a4_5, b4_5, c4_5, d4_5, e4_5);
-        extracted4(a4_6, b4_6, c4_6, d4_6, e4_6);
-        extracted4(a4_7, b4_7, c4_7, d4_7, e4_7);
-        extracted4(a4_8, b4_8, c4_8, d4_8, e4_8);
-        extracted4(a4_9, b4_9, c4_9, d4_9, e4_9);
-        extracted4(a4_10, b4_10, c4_10, d4_10, e4_10);
+//        this.section4Answers = new ArrayList<>();
+        section4.add(questionMcq(ProfileViewModel.FOUR_QONE, a4_1, b4_1, c4_1, d4_1, e4_1, 3));
+        section4.add(questionMcq(ProfileViewModel.FOUR_QTWO, a4_2, b4_2, c4_2, d4_2, e4_2, 3));
+        section4.add(questionMcq(ProfileViewModel.FOUR_QTHREE, a4_3, b4_3, c4_3, d4_3, e4_3, 3));
+        section4.add(questionMcq(ProfileViewModel.FOUR_QFOUR, a4_4, b4_4, c4_4, d4_4, e4_4, 3));
+        section4.add(questionMcq(ProfileViewModel.FOUR_QFIVE, a4_5, b4_5, c4_5, d4_5, e4_5, 3));
 
         content.add(section4);
-        sectionAnswers.add(section4Answers);
+//        sectionAnswers.add(section4Answers);
 
         a5_1 = new JRadioButton(ProfileViewModel.MC_A);
         b5_1 = new JRadioButton(ProfileViewModel.MC_B);
@@ -732,31 +488,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         c5_5 = new JRadioButton(ProfileViewModel.MC_C);
         d5_5 = new JRadioButton(ProfileViewModel.MC_D);
         e5_5 = new JRadioButton(ProfileViewModel.MC_E);
-        a5_6 = new JRadioButton(ProfileViewModel.MC_A);
-        b5_6 = new JRadioButton(ProfileViewModel.MC_B);
-        c5_6 = new JRadioButton(ProfileViewModel.MC_C);
-        d5_6 = new JRadioButton(ProfileViewModel.MC_D);
-        e5_6 = new JRadioButton(ProfileViewModel.MC_E);
-        a5_7 = new JRadioButton(ProfileViewModel.MC_A);
-        b5_7 = new JRadioButton(ProfileViewModel.MC_B);
-        c5_7 = new JRadioButton(ProfileViewModel.MC_C);
-        d5_7 = new JRadioButton(ProfileViewModel.MC_D);
-        e5_7 = new JRadioButton(ProfileViewModel.MC_E);
-        a5_8 = new JRadioButton(ProfileViewModel.MC_A);
-        b5_8 = new JRadioButton(ProfileViewModel.MC_B);
-        c5_8 = new JRadioButton(ProfileViewModel.MC_C);
-        d5_8 = new JRadioButton(ProfileViewModel.MC_D);
-        e5_8 = new JRadioButton(ProfileViewModel.MC_E);
-        a5_9 = new JRadioButton(ProfileViewModel.MC_A);
-        b5_9 = new JRadioButton(ProfileViewModel.MC_B);
-        c5_9 = new JRadioButton(ProfileViewModel.MC_C);
-        d5_9 = new JRadioButton(ProfileViewModel.MC_D);
-        e5_9 = new JRadioButton(ProfileViewModel.MC_E);
-        a5_10 = new JRadioButton(ProfileViewModel.MC_A);
-        b5_10 = new JRadioButton(ProfileViewModel.MC_B);
-        c5_10 = new JRadioButton(ProfileViewModel.MC_C);
-        d5_10 = new JRadioButton(ProfileViewModel.MC_D);
-        e5_10 = new JRadioButton(ProfileViewModel.MC_E);
+
 
         final JPanel section5 = new JPanel();
         section5.setLayout(new BoxLayout(section5, BoxLayout.PAGE_AXIS));
@@ -764,31 +496,15 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         final JLabel section5_label = new JLabel(ProfileViewModel.SECTION_FIVE);
         section5_label.setFont(new Font(section5.getFont().getName(), section5.getFont().getStyle(), 18));
         section5.add(section5_label);
-        this.section5Answers = new ArrayList<>();
-        section5.add(questionMcq(ProfileViewModel.FIVE_QONE, a5_1, b5_1, c5_1, d5_1, e5_1));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QTWO, a5_2, b5_2, c5_2, d5_2, e5_2));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QTHREE, a5_3, b5_3, c5_3, d5_3, e5_3));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QFOUR, a5_4, b5_4, c5_4, d5_4, e5_4));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QFIVE, a5_5, b5_5, c5_5, d5_5, e5_5));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QSIX, a5_6, b5_6, c5_6, d5_6, e5_6));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QSEVEN, a5_7, b5_7, c5_7, d5_7, e5_7));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QEIGHT, a5_8, b5_8, c5_8, d5_8, e5_8));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QNINE, a5_9, b5_9, c5_9, d5_9, e5_9));
-        section5.add(questionMcq(ProfileViewModel.FIVE_QTEN, a5_10, b5_10, c5_10, d5_10, e5_10));
-        extracted5(a5_1, b5_1, c5_1, d5_1, e5_1);
-        extracted5(a5_2, b5_2, c5_2, d5_2, e5_2);
-        extracted5(a5_3, b5_3, c5_3, d5_3, e5_3);
-        extracted5(a5_4, b5_4, c5_4, d5_4, e5_4);
-        extracted5(a5_5, b5_5, c5_5, d5_5, e5_5);
-        extracted5(a5_6, b5_6, c5_6, d5_6, e5_6);
-        extracted5(a5_7, b5_7, c5_7, d5_7, e5_7);
-        extracted5(a5_8, b5_8, c5_8, d5_8, e5_8);
-        extracted5(a5_9, b5_9, c5_9, d5_9, e5_9);
-        extracted5(a5_10, b5_10, c5_10, d5_10, e5_10);
-
+//        this.section5Answers = new ArrayList<>();
+        section5.add(questionMcq(ProfileViewModel.FIVE_QONE, a5_1, b5_1, c5_1, d5_1, e5_1, 4));
+        section5.add(questionMcq(ProfileViewModel.FIVE_QTWO, a5_2, b5_2, c5_2, d5_2, e5_2, 4));
+        section5.add(questionMcq(ProfileViewModel.FIVE_QTHREE, a5_3, b5_3, c5_3, d5_3, e5_3, 4));
+        section5.add(questionMcq(ProfileViewModel.FIVE_QFOUR, a5_4, b5_4, c5_4, d5_4, e5_4, 4));
+        section5.add(questionMcq(ProfileViewModel.FIVE_QFIVE, a5_5, b5_5, c5_5, d5_5, e5_5, 4));
 
         content.add(section5);
-        sectionAnswers.add(section5Answers);
+//        sectionAnswers.add(section5Answers);
 
 
         final JPanel weight = new JPanel();
@@ -838,15 +554,11 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
                                     currentState.getSexualOrientation(),
                                     currentState.getAgeValue(),
                                     currentState.getSectionAnswers(),
-                                    currentState.getSectionWeights()
+                                    currentState.getSectionWeights(),
+                                    currentState.getContactMethod(),
+                                    currentState.getContactInfo()
                             );
-                            System.out.println(currentState.getName());
-                            System.out.println(currentState.getSectionAnswers());
-                            System.out.println(currentState.getSectionWeights());
-                            System.out.println(currentState.getAgeValue());
-                            System.out.println(currentState.getGender());
-                            System.out.println(currentState.getSexualOrientation());
-                            profileController.saveContact(currentState.getContactMethod(), currentState.getContactInfo());
+                            System.out.println("view" + getGender());
                         }
                     }
                 }
@@ -1108,7 +820,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         return sectionWeights;
     }
 
-    public JPanel questionMcq(String question, JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, JRadioButton e) {
+    public JPanel questionMcq(String question, JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, JRadioButton e, int i) {
         final JPanel questionMcq = new JPanel();
         questionMcq.setLayout(new FlowLayout(FlowLayout.LEADING, 10, 10));
         questionMcq.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1125,6 +837,41 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         questionMcq.add(c);
         questionMcq.add(d);
         questionMcq.add(e);
+        final ProfileState currentState = profileViewModel.getState();
+        a.addActionListener(evt -> {
+            if (a.isSelected() == true) {
+                currentState.getSectionAnswers().get(i).add(a.getText());
+                profileViewModel.setState(currentState);
+            }
+        });
+
+        b.addActionListener(evt -> {
+            if (b.isSelected() == true) {
+                currentState.getSectionAnswers().get(i).add(a.getText());
+                profileViewModel.setState(currentState);
+            }
+        });
+
+        c.addActionListener(evt -> {
+            if (c.isSelected() == true) {
+                currentState.getSectionAnswers().get(i).add(a.getText());
+                profileViewModel.setState(currentState);
+            }
+        });
+
+        d.addActionListener(evt -> {
+            if (d.isSelected() == true) {
+                currentState.getSectionAnswers().get(i).add(a.getText());
+                profileViewModel.setState(currentState);
+            }
+        });
+
+        e.addActionListener(evt -> {
+            if (e.isSelected() == true) {
+                currentState.getSectionAnswers().get(i).add(a.getText());
+                profileViewModel.setState(currentState);
+            }
+        });
 
         return questionMcq;
     }
@@ -1135,33 +882,37 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
                 currentState.getSectionAnswers().get(0).add(a.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
                 currentState.getSectionAnswers().get(0).add(b.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
                 currentState.getSectionAnswers().get(0).add(c.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
                 currentState.getSectionAnswers().get(0).add(d.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
                 currentState.getSectionAnswers().get(0).add(e.getText());
+                profileViewModel.setState(currentState);
             }
         });
-        profileViewModel.setState(currentState);
     }
 
     private void extracted2(JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, JRadioButton e) {
@@ -1170,33 +921,37 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
                 currentState.getSectionAnswers().get(1).add(a.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
                 currentState.getSectionAnswers().get(1).add(b.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
                 currentState.getSectionAnswers().get(1).add(c.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
                 currentState.getSectionAnswers().get(1).add(d.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
                 currentState.getSectionAnswers().get(1).add(e.getText());
+                profileViewModel.setState(currentState);
             }
         });
-        profileViewModel.setState(currentState);
     }
 
     private void extracted3(JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, JRadioButton e) {
@@ -1205,33 +960,37 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
                 currentState.getSectionAnswers().get(2).add(a.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
                 currentState.getSectionAnswers().get(2).add(b.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
                 currentState.getSectionAnswers().get(2).add(c.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
                 currentState.getSectionAnswers().get(2).add(d.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
                 currentState.getSectionAnswers().get(2).add(e.getText());
+                profileViewModel.setState(currentState);
             }
         });
-        profileViewModel.setState(currentState);
     }
 
     private void extracted4(JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, JRadioButton e) {
@@ -1240,33 +999,37 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
                 currentState.getSectionAnswers().get(3).add(a.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
                 currentState.getSectionAnswers().get(3).add(b.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
                 currentState.getSectionAnswers().get(3).add(c.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
                 currentState.getSectionAnswers().get(3).add(d.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
                 currentState.getSectionAnswers().get(3).add(e.getText());
+                profileViewModel.setState(currentState);
             }
         });
-        profileViewModel.setState(currentState);
     }
 
     private void extracted5(JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, JRadioButton e) {
@@ -1275,33 +1038,37 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         a.addActionListener(evt -> {
             if (a.isSelected() == true) {
                 currentState.getSectionAnswers().get(4).add(a.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         b.addActionListener(evt -> {
             if (b.isSelected() == true) {
                 currentState.getSectionAnswers().get(4).add(b.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         c.addActionListener(evt -> {
             if (c.isSelected() == true) {
                 currentState.getSectionAnswers().get(4).add(c.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         d.addActionListener(evt -> {
             if (d.isSelected() == true) {
                 currentState.getSectionAnswers().get(4).add(d.getText());
+                profileViewModel.setState(currentState);
             }
         });
 
         e.addActionListener(evt -> {
             if (e.isSelected() == true) {
                 currentState.getSectionAnswers().get(4).add(e.getText());
+                profileViewModel.setState(currentState);
             }
         });
-        profileViewModel.setState(currentState);
     }
 
     public void extractGender(JRadioButton female, JRadioButton male, JRadioButton other) {
@@ -1310,19 +1077,24 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         female.addActionListener(evt -> {
             if (female.isSelected() == true) {
                 currentState.setGender(female.getText());
+                this.gender = female.getText();
+                profileViewModel.setState(currentState);
             }
         });
         male.addActionListener(evt -> {
             if (male.isSelected() == true) {
                 currentState.setGender(male.getText());
+                this.gender = male.getText();
+                profileViewModel.setState(currentState);
             }
         });
         other.addActionListener(evt -> {
             if (other.isSelected() == true) {
                 currentState.setGender(other.getText());
+                this.gender = other.getText();
+                profileViewModel.setState(currentState);
             }
         });
-        profileViewModel.setState(currentState);
     }
 
     public void extractSexualOrientation(JRadioButton female_so, JRadioButton male_so, JRadioButton both) {
@@ -1331,22 +1103,25 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         female_so.addActionListener(evt -> {
             if (female_so.isSelected() == true) {
                 currentState.setSexualOrientation(female_so.getText());
+                this.sexualOrientation = female_so.getText();
+                profileViewModel.setState(currentState);
             }
         });
         male_so.addActionListener(evt -> {
             if (male_so.isSelected() == true) {
                 currentState.setSexualOrientation(male_so.getText());
+                this.sexualOrientation = male_so.getText();
+                profileViewModel.setState(currentState);
             }
         });
         both.addActionListener(evt -> {
             if (both.isSelected() == true) {
                 currentState.setSexualOrientation(both.getText());
+                this.sexualOrientation = both.getText();
+                profileViewModel.setState(currentState);
             }
         });
-        profileViewModel.setState(currentState);
     }
-
-
 
     public void setProfileController(ProfileController profileController) {
         this.profileController = profileController;

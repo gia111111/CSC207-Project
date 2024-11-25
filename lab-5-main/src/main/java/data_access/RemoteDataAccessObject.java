@@ -1,13 +1,13 @@
 package data_access;
 
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.cloud.firestore.Firestore;
 
 import com.google.firebase.cloud.FirestoreClient;
+import entity.CommonProfile;
 import entity.CommonUser;
 import entity.Profile;
 import entity.User;
@@ -21,6 +21,8 @@ import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -37,8 +39,9 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     private String gender;
     private String sexualOrientation;
     private int age;
-    private List<List<String>> sectionAnswers;
-    private Map<String, Integer> sectionWeights;
+    private List<List<String>> sectionAnswers = new ArrayList<>(List.of(new ArrayList<>(), new ArrayList<>(),
+            new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+    private Map<String, Integer> sectionWeights = new HashMap<>();
     private String contactMethod;
     private String contactInfo;
 
@@ -184,15 +187,45 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
      */
     @Override
     public void save(Profile profile) {
-        System.out.println("Saving profile: " + profile.getName());
-        System.out.println(profile.getWeights());
-        System.out.println(profile.getAnswer());
-        System.out.println(profile.getGender());
-        System.out.println(profile.getAge());
-        System.out.println("hello" + this.getCurrentUsername());
+//        DocumentReference docRef = db.collection("profiles").document(profile.getName());
+       // DocumentReference docRef = db.collection("profiles").document("test6");
+//        System.out.println("age"+profile.getAge());
+//        db.collection("users").document("test9").set(profile, SetOptions.merge());
+        //docRef.set(profile);
 
         DocumentReference docRef = db.collection("profiles").document(profile.getName());
-        docRef.set(profile);
+        System.out.println("save" + profile.getAnswer());
+        System.out.println("save" + profile.getWeights());
+
+        ArrayList<String> blub = new ArrayList<>();
+        blub.add("hello");
+        blub.add("bye");
+        ArrayList<String> blip = new ArrayList<>();
+        blip.add("murp");
+        blip.add("aur");
+        HashMap<String, List<String>> hi = new HashMap<>();
+        hi.put("section1", blub);
+        hi.put("section2", blip);
+
+        docRef.set(Map.of("name", profile.getName(), "age", profile.getAge(), "gender", profile.getGender(),
+                "sexual orientation", profile.getSexualOrientation(),"answers",hi,"weights", profile.getWeights()));
+
+
+
+
+
+//        try {
+//            DocumentSnapshot document = docRef.get().get();
+//            if (document.exists()) {
+//                String name = document.getString("name");
+//                String age = document.get("age");
+//                System.out.println("save"+age);
+//                System.out.println("save"+name);
+//            }
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     /**
