@@ -19,4 +19,9 @@ public class DashBoardController {
         viewManagerModel.setState("profile");
         viewManagerModel.firePropertyChanged();
     }
+
+    public void switchToMatchView() {
+        viewManagerModel.setState("matches");
+        viewManagerModel.firePropertyChanged();
+    }
 }

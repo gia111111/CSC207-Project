@@ -1,6 +1,7 @@
 package interface_adapter.editprofile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The state for the EditProfile View Model.
@@ -12,6 +13,7 @@ public class EditProfileState {
     private int age;
     private List<String> questions;
     private List<String> answers;
+    private Map<String,Integer> weights;
     private String errorMessage = "Please fill in all fields.";
 
     public String getName() {
@@ -61,6 +63,14 @@ public class EditProfileState {
         this.answers = answers;
     }
 
+    public Map<String, Integer> getWeights() {
+        return weights;
+    }
+
+    public void setWeights(Map<String, Integer> weights) {
+        this.weights = weights;
+    }
+
     public String getErrorMessage() {
         return errorMessage;
     }
@@ -78,6 +88,7 @@ public class EditProfileState {
                 ", age=" + age +
                 ", questions=" + questions +
                 ", answers=" + answers +
+                ", weights=" + weights +
                 ", errorMessage='" + errorMessage + '\'' +
                 '}';
     }
