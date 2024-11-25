@@ -16,8 +16,10 @@ public interface ProfileFactory {
      *            must be greater than 0
      * @param answers the answers of the user
      * @param weights the weights of the answers by sections for the user
+     * @param contactInfo the contact information of the user
+     * @param contactMethod the contact method of the user
      * @return the new profile object
      */
 
-    CommonProfile create(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights);
+    CommonProfile create(String name, String gender, String SexualOrientation, int age, Map<String, List<String>> answers, Map<String, Integer> weights, String contactInfo, String contactMethod);
 }

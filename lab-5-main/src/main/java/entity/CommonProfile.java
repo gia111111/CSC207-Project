@@ -11,16 +11,20 @@ public class CommonProfile implements Profile {
     private final String gender;
     private final String SexualOrientation;
     private final int age;
-    private final List<List<String>> answers;
+    private final Map<String, List<String>> answers;
     private final Map<String, Integer> weights;
+    private final String contactInfo;
+    private final String contactMethod;
 
-    public CommonProfile(String name, String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights) {
+    public CommonProfile(String name, String gender, String SexualOrientation, int age, Map<String, List<String>> answers, Map<String, Integer> weights, String contactInfo, String contactMethod) {
         this.name = name;
         this.gender = gender;
         this.SexualOrientation = SexualOrientation;
         this.age = age;
         this.answers = answers;
         this.weights = weights;
+        this.contactInfo = contactInfo;
+        this.contactMethod = contactMethod;
     }
 
     @Override
@@ -36,8 +40,14 @@ public class CommonProfile implements Profile {
     public int getAge() { return age; }
 
     @Override
-    public List<List<String>> getAnswer() { return answers; }
+    public Map<String, List<String>> getAnswer() { return answers; }
 
     @Override
     public Map<String, Integer> getWeights() { return weights; }
+
+    @Override
+    public String getContactInfo() { return contactInfo; }
+
+    @Override
+    public String getContactMethod() { return contactMethod; }
 }

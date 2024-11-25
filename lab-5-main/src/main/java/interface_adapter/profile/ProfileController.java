@@ -31,7 +31,7 @@ public class ProfileController {
      * @param answers the answers to the questions
      * @param weights the weights of the answers
      */
-    public void execute(String gender, String sexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights, String contactMethod, String contactInfo) {
+    public void execute(String gender, String sexualOrientation, int age, Map<String, List<String>> answers, Map<String, Integer> weights, String contactMethod, String contactInfo) {
         final CreateProfileInputData createProfileInputData = new CreateProfileInputData(gender, sexualOrientation, age, answers, weights, contactMethod, contactInfo, remoteDataAccessObject);
         userCreateProfileUseCaseInteractor.execute(createProfileInputData);
 

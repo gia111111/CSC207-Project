@@ -36,11 +36,24 @@ public interface Profile {
      * Returns the answers of the user.
      * @return the answers of the user by sections.
      */
-    List<List<String>> getAnswer();
+    Map<String, List<String>> getAnswer();
 
     /**
      * Returns the weights of the answers by sections for the user.
      * @return the weights of the answers by sections for the user.
      */
     Map<String, Integer> getWeights();
+
+    /**
+     * Returns the contact information of the user.
+     * @return the contact information of the user.
+     */
+    String getContactInfo();
+
+    /**
+     * Returns the contact method of the user.
+     * @return the contact method of the user.
+     */
+    String getContactMethod();
+
 }

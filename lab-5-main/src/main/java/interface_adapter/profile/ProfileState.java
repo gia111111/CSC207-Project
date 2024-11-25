@@ -3,7 +3,6 @@ package interface_adapter.profile;
 import data_access.InMemoryUserDataAccessObject;
 import data_access.RemoteDataAccessObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +16,7 @@ public class ProfileState {
     private String gender = "";
     private String sexualOrientation = "";
     private int ageValue = 0;
-    private List<List<String>> sectionAnswers = new ArrayList<>(List.of(new ArrayList<>(), new ArrayList<>(),
-            new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+    private Map<String, List<String>> sectionAnswers = new HashMap<>();
     private Map<String, Integer> sectionWeights = new HashMap<>();
     private String contactMethod = "";
     private String contactInfo = "";
@@ -40,7 +38,7 @@ public class ProfileState {
         return ageValue;
     }
 
-    public List<List<String>> getSectionAnswers() {
+    public Map<String, List<String>> getSectionAnswers() {
         return sectionAnswers;
     }
 
@@ -74,7 +72,7 @@ public class ProfileState {
         this.ageValue = ageValue;
     }
 
-    public void setSectionAnswers(List<List<String>> sectionAnswers) {
+    public void setSectionAnswers(Map<String, List<String>> sectionAnswers) {
         this.sectionAnswers = sectionAnswers;
     }
 

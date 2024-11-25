@@ -15,14 +15,14 @@ public class CreateProfileInputData {
     private final String gender;
     private final String sexualOrientation;
     private final int age;
-    private final List<List<String>> answers;
+    private final Map<String, List<String>> answers;
     private final Map<String, Integer> weights;
     private final String contactMethod;
     private final String contactInfo;
     private final RemoteDataAccessObject dataAccessObject;
 
 
-    public CreateProfileInputData(String gender, String SexualOrientation, int age, List<List<String>> answers, Map<String, Integer> weights, String contactMethod, String contactInfo, RemoteDataAccessObject dataAccessObject) {
+    public CreateProfileInputData(String gender, String SexualOrientation, int age, Map<String, List<String>> answers, Map<String, Integer> weights, String contactMethod, String contactInfo, RemoteDataAccessObject dataAccessObject) {
         this.name = dataAccessObject.getCurrentUsername();
         this.gender = gender;
         this.sexualOrientation = SexualOrientation;
@@ -45,7 +45,7 @@ public class CreateProfileInputData {
 
     public Map<String, Integer> getWeights() { return weights; }
 
-    public List<List<String>> getAnswers() { return answers;}
+    public Map<String, List<String>> getAnswers() { return answers;}
 
     public String getContactMethod() {return contactMethod;}
 

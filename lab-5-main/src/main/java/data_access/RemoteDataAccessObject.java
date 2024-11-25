@@ -39,8 +39,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     private String gender;
     private String sexualOrientation;
     private int age;
-    private List<List<String>> sectionAnswers = new ArrayList<>(List.of(new ArrayList<>(), new ArrayList<>(),
-            new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+    private Map<String, List<String>> sectionAnswers = new HashMap<>();
     private Map<String, Integer> sectionWeights = new HashMap<>();
     private String contactMethod;
     private String contactInfo;
@@ -123,7 +122,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     }
 
     @Override
-    public void setSectionAnswers(List<List<String>> sectionAnswers) {
+    public void setSectionAnswers(Map<String, List<String>> sectionAnswers) {
         this.sectionAnswers = sectionAnswers;
     }
 
@@ -148,7 +147,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     }
 
     @Override
-    public List<List<String>> getSectionAnswers() {
+    public Map<String, List<String>> getSectionAnswers() {
         return this.sectionAnswers;
     }
 

@@ -24,7 +24,7 @@ public interface CreateProfileDataAccessInterface {
 
     void setAgeValue(int age);
 
-   void setSectionAnswers(List<List<String>> sectionAnswers);
+   void setSectionAnswers(Map<String, List<String>> sectionAnswers);
 
     void setSectionWeights(Map<String, Integer> sectionWeights);
 
@@ -34,7 +34,7 @@ public interface CreateProfileDataAccessInterface {
 
     int getAgeValue();
 
-    List<List<String>> getSectionAnswers();
+    Map<String, List<String>> getSectionAnswers();
 
     Map<String, Integer> getSectionWeights();
 
