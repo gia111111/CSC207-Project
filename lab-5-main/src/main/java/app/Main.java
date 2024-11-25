@@ -2,6 +2,8 @@ package app;
 
 import data_access.RemoteDataAccessObject;
 
+import javax.swing.*;
+import mdlaf.MaterialLookAndFeel;
 import javax.swing.JFrame;
 import java.io.IOException;
 
@@ -14,26 +16,38 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) throws IOException {
-        final AppBuilder appBuilder = new AppBuilder();
-        // TODO: add the Logout Use Case to the app using the appBuilder
-        final JFrame application = appBuilder
-                .addHomePageView()
-                                            .addLoginView()
-                                            .addSignupView()
-                                            .addLoggedInView()
-                .addProfileView()
-                .addDashboardView()
-                                            .addSignupUseCase()
-                                            .addLoginUseCase()
-                                            .addChangePasswordUseCase()
-                                            .addProfileUseCase()
-                                            .addHomePageUseCase()
-                                            .addLogoutUseCase()
-                .addProfileUseCase()
-                                            .build();
+        try {
+            // Set Material Look-and-Feel
+            UIManager.setLookAndFeel(new mdlaf.MaterialLookAndFeel());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                // Use AppBuilder to construct the application
+                AppBuilder appBuilder = new AppBuilder();
+                JFrame application = appBuilder
+                        .addHomePageView()
+                        .addLoginView()
+                        .addSignupView()
+                        .addLoggedInView()
+                        .addProfileView()
+                        .addDashboardView()
+                        .addSignupUseCase()
+                        .addLoginUseCase()
+                        .addChangePasswordUseCase()
+                        .addProfileUseCase()
+                        .addHomePageUseCase()
+                        .addLogoutUseCase()
+                        .addMatchView()
+                        .build();
 
-
-        application.pack();
-        application.setVisible(true);
+                // Launch the application
+                application.pack();
+                application.setVisible(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

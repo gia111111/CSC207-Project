@@ -1,10 +1,8 @@
 package view;
 
 import entity.Matches;
-import entity.Requests;
-import interface_adapter.matches.MatchesViewModel;
+import interface_adapter.dashboard.DashBoardController;
 import interface_adapter.matches.MatchesController;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,67 +13,52 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 public class MatchesView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "matches";
-    private final MatchesViewModel matchesViewModel;
-    private final MatchesController matchesController;
-    private final List<Matches> matchess;
-    private final JButton back;
+    private final Matches matches;
+    private final MatchesController controller;
+    private final JList<String> matchList;
+    private final JButton backButton;
 
-    public MatchesView(MatchesController matchesControllerr, MatchesViewModel matchesViewModel, List<Matches> matches){
-            this.matchesViewModel = matchesViewModel;
-            this.matchesController = matchesControllerr;
-            this.matchess = matches;
-            this.matchesViewModel.addPropertyChangeListener(this);
-            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    public MatchesView(Matches matches, MatchesController controller) {
+        this.matches = matches;
+        this.controller = controller;
 
-            final JLabel title = new JLabel("Matches");
-            title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Set layout and background
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
 
-            this.add(title);
+        // Display match data in a list
+        matchList = new JList<>(convertMatchesToArray(matches));
+        matchList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scrollPane = new JScrollPane(matchList);
 
-            for(int i = 1; i <= matchess.size(); i++) {
-                final JPanel match = new JPanel();
-                Matches matchi = matches.get(i);
-                JLabel username = new JLabel(matchi.getName());
-                JLabel contactMethod = new JLabel(String.valueOf(matchi.getContactMethod()));
-                JLabel contactInfo = new JLabel(String.valueOf(matchi.getContactInfo()));
-                match.add(username);
-                match.add(contactMethod);
-                match.add(contactInfo);
-                match.setLayout(new BoxLayout(match,BoxLayout.X_AXIS));
-                this.add(match);
-            }
+        add(scrollPane, BorderLayout.CENTER);
 
-            back = new JButton(matchesViewModel.BACK_BUTTON_LABEL);
-            this.add(back);
-            // Add action listener for the "View profile" button
+        // Add back button
+        backButton = new JButton("Back to Dashboard");
+        backButton.addActionListener(e -> controller.switchToDashboard());
+        add(backButton, BorderLayout.SOUTH);
+    }
 
+    private String[] convertMatchesToArray(Matches matches) {
+        return matches.getMatches().entrySet().stream()
+                .map(entry -> entry.getKey() + " (" + entry.getValue().get(0) + ": " + entry.getValue().get(1) + ")")
+                .toArray(String[]::new);
+    }
 
-
-            // Add action listener for the "back" button
-            back.addActionListener(e -> {
-                if (matchesController != null) {
-                    matchesController.switchToDashboard();
-                }
-            });
-
-        }
-
-
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-
-        @Override
-        public void propertyChange(PropertyChangeEvent evt) {
-
-        }
-
-        public String getViewName() {
-            return viewName;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if ("back".equals(e.getActionCommand())) {
+            // Navigate back to the dashboard
+            controller.switchToDashboard();
         }
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("matchesUpdated".equals(evt.getPropertyName())) {
+            // Update the match list dynamically when matches are updated
+            matchList.setListData(convertMatchesToArray(matches));
+        }
+    }
+}
 

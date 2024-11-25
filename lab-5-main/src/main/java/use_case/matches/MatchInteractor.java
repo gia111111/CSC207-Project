@@ -1,37 +1,56 @@
 package use_case.matches;
 
 import use_case.requests.RequestsInputBoundary;
-import use_case.requests.RequestsOutputData;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MatchInteractor implements MatchInputBoundary {
     private final MatchDataAccessInterface matchDataAccess;
     private final MatchOutputBoundary presenter;
-    private final RequestsInputBoundary requestsInteractor;
+    //private final RequestsInputBoundary requestsInteractor;
 
     public MatchInteractor(MatchDataAccessInterface matchDataAccess,
                            MatchOutputBoundary presenter,
                            RequestsInputBoundary requestsInteractor) {
         this.matchDataAccess = matchDataAccess;
         this.presenter = presenter;
-        this.requestsInteractor = requestsInteractor;
+        //this.requestsInteractor = requestsInteractor;
     }
 
     @Override
     public void saveMatch(MatchInputData inputData) {
-        // Evaluate the request before saving the match
-        RequestsOutputData requestEvaluation = requestsInteractor.evaluateRequest(inputData.getUsername(), inputData.getMatchName());
+        HashMap<String, List<String>> matches = inputData.getMatches();
 
-        if (requestEvaluation.isValid()) {
-            // Save the match if the request is valid
-            matchDataAccess.saveMatch(inputData.getUsername(), inputData.getMatchName(), inputData.getContactInfo());
+        for (Map.Entry<String, List<String>> entry : matches.entrySet()) {
+            String matchName = entry.getKey();
+            List<String> contactInfo = entry.getValue();
 
-            // Notify the presenter of success
-            MatchOutputData outputData = new MatchOutputData(inputData.getUsername(), inputData.getMatchName(), true);
-            presenter.presentMatchSaved(outputData);
-        } else {
-            // Notify the presenter of failure
-            MatchOutputData outputData = new MatchOutputData(inputData.getUsername(), inputData.getMatchName(), false);
-            presenter.presentMatchSaved(outputData);
+            // Save match for each entry
+            matchDataAccess.saveMatch(inputData.getUsername(), matchName, contactInfo);
         }
+
+        // Return success output to the presenter
+        MatchOutputData outputData = new MatchOutputData(
+                inputData.getUsername(),
+                matches,
+                true,
+                "Matches saved successfully."
+        );
+        presenter.presentMatchOutput(outputData);
+    }
+    @Override
+    public MatchOutputData getMatches(String username) {
+        HashMap<String, List<String>> matches = matchDataAccess.getMatches(username);
+
+        MatchOutputData outputData = new MatchOutputData(
+                username,
+                matches,
+                true,
+                "Matches retrieved successfully."
+        );
+        presenter.presentMatchOutput(outputData);
+        return outputData;
     }
 }
