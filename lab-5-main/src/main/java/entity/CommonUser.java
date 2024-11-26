@@ -6,7 +6,7 @@ package entity;
 public class CommonUser implements User {
 
     private final String name;
-    private final String password;
+    private String password;
     private final String securityCode;
 
     public CommonUser(String name, String password, String securityCode) {
@@ -27,4 +27,9 @@ public class CommonUser implements User {
 
     @Override
     public String getSecurityWord() { return securityCode; }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
