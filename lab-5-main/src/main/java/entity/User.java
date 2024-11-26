@@ -23,4 +23,8 @@ public interface User {
      */
     String getSecurityWord();
 
+    void setPassword(String password);
+
+
+
 }
