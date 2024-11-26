@@ -34,7 +34,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 //    private ChangePasswordController changePasswordController2;
     private LogoutController logoutController;
 
-    private final JButton logOut;
+    private final JButton back;
 
     private final JTextField usernameInputField = new JTextField(15);
     private final JTextField passwordInputField1 = new JTextField(15);
@@ -63,10 +63,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         // username = new JLabel();
 
         final JPanel buttons = new JPanel();
-        logOut = new JButton("Log Out");
-        buttons.add(logOut);
+        back = new JButton("cancel");
+        buttons.add(back);
 
-        changePassword = new JButton("Change Password");
+        changePassword = new JButton("change password");
         buttons.add(changePassword);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -180,19 +180,26 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         );
 
 
-        logOut.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(logOut)) {
-                        // TODO: execute the logout use case through the Controller
-                        // 1. get the state out of the loggedInViewModel. It contains the username.
-                        // 2. Execute the logout Controller.
-                        final LoggedInState currentState = loggedInViewModel.getState();
-                        this.logoutController.execute(currentState.getUsername());
-                        //changePasswordController.switchToHomePageView();
-                    }
-                }
-        );
+//        back.addActionListener(
+//                // This creates an anonymous subclass of ActionListener and instantiates it.
+//                evt -> {
+//                    if (evt.getSource().equals(back)) {
+//                        // TODO: execute the logout use case through the Controller
+//                        // 1. get the state out of the loggedInViewModel. It contains the username.
+//                        // 2. Execute the logout Controller.
+//                        final LoggedInState currentState = loggedInViewModel.getState();
+//                        this.logoutController.execute(currentState.getUsername());
+//                        //changePasswordController.switchToHomePageView();
+//                    }
+//                }
+//        );
+
+
+        back.addActionListener(e -> {
+            if (changePasswordController != null) {
+                changePasswordController.handleCancel();
+            }
+        });
 
         addUsernameListener();
         addPasswordListener();

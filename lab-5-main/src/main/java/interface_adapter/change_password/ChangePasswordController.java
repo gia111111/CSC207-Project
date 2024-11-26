@@ -43,4 +43,12 @@ public class ChangePasswordController {
         viewManagerModel.setState("log in");
         viewManagerModel.firePropertyChanged();
     }
+
+    /**
+     * Handles the Cancel action to switch back to the homepage.
+     */
+    public void handleCancel() {
+        viewManagerModel.setState("home");
+        viewManagerModel.firePropertyChanged();
+    }
 }
