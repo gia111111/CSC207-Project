@@ -14,6 +14,9 @@ import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.dashboard.DashBoardController;
 import interface_adapter.dashboard.DashBoardViewModel;
+import interface_adapter.find.FindProfilesController;
+import interface_adapter.find.FindProfilesPresenter;
+import interface_adapter.find.FindViewModel;
 import interface_adapter.home.HomePageController;
 import interface_adapter.home.HomePagePresenter;
 import interface_adapter.home.HomePageViewModel;
@@ -35,6 +38,7 @@ import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.createProfile.CreateProfileInputBoundary;
 import use_case.createProfile.CreateProfileInteractor;
 import use_case.createProfile.CreateProfileOutputBoundary;
+import use_case.find.*;
 import use_case.home.HomeInputBoundary;
 import use_case.home.HomeInteractor;
 import use_case.home.HomeOutputBoundary;
@@ -86,6 +90,8 @@ public class AppBuilder {
     private ProfileView profileView;
     private DashBoardViewModel dashBoardViewModel;
     private DashBoardView dashBoardView;
+    private FindViewModel findViewModel;
+    private FindView findView;
 
 
     private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
@@ -94,6 +100,7 @@ public class AppBuilder {
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
     private MatchInputBoundary matchInputBoundary;
     private MatchesController matchesController = new MatchesController(viewManagerModel, matchInputBoundary);
+    //private FindProfilesController findProfilesController = new FindProfilesController();
 
     public AppBuilder() throws IOException {
         cardPanel.setLayout(cardLayout);
@@ -258,6 +265,22 @@ public class AppBuilder {
 
         final ProfileController profileController = new ProfileController(userCreateProfileInteractor, viewManagerModel, remoteDataAccessObject);
         profileView.setProfileController(profileController);
+        return this;
+    }
+
+    public AppBuilder addFindView() {
+        // Initialize the FindViewModel
+        FindUserDataAccessInterface dataAccess = remoteDataAccessObject;
+        final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
+        final FindProfilesOutputBoundary outputBoundary = new FindProfilesPresenter();
+        final FindProfilesInteractor findProfilesInteractor = new FindProfilesInteractor(dataAccess,
+                compatibilityAlgorithm,
+                outputBoundary);
+        //final FindProfilesInputBoundary findInteractor = new FindProfilesInteractor(dataAccess,compatibilityAlgorithm, outputBoundary);
+        findViewModel = new FindViewModel();
+        FindProfilesController findProfilesController = new FindProfilesController(findProfilesInteractor, viewManagerModel);
+        findView = new FindView(findViewModel, findProfilesController);
+        cardPanel.add(findView, findView.getViewName());
         return this;
     }
 

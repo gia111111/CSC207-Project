@@ -1,4 +1,4 @@
-package use_case.Find;
+package use_case.find;
 
 import entity.Profile;
 
@@ -41,7 +41,7 @@ public class BasicCompatibilityAlgorithm implements CompatibilityAlgorithm {
         Map<String, Map<String, Integer>> similarityMatrix = Map.of(
                 "A", Map.of("A", 5, "B", 4, "C", 3, "D", 2, "E", 1),
                 "B", Map.of("A", 4, "B", 5, "C", 4, "D", 3, "E", 2),
-                "C", Map.of("A", 3, "B", 4, "C", 5, "D", 4, "E", 3),
+                "C", Map.of("A", 3, "B", 4, "C", 5, "D", 4, "E", 3)
                 // Add mappings for "D" and "E"...
         );
 
@@ -55,8 +55,8 @@ public class BasicCompatibilityAlgorithm implements CompatibilityAlgorithm {
 
         for (int section = 1; section <= 5; section++) {
             for (int question = 1; question <= 5; question++) {
-                String userChoice = currentUserProfile.getAnswer(section, question);
-                String profileChoice = otherProfile.getAnswer(section, question);
+                String userChoice = currentUser.getAnswer().toString();
+                String profileChoice = otherUser.getAnswer().toString();
 
                 QuestionType questionType = questionTypes.get((section - 1) * 5 + question);
 
@@ -90,8 +90,8 @@ public class BasicCompatibilityAlgorithm implements CompatibilityAlgorithm {
             double sectionWeight = sectionWeights.getOrDefault(section, 1.0); // Default weight is 1.0
 
             for (int question = 1; question <= 5; question++) {
-                String userChoice = currentUserProfile.getAnswer(section, question).toString();
-                String profileChoice = otherProfile.getAnswer(section, question).toString();
+                String userChoice = currentUserProfile.getAnswer().toString();
+                String profileChoice = otherProfile.getAnswer().toString();
 
                 QuestionType questionType = questionTypes.get((section - 1) * 5 + question);
 

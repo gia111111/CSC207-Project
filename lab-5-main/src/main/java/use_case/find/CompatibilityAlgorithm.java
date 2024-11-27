@@ -1,4 +1,4 @@
-package use_case.Find;
+package use_case.find;
 
 import entity.Profile;
 

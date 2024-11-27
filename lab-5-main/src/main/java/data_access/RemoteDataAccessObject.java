@@ -1,6 +1,5 @@
 package data_access;
 
-import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
@@ -8,14 +7,13 @@ import com.google.firebase.FirebaseOptions;
 
 import com.google.firebase.cloud.FirestoreClient;
 import entity.*;
-import use_case.Find.FindUserDataAccessInterface;
+import use_case.find.FindUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.createProfile.CreateProfileDataAccessInterface;
 import use_case.editprofile.EditProfileInputData;
 import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.matches.MatchDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
