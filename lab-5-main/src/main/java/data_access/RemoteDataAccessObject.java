@@ -1,15 +1,12 @@
 package data_access;
 
-import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
 import com.google.firebase.cloud.FirestoreClient;
-import entity.CommonProfile;
 import entity.CommonUser;
-import entity.Matches;
 import entity.Profile;
 import entity.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
@@ -24,11 +21,11 @@ import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
@@ -309,6 +306,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     @Override
     public HashMap<String, Boolean> getRequests(String username){
         HashMap<String, Boolean> requestsMap = new HashMap<>();
+//        Boolean check = false;
         String collectionPath = "finds"; // Replace with your Firestore collection path
 
         try {
@@ -319,8 +317,22 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
                     for (Map.Entry<String, Boolean> entry : map.entrySet()) {
                         String key = entry.getKey();
                         Boolean value = entry.getValue();
-                        if (key == username && value) {
-                            requestsMap.put(document.getId(), null);
+                        DocumentReference docRef = db.collection("requests").document(username);
+                        try {
+                            DocumentSnapshot document2 = docRef.get().get();
+                            Map<String, Boolean> map2 = (Map<String, Boolean>) document2.get("requests");
+                            for (Map.Entry<String, Boolean> entry2 : map2.entrySet()) {
+                                String key2 = entry2.getKey();
+                                Boolean value2 = entry2.getValue();
+                                if (key2 == document.getId() && value2 == null){
+//                                    check = true;
+                                    if (key == username && value) {
+                                        requestsMap.put(document.getId(), null);
+                                    }
+                                }
+                            }
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
