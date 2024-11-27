@@ -1,83 +1,141 @@
-//package view;
-//
-//import entity.Requests;
-//import interface_adapter.dashboard.DashBoardViewModel;
-//import interface_adapter.profile.ProfileController;
-//import interface_adapter.profile.ProfileViewModel;
-//import interface_adapter.requests.RequestsController;
-//import interface_adapter.requests.RequestsViewModel;
-//
-//import javax.swing.*;
-//import java.awt.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import java.beans.PropertyChangeEvent;
-//import java.beans.PropertyChangeListener;
-//import java.util.List;
-//
-//public class RequestsView extends JPanel implements ActionListener, PropertyChangeListener{
-//    private final String viewName = "requests";
-//    private final RequestsViewModel requestsViewModel;
-//    private final RequestsController requestController;
-//    private final List<Requests> requests;
-//    private JButton viewProfile;
-//    private final JButton back;
-//
-//    public RequestsView(RequestsController requestController, RequestsViewModel requestsViewModel, List<Requests> requests){
-//        this.requestsViewModel = requestsViewModel;
-//        this.requestController = requestController;
-//        this.requests =requests;
-//        this.requestsViewModel.addPropertyChangeListener(this);
-//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-//
-//        final JLabel title = new JLabel("Requests");
-//        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-//
-//        this.add(title);
-//
-//        for(int i = 1; i <= requests.size(); i++) {
-//            final JPanel request = new JPanel();
-//            Requests requesti = requests.get(i);
-//            JLabel username = new JLabel(requesti.getName());
-//            JLabel score = new JLabel(String.valueOf(requesti.getScores()));
-//            JLabel status = new JLabel(String.valueOf(requesti.getStatus()));
-//            viewProfile = new JButton(requestsViewModel.VIEW_PROFILE_BUTTON_LABEL);
-//            request.add(username);
-//            request.add(score);
-//            request.add(status);
-//            request.add(viewProfile);
-//            request.setLayout(new BoxLayout(request,BoxLayout.X_AXIS));
-//            this.add(request);
-//        }
-//
-//        back = new JButton(requestsViewModel.BACK_BUTTON_LABEL);
-//        this.add(back);
-//        // Add action listener for the "View profile" button
-//
-//
-//
-//        // Add action listener for the "back" button
-//        back.addActionListener(e -> {
-//            if (requestController != null) {
-//                requestController.switchToDashboard();
-//            }
-//        });
-//
-//    }
-//
-//
-//
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//
-//    }
-//
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//
-//    }
-//
-//    public String getViewName() {
-//        return viewName;
-//    }
-//}
+package view;
+
+import data_access.RemoteDataAccessObject;
+import entity.Requests;
+import interface_adapter.dashboard.DashBoardViewModel;
+import interface_adapter.home.HomePageState;
+import interface_adapter.profile.ProfileController;
+import interface_adapter.profile.ProfileState;
+import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.requests.RequestsController;
+import interface_adapter.requests.RequestsState;
+import interface_adapter.requests.RequestsViewModel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class RequestsView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final String viewName = "requests";
+    private final RequestsViewModel requestsViewModel;
+    private RequestsController requestController;
+    private final RemoteDataAccessObject remoteDataAccessObject;
+    private final JButton back;
+
+    public RequestsView(RequestsViewModel requestsViewModel,RemoteDataAccessObject remoteDataAccessObject) {
+        this.requestsViewModel = requestsViewModel;
+//        this.remoteDataAccessObject = remoteDataAccessObject;
+        this.requestsViewModel.addPropertyChangeListener(this);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.remoteDataAccessObject = remoteDataAccessObject;
+        RequestsState currentState = requestsViewModel.getState();
+
+        // Add title
+        final JLabel title = new JLabel("Requests");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
+
+        HashMap<String, Boolean> requests = remoteDataAccessObject.getRequests(currentState.getUsername());
+        List<Map.Entry<String, Boolean>> entryList = new ArrayList<>(requests.entrySet());
+
+
+        final JPanel allRequestsPanel = new JPanel();
+
+
+
+        for(int i = 1; i <= requests.size(); i++) {
+            final JPanel cuurentRequest = new JPanel();
+            Map.Entry<String, Boolean> entry = entryList.get(i);
+            String partnername = entry.getKey();
+            JLabel userNameLabel = new JLabel(partnername);
+//          JLabel score = new JLabel(String.valueOf(requesti.getScores()));
+            cuurentRequest.add(userNameLabel);
+//          curentRequest.add(score);
+            JButton acceptButton = new JButton("accept");
+            JButton rejectButton = new JButton("reject");
+            cuurentRequest.add(acceptButton);
+            cuurentRequest.add(rejectButton);
+            cuurentRequest.setLayout(new BoxLayout(cuurentRequest,BoxLayout.X_AXIS));
+
+            acceptButton.addActionListener(
+                    new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (evt.getSource().equals(acceptButton)) {
+
+                                final RequestsState currentState = requestsViewModel.getState();
+
+                                requestController.accept(currentState.getUsername(),partnername);
+                                requests.replace(partnername, true);
+
+                            }
+                        }
+                    }
+            );
+
+            rejectButton.addActionListener(
+                    new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if (evt.getSource().equals(rejectButton)) {
+
+                                final RequestsState currentState = requestsViewModel.getState();
+                                requests.replace(partnername, false);
+
+
+//                                requestController.reject(currentState.getUsername(),currentState.getFinds());
+                            }
+                        }
+                    }
+            );
+
+
+
+            allRequestsPanel.add(cuurentRequest);
+        }
+
+        this.add(allRequestsPanel);
+
+
+
+        back = new JButton(requestsViewModel.BACK_BUTTON_LABEL);
+        this.add(back);
+
+        // Add action listener for the "back" button
+        back.addActionListener(e -> {
+            if (requestController != null) {
+                requestController.switchToDashboard();
+            }
+        });
+
+
+    }
+
+
+    public String getViewName() {
+        return viewName;
+        }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        RequestsState state = (RequestsState) evt.getNewValue();
+        if (state.getErrorMessage() != null) {
+            JOptionPane.showMessageDialog(this, state.getErrorMessage());
+        }
+    }
+
+    public void setRequestsController(RequestsController requestsController){
+        this.requestController = requestsController;
+
+    }
+}

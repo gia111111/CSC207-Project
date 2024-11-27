@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class Requests {
     private HashMap<String, Boolean> requests;
 
+
     public Requests(HashMap<String, Boolean> requests) {
         this.requests = requests;
     }

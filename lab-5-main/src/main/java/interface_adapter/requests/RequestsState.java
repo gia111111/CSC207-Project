@@ -1,17 +1,33 @@
 package interface_adapter.requests;
 
+import java.util.HashMap;
+
 public class RequestsState {
-    private String currentState;
+    private String username = "";
+    HashMap<String, Boolean> finds = new HashMap<>();
+    private String errorMessage;
 
-    public RequestsState() {
-        this.currentState = "";
+//    public RequestsState() {
+//        this.currentState = "";
+//    }
+
+    public String getUsername(){
+        return username;
     }
 
-    public String getCurrentState(){
-        return currentState;
+    public void setUsername(String usename){
+        this.username = usename;
     }
 
-    public void setCurrentState(String currentState) {
-        this.currentState = currentState;
+    public HashMap<String, Boolean> getFinds() {
+        return finds;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }
