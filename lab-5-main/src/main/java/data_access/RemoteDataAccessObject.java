@@ -19,6 +19,7 @@ import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.matches.MatchDataAccessInterface;
+import use_case.requests.RequestsDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
@@ -35,7 +36,8 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         CreateProfileDataAccessInterface,
         EditProfileUserDataAccessInterface,
         MatchDataAccessInterface,
-        LogoutUserDataAccessInterface {
+        LogoutUserDataAccessInterface,
+        RequestsDataAccessInterface {
 
     private final Firestore db;
     private String currentUsername;
@@ -48,7 +50,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     private String contactInfo;
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
+        FileInputStream serviceAccount = new FileInputStream("/Users/abigail/IdeaProjects/CSC207-Project/lab-5-main/src/credential.json");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
@@ -247,7 +249,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     }
 
     @Override
-    public void saveMatch(String username, Matches matches) {
+    public void saveMatch(String username, String matchName, List<String> contactInfo) {
         DocumentReference docRef = db.collection("matches").document(username);
 
         try {
@@ -303,4 +305,54 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 
         return false;
     }
+
+    @Override
+    public HashMap<String, Boolean> getRequests(String username){
+        HashMap<String, Boolean> requestsMap = new HashMap<>();
+        String collectionPath = "finds"; // Replace with your Firestore collection path
+
+        try {
+            QuerySnapshot querySnapshot = db.collection(collectionPath).get().get(); // Blocks until the result is available
+            querySnapshot.getDocuments().forEach(document -> {
+                if (document.getId() != username) {
+                    Map<String, Boolean> map = (Map<String, Boolean>) document.get("finds");
+                    for (Map.Entry<String, Boolean> entry : map.entrySet()) {
+                        String key = entry.getKey();
+                        Boolean value = entry.getValue();
+                        if (key == username && value) {
+                            requestsMap.put(document.getId(), null);
+                        }
+                    }
+                }
+            });
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return requestsMap;
+    }
+
+
+    /**
+     * Update the status of the request, after accept or reject.
+     */
+    @Override
+    public void updateSatus(String myName, String partnerName, Boolean requestAccpeted) {
+        // Specify the document and the field where the HashMap is stored
+        String collectionPath = "requests";
+        String documentId = myName;
+        String hashMapField = "requests";
+        String keyToUpdate = partnerName; // Key inside the HashMap
+        Object newValue = requestAccpeted; // New value for the key
+
+        // Use the dot notation to specify the key inside the HashMap
+        String fieldToUpdate = hashMapField + "." + keyToUpdate;
+
+        // Update the value in the HashMap
+        db.collection(collectionPath)
+                .document(documentId)
+                .update(fieldToUpdate, newValue);
+        }
 }
+
+
+

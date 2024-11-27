@@ -72,7 +72,7 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
                                 final RequestsState currentState = requestsViewModel.getState();
 
                                 requestController.accept(currentState.getUsername(),partnername);
-                                requests.replace(partnername, true);
+                                // requests.replace(partnername, true);
 
                             }
                         }
@@ -85,10 +85,9 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
                             if (evt.getSource().equals(rejectButton)) {
 
                                 final RequestsState currentState = requestsViewModel.getState();
-                                requests.replace(partnername, false);
+                                // requests.replace(partnername, false);
+                                requestController.reject(currentState.getUsername(), partnername);
 
-
-//                                requestController.reject(currentState.getUsername(),currentState.getFinds());
                             }
                         }
                     }

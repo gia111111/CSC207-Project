@@ -29,10 +29,10 @@ public class RequestsController {
 
     }
 
-//    public void reject(String username, HashMap<String, Boolean> finds){
-//        final RequestsInputData requestsInputData = new RequestsInputData(username,finds);
-//        requestsInputBoundary.reject(requestsInputData);
-//
-//    }
+    public void reject(String myname, String partnerName){
+        final RequestsInputData requestsInputData = new RequestsInputData(myname,partnerName);
+        requestsInputBoundary.reject(requestsInputData);
+
+    }
 
 }

@@ -24,12 +24,26 @@ public class RequestsInteractor implements RequestsInputBoundary {
         String myName = inputData.getMyName();
         String partnerName = inputData.getPartnerName();
 
-        dataAccessInterface.saveMatches(myName, partnerName);
+        // dataAccessInterface.saveMatches(myName, partnerName);
+        dataAccessInterface.updateSatus(myName, partnerName, true);
 
         final RequestsOutputData requestsOutputData = new RequestsOutputData(myName, partnerName, false);
         userPresenter.prepareSuccessView(requestsOutputData);
 
 //        final SignupOutputData signupOutputData = new SignupOutputData(user.getName(), false);
 //        userPresenter.prepareSuccessView(signupOutputData);
+    }
+
+    @Override
+    public void reject(RequestsInputData requestsInputData) {
+        String myName = requestsInputData.getMyName();
+        String partnerName = requestsInputData.getPartnerName();
+
+        dataAccessInterface.updateSatus(myName, partnerName, false);
+
+        final RequestsOutputData requestsOutputData = new RequestsOutputData(myName, partnerName, false);
+        userPresenter.prepareSuccessView(requestsOutputData);
+
+
     }
 }
