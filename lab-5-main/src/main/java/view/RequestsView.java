@@ -1,12 +1,7 @@
 package view;
 
 import data_access.RemoteDataAccessObject;
-import entity.Requests;
-import interface_adapter.dashboard.DashBoardViewModel;
-import interface_adapter.home.HomePageState;
-import interface_adapter.profile.ProfileController;
-import interface_adapter.profile.ProfileState;
-import interface_adapter.profile.ProfileViewModel;
+import entity.Profile;
 import interface_adapter.requests.RequestsController;
 import interface_adapter.requests.RequestsState;
 import interface_adapter.requests.RequestsViewModel;
@@ -26,15 +21,13 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
     private final String viewName = "requests";
     private final RequestsViewModel requestsViewModel;
     private RequestsController requestController;
-    private final RemoteDataAccessObject remoteDataAccessObject;
     private final JButton back;
 
-    public RequestsView(RequestsViewModel requestsViewModel,RemoteDataAccessObject remoteDataAccessObject) {
+    public RequestsView(RequestsViewModel requestsViewModel,RemoteDataAccessObject remoteDataAccessObject,
+                        BasicCompatibilityAlgorithm basicCompatibilityAlgorithm){
         this.requestsViewModel = requestsViewModel;
-//        this.remoteDataAccessObject = remoteDataAccessObject;
         this.requestsViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.remoteDataAccessObject = remoteDataAccessObject;
         RequestsState currentState = requestsViewModel.getState();
 
         // Add title
@@ -49,20 +42,22 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
         final JPanel allRequestsPanel = new JPanel();
 
 
-
         for(int i = 1; i <= requests.size(); i++) {
-            final JPanel cuurentRequest = new JPanel();
+            final JPanel curentRequest = new JPanel();
             Map.Entry<String, Boolean> entry = entryList.get(i);
             String partnername = entry.getKey();
             JLabel userNameLabel = new JLabel(partnername);
-//          JLabel score = new JLabel(String.valueOf(requesti.getScores()));
-            cuurentRequest.add(userNameLabel);
-//          curentRequest.add(score);
+            Profile myProfile = remoteDataAccessObject.getProfile(currentState.getUsername());
+            Profile partnerProfile = remoteDataAccessObject.getProfile(partnername);
+            String myScore = String.valueOf(basicCompatibilityAlgorithm.calculateScore(myProfile,partnerProfile));
+            JLabel score = new JLabel(myScore);
+            curentRequest.add(userNameLabel);
+            curentRequest.add(score);
             JButton acceptButton = new JButton("accept");
             JButton rejectButton = new JButton("reject");
-            cuurentRequest.add(acceptButton);
-            cuurentRequest.add(rejectButton);
-            cuurentRequest.setLayout(new BoxLayout(cuurentRequest,BoxLayout.X_AXIS));
+            curentRequest.add(acceptButton);
+            curentRequest.add(rejectButton);
+            curentRequest.setLayout(new BoxLayout(curentRequest,BoxLayout.X_AXIS));
 
             acceptButton.addActionListener(
                     new ActionListener() {
@@ -95,7 +90,7 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
 
 
 
-            allRequestsPanel.add(cuurentRequest);
+            allRequestsPanel.add(curentRequest);
         }
 
         this.add(allRequestsPanel);

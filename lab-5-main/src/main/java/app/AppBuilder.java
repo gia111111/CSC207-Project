@@ -80,6 +80,7 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     // private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final RemoteDataAccessObject remoteDataAccessObject = new RemoteDataAccessObject();
+    private BasicCompatibilityAlgorithm basicCompatibilityAlgorithm;
 
     private HomePageView homePageView;
     private SignupView signupView;
@@ -157,7 +158,7 @@ public class AppBuilder {
      */
     public AppBuilder addRequestsView() {
         requestsViewModel = new RequestsViewModel();
-        requestsView = new RequestsView(requestsViewModel, remoteDataAccessObject);
+        requestsView = new RequestsView(requestsViewModel, remoteDataAccessObject,basicCompatibilityAlgorithm);
         cardPanel.add(requestsView, requestsView.getViewName());
         return this;
     }
