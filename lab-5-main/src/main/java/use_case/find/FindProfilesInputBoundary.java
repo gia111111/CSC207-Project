@@ -1,5 +1,7 @@
 package use_case.find;
 
+import java.util.Map;
+
 public interface FindProfilesInputBoundary {
-    void execute(String currentUsername);
+    Map<String, Double> execute(FindProfileInputData findProfileInputData);
 }

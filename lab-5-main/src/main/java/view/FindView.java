@@ -1,7 +1,9 @@
 package view;
 
 import interface_adapter.find.FindProfilesController;
+import interface_adapter.find.FindState;
 import interface_adapter.find.FindViewModel;
+import interface_adapter.logout.LogoutController;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.utils.MaterialColors;
 
@@ -19,7 +21,7 @@ import java.util.Map;
 public class FindView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final FindViewModel findViewModel;
-    private final FindProfilesController findProfilesController;
+    private FindProfilesController findProfilesController;
     private final DefaultTableModel tableModel;
     private final JTable table;
 
@@ -82,15 +84,21 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
     private void refreshTable() {
         // Clear existing rows
         tableModel.setRowCount(0);
+        final FindState currentState = findViewModel.getState();
 
         // Populate table with data from the model
-        Map<String, Double> scores = findViewModel.getState().getScores();
+        Map<String, Double> scores = findProfilesController.findProfiles(currentState.getScores(), currentState.getActions());
         if (scores != null) {
             for (Map.Entry<String, Double> entry : scores.entrySet()) {
                 tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), "Actions"});
             }
         }
     }
+
+//    private void refreshTable() {
+//        tableModel.setRowCount(0);
+//
+//    }
 
     /**
      * Handles property change events from the view model.
@@ -116,5 +124,9 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
      */
     public String getViewName() {
         return "find";
+    }
+    public void setFindProfilesController(FindProfilesController findProfilesController) {
+        // TODO: save the logout controller in the instance variable.
+        this.findProfilesController = findProfilesController;
     }
 }

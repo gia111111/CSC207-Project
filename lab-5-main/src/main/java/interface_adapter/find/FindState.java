@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FindState {
+    private String name = "";
     private Map<String, Double> scores; // Username -> Compatibility score
     private Map<String, Boolean> actions; // Username -> Accepted/Rejected
     private String errorMessage;
@@ -15,7 +16,12 @@ public class FindState {
     }
 
     public Map<String, Double> getScores() {
-        return scores;
+//        final Map<String, Double> hello = new HashMap<>();
+//        hello.put("hello", 1.0);
+//        hello.put("world", 1.0);
+//        return hello;
+        System.out.println("Current scores: " + this.scores);
+        return this.scores;
     }
 
     public void setScores(Map<String, Double> scores) {
@@ -36,6 +42,14 @@ public class FindState {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

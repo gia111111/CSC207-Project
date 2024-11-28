@@ -226,6 +226,29 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addFindUseCase(){
+        // Initialize the compatibility algorithm
+        final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
+
+        // Initialize the output boundary (Presenter)
+        final FindProfilesOutputBoundary outputBoundary = new FindProfilesPresenter(findViewModel, viewManagerModel);
+
+        // Create the FindProfilesInteractor
+        final FindProfilesInteractor findProfilesInteractor = new FindProfilesInteractor(
+                compatibilityAlgorithm, // The data access interface
+                outputBoundary,
+                remoteDataAccessObject
+                );
+
+        // Create the controller and assign the interactor
+        final FindProfilesController findProfilesController = new FindProfilesController(findProfilesInteractor, viewManagerModel, remoteDataAccessObject);
+
+        // Assign the controller to the FindViewModel or other components if necessary
+        findView.setFindProfilesController(findProfilesController);
+
+        return this;
+    }
+
     /**
      * Adds the HomePageView to the application.
      */
@@ -269,18 +292,45 @@ public class AppBuilder {
     }
 
     public AppBuilder addFindView() {
+//        // Initialize the FindViewModel
+////        FindUserDataAccessInterface dataAccess = remoteDataAccessObject;
+//        final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
+//        final FindProfilesOutputBoundary outputBoundary = new FindProfilesPresenter(findViewModel, viewManagerModel);
+//        final FindProfilesInteractor findProfilesInteractor = new FindProfilesInteractor(
+//                compatibilityAlgorithm,
+//                outputBoundary, remoteDataAccessObject);
+//
+//        //final FindProfilesInputBoundary findInteractor = new FindProfilesInteractor(dataAccess,compatibilityAlgorithm, outputBoundary);
+//        findViewModel = new FindViewModel();
+//        FindProfilesController findProfilesController = new FindProfilesController(findProfilesInteractor, viewManagerModel, remoteDataAccessObject);
+//        findView = new FindView(findViewModel, findProfilesController);
+//        cardPanel.add(findView, findView.getViewName());
+//        return this;
         // Initialize the FindViewModel
-        FindUserDataAccessInterface dataAccess = remoteDataAccessObject;
-        final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
-        final FindProfilesOutputBoundary outputBoundary = new FindProfilesPresenter();
-        final FindProfilesInteractor findProfilesInteractor = new FindProfilesInteractor(dataAccess,
-                compatibilityAlgorithm,
-                outputBoundary);
-        //final FindProfilesInputBoundary findInteractor = new FindProfilesInteractor(dataAccess,compatibilityAlgorithm, outputBoundary);
         findViewModel = new FindViewModel();
-        FindProfilesController findProfilesController = new FindProfilesController(findProfilesInteractor, viewManagerModel);
+
+        // Initialize the compatibility algorithm
+        final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
+
+        // Initialize the output boundary (Presenter)
+        final FindProfilesOutputBoundary outputBoundary = new FindProfilesPresenter(findViewModel, viewManagerModel);
+
+        // Create the FindProfilesInteractor
+        final FindProfilesInteractor findProfilesInteractor = new FindProfilesInteractor(
+                compatibilityAlgorithm, // The data access interface
+                outputBoundary,
+                remoteDataAccessObject
+                );
+
+        // Create the controller and link it to the interactor
+        final FindProfilesController findProfilesController = new FindProfilesController(findProfilesInteractor, viewManagerModel, remoteDataAccessObject);
+
+        // Create the FindView and link it to the view model and controller
         findView = new FindView(findViewModel, findProfilesController);
+
+        // Add the FindView to the card panel or relevant UI component
         cardPanel.add(findView, findView.getViewName());
+
         return this;
     }
 

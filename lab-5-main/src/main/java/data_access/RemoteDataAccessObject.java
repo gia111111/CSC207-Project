@@ -1,5 +1,6 @@
 package data_access;
 
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
@@ -244,46 +245,98 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.update("weights", editProfileInputData.getWeights());
     }
 
+//    @Override
+//    public Profile getProfile(String username) {
+//        DocumentReference docRef = db.collection("profiles").document(username);
+//        try {
+//            DocumentSnapshot document = docRef.get().get(); // Blocking call
+//            if (document.exists()) {
+//                return mapDocumentToProfile(document);
+//            }
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//        return null; // Return null if profile not found or error occurred
+//    }
+//
+//    @Override
+//    public List<Profile> getAllProfiles() {
+//        List<Profile> profiles = new ArrayList<>();
+//        try {
+//            QuerySnapshot snapshot = db.collection("profiles").get().get(); // Blocking call
+//            for (DocumentSnapshot document : snapshot.getDocuments()) {
+//                profiles.add(mapDocumentToProfile(document));
+//            }
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//        return profiles;
+//    }
+//
+//    private Profile mapDocumentToProfile(DocumentSnapshot document) {
+//        String name = document.getString("name");
+//        String gender = document.getString("gender");
+//        String sexualOrientation = document.getString("SexualOrientation");
+//        int age = document.getLong("age").intValue();
+//        Map<String, Integer> weights = (Map<String, Integer>) document.get("weights");
+//        Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answers");
+//        String contactInfo = document.getString("contactInfo");
+//        String contactMethod = document.getString("contactMethod");
+//
+//        // Use the factory to create the profile
+//        return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
+//    }
+
+    @Override
+    public List<String> getNames() throws Exception {
+        // Reference the specified collection
+        CollectionReference collection = db.collection("profiles");
+
+        // Fetch all documents in the collection
+        ApiFuture<QuerySnapshot> future = collection.get();
+        QuerySnapshot querySnapshot = future.get();
+
+        // Extract and return document IDs
+        List<String> documentNames = new ArrayList<>();
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            documentNames.add(document.getId()); // Use document ID as username
+        }
+        System.out.println("getnames" + documentNames);
+        return documentNames;
+    }
+
     @Override
     public Profile getProfile(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username must be a non-empty string.");
+        }
+
+        // Reference the document with the given username in the "profiles" collection
         DocumentReference docRef = db.collection("profiles").document(username);
+
         try {
-            DocumentSnapshot document = docRef.get().get(); // Blocking call
+            // Fetch the document
+            DocumentSnapshot document = docRef.get().get();
+
+            // If the document exists, map its fields to a Profile object
             if (document.exists()) {
-                return mapDocumentToProfile(document);
+                String name = document.getString("name");
+                String gender = document.getString("gender");
+                String sexualOrientation = document.getString("SexualOrientation");
+                int age = document.getLong("age").intValue();
+                Map<String, Integer> weights = (Map<String, Integer>) document.get("weights");
+                Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answers");
+                String contactInfo = document.getString("contactInfo");
+                String contactMethod = document.getString("contactMethod");
+
+                // Return the Profile object
+                return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Log any errors during the fetch
         }
-        return null; // Return null if profile not found or error occurred
-    }
 
-    @Override
-    public List<Profile> getAllProfiles() {
-        List<Profile> profiles = new ArrayList<>();
-        try {
-            QuerySnapshot snapshot = db.collection("profiles").get().get(); // Blocking call
-            for (DocumentSnapshot document : snapshot.getDocuments()) {
-                profiles.add(mapDocumentToProfile(document));
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return profiles;
-    }
-
-    private Profile mapDocumentToProfile(DocumentSnapshot document) {
-        String name = document.getString("name");
-        String gender = document.getString("gender");
-        String sexualOrientation = document.getString("SexualOrientation");
-        int age = document.getLong("age").intValue();
-        Map<String, Integer> weights = (Map<String, Integer>) document.get("weights");
-        Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answers");
-        String contactInfo = document.getString("contactInfo");
-        String contactMethod = document.getString("contactMethod");
-
-        // Use the factory to create the profile
-        return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
+        return null; // Return null if no profile is found or an error occurs
     }
 
 //    @Override
