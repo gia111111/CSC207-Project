@@ -66,7 +66,7 @@ public class FindProfilesInteractor implements FindProfilesInputBoundary {
             Finds finds = new Finds(matches, scores);
 
             // Send results to the output boundary (e.g., Presenter)
-            //outputBoundary.presentFinds(finds);
+            outputBoundary.presentFinds(finds);
             return scores;
 
         } catch (Exception e) {

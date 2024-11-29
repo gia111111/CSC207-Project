@@ -188,47 +188,19 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
      */
     @Override
     public void save(Profile profile) {
-//        DocumentReference docRef = db.collection("profiles").document(profile.getName());
-       // DocumentReference docRef = db.collection("profiles").document("test6");
-//        System.out.println("age"+profile.getAge());
-//        db.collection("users").document("test9").set(profile, SetOptions.merge());
-        //docRef.set(profile);
 
         DocumentReference docRef = db.collection("profiles").document(profile.getName());
         docRef.set(profile);
         System.out.println("save" + profile.getAnswer());
         System.out.println("save" + profile.getWeights());
 
-//        ArrayList<String> blub = new ArrayList<>();
-//        blub.add("hello");
-//        blub.add("bye");
-//        ArrayList<String> blip = new ArrayList<>();
-//        blip.add("murp");
-//        blip.add("aur");
-//        HashMap<String, List<String>> hi = new HashMap<>();
-//        hi.put("section1", blub);
-//        hi.put("section2", blip);
-//
-//        docRef.set(Map.of("name", profile.getName(), "age", profile.getAge(), "gender", profile.getGender(),
-//                "sexual orientation", profile.getSexualOrientation(),"answers",hi,"weights", profile.getWeights()));
-
-
-
-
-
-//        try {
-//            DocumentSnapshot document = docRef.get().get();
-//            if (document.exists()) {
-//                String name = document.getString("name");
-//                String age = document.get("age");
-//                System.out.println("save"+age);
-//                System.out.println("save"+name);
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
 
     }
+
+//    @Override
+//    public void save(Finds finds){
+//        DocumentReference docRef = db.collection("finds").document(finds.getRequestStatus())
+//    }
 
     /**
      * Impelmentations of the save method in the LogoutUserDataAccessInterface.
@@ -245,47 +217,6 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.update("weights", editProfileInputData.getWeights());
     }
 
-//    @Override
-//    public Profile getProfile(String username) {
-//        DocumentReference docRef = db.collection("profiles").document(username);
-//        try {
-//            DocumentSnapshot document = docRef.get().get(); // Blocking call
-//            if (document.exists()) {
-//                return mapDocumentToProfile(document);
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//        return null; // Return null if profile not found or error occurred
-//    }
-//
-//    @Override
-//    public List<Profile> getAllProfiles() {
-//        List<Profile> profiles = new ArrayList<>();
-//        try {
-//            QuerySnapshot snapshot = db.collection("profiles").get().get(); // Blocking call
-//            for (DocumentSnapshot document : snapshot.getDocuments()) {
-//                profiles.add(mapDocumentToProfile(document));
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//        return profiles;
-//    }
-//
-//    private Profile mapDocumentToProfile(DocumentSnapshot document) {
-//        String name = document.getString("name");
-//        String gender = document.getString("gender");
-//        String sexualOrientation = document.getString("SexualOrientation");
-//        int age = document.getLong("age").intValue();
-//        Map<String, Integer> weights = (Map<String, Integer>) document.get("weights");
-//        Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answers");
-//        String contactInfo = document.getString("contactInfo");
-//        String contactMethod = document.getString("contactMethod");
-//
-//        // Use the factory to create the profile
-//        return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
-//    }
 
     @Override
     public List<String> getNames() throws Exception {
