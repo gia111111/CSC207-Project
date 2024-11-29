@@ -1,17 +1,21 @@
 package interface_adapter.requests;
 
+import java.util.Map;
+
 public class RequestsState {
-    private String currentState;
+    private Map<String, Double> scoresMap; // Username -> Compatibility score
+    private Map<String, Boolean> actionsToRequests; // Username -> Accepted/Rejected
+    private String errorMessage;
 
-    public RequestsState() {
-        this.currentState = "";
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public String getCurrentState(){
-        return currentState;
+    public Map<String, Boolean> getActionsToRequests() {
+        return actionsToRequests;
     }
 
-    public void setCurrentState(String currentState) {
-        this.currentState = currentState;
+    public Map<String, Double> getScoresMap() {
+        return scoresMap;
     }
 }

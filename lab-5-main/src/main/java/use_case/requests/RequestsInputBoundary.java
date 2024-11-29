@@ -1,6 +1,8 @@
 package use_case.requests;
 
+import java.util.HashMap;
+
 public interface RequestsInputBoundary {
-    void switchToViewProfileView();
     void switchToDashBoardView();
+    HashMap<String, Double> execute(RequestsInputData requestsInputData);
 }
