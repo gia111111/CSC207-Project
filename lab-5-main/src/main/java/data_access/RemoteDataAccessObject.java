@@ -322,10 +322,10 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
             if (document.exists()) {
                 String name = document.getString("name");
                 String gender = document.getString("gender");
-                String sexualOrientation = document.getString("SexualOrientation");
+                String sexualOrientation = document.getString("sexualOrientation");
                 int age = document.getLong("age").intValue();
                 Map<String, Integer> weights = (Map<String, Integer>) document.get("weights");
-                Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answers");
+                Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answer");
                 String contactInfo = document.getString("contactInfo");
                 String contactMethod = document.getString("contactMethod");
 

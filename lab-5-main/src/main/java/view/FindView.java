@@ -25,9 +25,9 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
     private final DefaultTableModel tableModel;
     private final JTable table;
 
-    public FindView(FindViewModel findViewModel, FindProfilesController findProfilesController) {
+    public FindView(FindViewModel findViewModel) {
         this.findViewModel = findViewModel;
-        this.findProfilesController = findProfilesController;
+        //this.findProfilesController = findProfilesController;
 
         // Register as a listener for property changes in the view model
         this.findViewModel.addPropertyChangeListener(this);
@@ -74,8 +74,22 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         returnButton.setForeground(MaterialColors.WHITE);
         add(returnButton, BorderLayout.SOUTH);
 
+        JButton loadButton = new JButton ("Press to start browsing!");
+        loadButton.setBackground(MaterialColors.PINK_100);
+        loadButton.setForeground(MaterialColors.WHITE);
+        add(loadButton, BorderLayout.NORTH);
+        loadButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(loadButton)) {
+                            refreshTable();
+                        }
+                    }
+                }
+        );
+
         // Populate the table with initial data
-        refreshTable();
+
     }
 
     /**
