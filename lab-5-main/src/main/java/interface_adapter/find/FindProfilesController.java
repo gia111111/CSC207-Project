@@ -50,7 +50,7 @@ public class FindProfilesController {
         System.out.println("Handling action: " + action + " for " + otherUserId);
 
         // Determine the status based on the action
-        boolean isAccepted = "Accept".equals(action);
+        boolean isAccepted = "Like".equals(action);
         // Update Firestore or state using the use case
         remoteDataAccessObject.setRequestStatus(otherUserId, isAccepted);
     }
