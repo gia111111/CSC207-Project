@@ -47,7 +47,7 @@ public class Finds {
     }
 
     public boolean getRequestStatus(String username) {
-        return this.requests.getOrDefault(username, false);
+        return this.requests.getOrDefault(username, null);
     }
 
     public double getScore(String username) {

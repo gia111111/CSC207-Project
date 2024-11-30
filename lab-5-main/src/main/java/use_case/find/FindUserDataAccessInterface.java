@@ -1,5 +1,6 @@
 package use_case.find;
 
+import entity.Finds;
 import entity.Profile;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface FindUserDataAccessInterface {
      * @return The Profile object associated with the given username, or null if not found.
      */
     Profile getProfile(String username);
+
+    void save(Finds finds);
 
     /**
      * Fetches a list of all document IDs (usernames) in the profiles collection.

@@ -64,7 +64,7 @@ public class FindProfilesInteractor implements FindProfilesInputBoundary {
 
             // Package results into a Finds object
             Finds finds = new Finds(matches, scores);
-
+            remoteDataAccessObject.save(finds);
             // Send results to the output boundary (e.g., Presenter)
             outputBoundary.presentFinds(finds);
             return scores;
