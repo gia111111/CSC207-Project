@@ -255,11 +255,11 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             removeAll();
 
-            JButton acceptButton = new JButton("Accept");
-            JButton rejectButton = new JButton("Reject");
+            JButton acceptButton = new JButton("Like");
+            JButton rejectButton = new JButton("Dislike");
 
-            acceptButton.addActionListener(e -> handleAction(row, "Accept"));
-            rejectButton.addActionListener(e -> handleAction(row, "Reject"));
+            acceptButton.addActionListener(e -> handleAction(row, "Like"));
+            rejectButton.addActionListener(e -> handleAction(row, "Dislike"));
 
             add(acceptButton);
             add(rejectButton);
@@ -273,13 +273,13 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
      */
     private class ActionsEditor extends AbstractCellEditor implements TableCellEditor {
         private final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        private final JButton acceptButton = new JButton("Accept");
-        private final JButton rejectButton = new JButton("Reject");
+        private final JButton acceptButton = new JButton("Like");
+        private final JButton rejectButton = new JButton("Dislike");
         private int currentRow;
 
         public ActionsEditor() {
-            acceptButton.addActionListener(e -> handleAction(currentRow, "Accept"));
-            rejectButton.addActionListener(e -> handleAction(currentRow, "Reject"));
+            acceptButton.addActionListener(e -> handleAction(currentRow, "Like"));
+            rejectButton.addActionListener(e -> handleAction(currentRow, "Dislike"));
 
             panel.add(acceptButton);
             panel.add(rejectButton);
