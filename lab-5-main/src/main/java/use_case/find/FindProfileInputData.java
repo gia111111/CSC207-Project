@@ -23,4 +23,5 @@ public class FindProfileInputData {
     public Map<String, Double> getScores() {return scores;}
 
     public Map<String, Boolean> getMatches() {return matches;}
+
 }

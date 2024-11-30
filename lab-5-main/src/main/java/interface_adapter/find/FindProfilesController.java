@@ -28,17 +28,15 @@ public class FindProfilesController {
      */
     public Map<String, Double> findProfiles(Map<String, Double> scores, Map<String, Boolean> matches) {
         final FindProfileInputData findProfileInputData = new FindProfileInputData(scores, matches, remoteDataAccessObject);
-        // Optionally update the view state or handle navigation
-//        viewManagerModel.setState("find");
-//        viewManagerModel.firePropertyChanged();
-
-
-        // Trigger the interactor to execute the find profiles use case
         return findProfilesUseCase.execute(findProfileInputData);
     }
 
 //    private void findProfiles (Map<String, Double> scores, Map<String, Boolean> actions) {
 //        final
+//    }
+
+//    public String getCurrentUserName() {
+//        return findProfilesUseCase.execute(findProfilesUseCase).
 //    }
 
     /**
@@ -47,5 +45,13 @@ public class FindProfilesController {
     public void switchToDashBoard() {
         viewManagerModel.setState("dashboard");
         viewManagerModel.firePropertyChanged();
+    }
+    public void handleAction(String otherUserId, String action) {
+        System.out.println("Handling action: " + action + " for " + otherUserId);
+
+        // Determine the status based on the action
+        boolean isAccepted = "Accept".equals(action);
+        // Update Firestore or state using the use case
+        remoteDataAccessObject.setRequestStatus(otherUserId, isAccepted);
     }
 }

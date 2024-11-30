@@ -311,6 +311,22 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         return null; // Return null if no profile is found or an error occurs
     }
 
+    public void setRequestStatus(String otherUser, Boolean isAccepted) {
+        // Construct the path to the Firestore document
+        DocumentReference docRef = db.collection("finds").document(currentUsername);
+
+        // Construct the field path for the specific other user
+        String fieldPath = "requestStatus." + otherUser;
+
+        // Determine the status value (true for Accept, false for Reject)
+        Boolean status = isAccepted;
+
+        // Debugging: Print the fieldPath and status
+        System.out.println("Updating Firestore fieldPath: " + fieldPath + " with status: " + status);
+        // Update Firestore with the new status
+        docRef.update(fieldPath, status);
+    }
+
 //    @Override
 //    public void saveMatch(String username, Matches matches) {
 //        DocumentReference docRef = db.collection("matches").document(username);

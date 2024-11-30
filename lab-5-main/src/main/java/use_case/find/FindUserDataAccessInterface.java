@@ -23,4 +23,5 @@ public interface FindUserDataAccessInterface {
      * @throws Exception if there is an error during the fetch operation.
      */
     List<String> getNames() throws Exception;
+    void setRequestStatus(String otherUserId, Boolean isAccepted);
 }

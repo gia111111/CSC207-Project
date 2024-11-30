@@ -75,4 +75,12 @@ public class FindProfilesInteractor implements FindProfilesInputBoundary {
         }
         return null;
     }
+
+    @Override
+    public void setRequestStatus(String otherUserId, Boolean isAccepted) {
+        System.out.println("Interactor: Updating request status for " + otherUserId + " to " + isAccepted);
+
+        // Delegate the action to the data access interface
+        remoteDataAccessObject.setRequestStatus(otherUserId, isAccepted);
+    }
 }
