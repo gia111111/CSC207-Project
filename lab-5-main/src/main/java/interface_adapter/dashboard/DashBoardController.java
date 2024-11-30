@@ -29,4 +29,10 @@ public class DashBoardController {
         viewManagerModel.setState("find");
         viewManagerModel.firePropertyChanged();
     }
+
+    public void switchToRequestsView(){
+        viewManagerModel.setState("requests");
+        viewManagerModel.firePropertyChanged();
+
+    }
 }

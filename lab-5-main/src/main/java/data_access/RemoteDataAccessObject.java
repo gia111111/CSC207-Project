@@ -1,5 +1,6 @@
 package data_access;
 
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
@@ -14,6 +15,7 @@ import use_case.editprofile.EditProfileInputData;
 import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.requests.RequestsDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
@@ -23,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
@@ -30,7 +33,8 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         CreateProfileDataAccessInterface,
         EditProfileUserDataAccessInterface,
         FindUserDataAccessInterface,
-        LogoutUserDataAccessInterface {
+        LogoutUserDataAccessInterface,
+        RequestsDataAccessInterface {
 
     private final Firestore db;
     private String currentUsername;
@@ -45,7 +49,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/kensleyzhou/IdeaProjects/Week9_login/CSC207-Project/lab-5-main/src/credential");
+        FileInputStream serviceAccount = new FileInputStream("/Users/abigail/IdeaProjects/CSC207-Project/lab-5-main/src/credential.json");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
@@ -187,47 +191,19 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
      */
     @Override
     public void save(Profile profile) {
-//        DocumentReference docRef = db.collection("profiles").document(profile.getName());
-       // DocumentReference docRef = db.collection("profiles").document("test6");
-//        System.out.println("age"+profile.getAge());
-//        db.collection("users").document("test9").set(profile, SetOptions.merge());
-        //docRef.set(profile);
 
         DocumentReference docRef = db.collection("profiles").document(profile.getName());
         docRef.set(profile);
         System.out.println("save" + profile.getAnswer());
         System.out.println("save" + profile.getWeights());
 
-//        ArrayList<String> blub = new ArrayList<>();
-//        blub.add("hello");
-//        blub.add("bye");
-//        ArrayList<String> blip = new ArrayList<>();
-//        blip.add("murp");
-//        blip.add("aur");
-//        HashMap<String, List<String>> hi = new HashMap<>();
-//        hi.put("section1", blub);
-//        hi.put("section2", blip);
-//
-//        docRef.set(Map.of("name", profile.getName(), "age", profile.getAge(), "gender", profile.getGender(),
-//                "sexual orientation", profile.getSexualOrientation(),"answers",hi,"weights", profile.getWeights()));
-
-
-
-
-
-//        try {
-//            DocumentSnapshot document = docRef.get().get();
-//            if (document.exists()) {
-//                String name = document.getString("name");
-//                String age = document.get("age");
-//                System.out.println("save"+age);
-//                System.out.println("save"+name);
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
 
     }
+
+//    @Override
+//    public void save(Finds finds){
+//        DocumentReference docRef = db.collection("finds").document(finds.getRequestStatus())
+//    }
 
     /**
      * Impelmentations of the save method in the LogoutUserDataAccessInterface.
@@ -244,46 +220,132 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.update("weights", editProfileInputData.getWeights());
     }
 
+
+    @Override
+    public List<String> getNames() throws Exception {
+        // Reference the specified collection
+        CollectionReference collection = db.collection("profiles");
+
+        // Fetch all documents in the collection
+        ApiFuture<QuerySnapshot> future = collection.get();
+        QuerySnapshot querySnapshot = future.get();
+
+        // Extract and return document IDs
+        List<String> documentNames = new ArrayList<>();
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            documentNames.add(document.getId()); // Use document ID as username
+        }
+        System.out.println("getnames" + documentNames);
+        return documentNames;
+    }
+
+    @Override
+    public Boolean isValidRequest(String myname, String partnerName) {
+        AtomicReference<Boolean> check = new AtomicReference<>(false);
+
+        try {
+            QuerySnapshot querySnapshot = db.collection("finds").get().get(); // Blocks until the result is available
+            querySnapshot.getDocuments().forEach(document -> {
+                if (document.getId() != myname) {
+                    Map<String, Boolean> map = (Map<String, Boolean>) document.get("requestStatus");
+                    for (Map.Entry<String, Boolean> entry : map.entrySet()) {
+                        String requestToName = entry.getKey();
+                        Boolean whetherRequest = entry.getValue();
+                        if (requestToName == myname && whetherRequest){
+//                            DocumentReference docRef = db.collection("requests").document(myname);
+//                            DocumentSnapshot document2 = docRef.get().get();
+//                            Map<String, Boolean> map2 = (Map<String, Boolean>) document2.get("actionsToRequests");
+//                            for (Map.Entry<String, Boolean> entry2 : map2.entrySet()) {
+//                                String requesterName = entry2.getKey();
+//                                Boolean acceptedRequest = entry2.getValue();
+//                                if (requesterName == document.getId() && acceptedRequest == null)
+                            check.set(false);
+                                }
+                            }
+                        }
+                    });
+                } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+            return check.get();
+    }
+
+
     @Override
     public Profile getProfile(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username must be a non-empty string.");
+        }
+
+        // Reference the document with the given username in the "profiles" collection
         DocumentReference docRef = db.collection("profiles").document(username);
+
         try {
-            DocumentSnapshot document = docRef.get().get(); // Blocking call
+            // Fetch the document
+            DocumentSnapshot document = docRef.get().get();
+
+            // If the document exists, map its fields to a Profile object
             if (document.exists()) {
-                return mapDocumentToProfile(document);
+                String name = document.getString("name");
+                String gender = document.getString("gender");
+                String sexualOrientation = document.getString("sexualOrientation");
+                int age = document.getLong("age").intValue();
+                Map<String, Integer> weights = (Map<String, Integer>) document.get("weights");
+                Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answer");
+                String contactInfo = document.getString("contactInfo");
+                String contactMethod = document.getString("contactMethod");
+
+                // Return the Profile object
+                return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace(); // Log any errors during the fetch
+        }
+
+        return null; // Return null if no profile is found or an error occurs
+    }
+
+
+    /**
+     * Update the status of the request, after accept or reject.
+     */
+    @Override
+    public void updateSatus(String myName, String partnerName, Boolean requestAccpeted) {
+        // Specify the document and the field where the HashMap is stored
+        String collectionPath = "requests";
+        String documentId = myName;
+        String hashMapField = "actionsToRequests";
+        String keyToUpdate = partnerName; // Key inside the HashMap
+        Object newValue = requestAccpeted; // New value for the key
+
+        // Use the dot notation to specify the key inside the HashMap
+        String fieldToUpdate = hashMapField + "." + keyToUpdate;
+
+        // Update the value in the HashMap
+        db.collection(collectionPath)
+                .document(documentId)
+                .update(fieldToUpdate, newValue);
+    }
+
+    @Override
+    public HashMap<String, Boolean> getRequestsActionsMap(String myName) {
+        DocumentReference docRef = db.collection("requests").document(myName);
+        try {
+            DocumentSnapshot document = docRef.get().get();
+            if (document.exists()) {
+                HashMap<String, Boolean> RequestsActions = (HashMap<String, Boolean>) document.get("actionsToRequests");
+                return RequestsActions;
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return null; // Return null if profile not found or error occurred
+        return null;
+
     }
 
     @Override
     public List<Profile> getAllProfiles() {
-        List<Profile> profiles = new ArrayList<>();
-        try {
-            QuerySnapshot snapshot = db.collection("profiles").get().get(); // Blocking call
-            for (DocumentSnapshot document : snapshot.getDocuments()) {
-                profiles.add(mapDocumentToProfile(document));
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return profiles;
-    }
-
-    private Profile mapDocumentToProfile(DocumentSnapshot document) {
-        String name = document.getString("name");
-        String gender = document.getString("gender");
-        String sexualOrientation = document.getString("SexualOrientation");
-        int age = document.getLong("age").intValue();
-        Map<String, Integer> weights = (Map<String, Integer>) document.get("weights");
-        Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answers");
-        String contactInfo = document.getString("contactInfo");
-        String contactMethod = document.getString("contactMethod");
-
-        // Use the factory to create the profile
-        return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
+        return List.of();
     }
 
 //    @Override

@@ -39,7 +39,9 @@ public class Main {
                         .addProfileUseCase()
                         .addHomePageUseCase()
                         .addLogoutUseCase()
+                       // .addRequestsUseCase()
                         .addFindView()
+                        .addRequestsView()
                         .addMatchView()
                         .build();
 

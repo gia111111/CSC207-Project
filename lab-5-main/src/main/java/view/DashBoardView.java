@@ -79,6 +79,13 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
             }
         });
 
+        // Add action listener for the "requests" button
+        requests.addActionListener(e -> {
+            if (dashBoardController != null) {
+                dashBoardController.switchToRequestsView();
+            }
+        });
+
         find.addActionListener(e -> {
             if (dashBoardController != null) {
                 dashBoardController.switchToFindView();
