@@ -319,7 +319,6 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     public void setFindProfilesController(FindProfilesController findProfilesController) {
-        // TODO: save the logout controller in the instance variable.
         this.findProfilesController = findProfilesController;
     }
 }
