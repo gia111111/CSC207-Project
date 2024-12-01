@@ -33,13 +33,14 @@ public class Main {
                         .addLoggedInView()
                         .addProfileView()
                         .addDashboardView()
+                        .addMatchesView()
                         .addSignupUseCase()
                         .addLoginUseCase()
                         .addChangePasswordUseCase()
                         .addProfileUseCase()
                         .addHomePageUseCase()
                         .addLogoutUseCase()
-                        .addMatchView()
+                        .addMatchesUseCase()
                         .build();
 
                 // Launch the application

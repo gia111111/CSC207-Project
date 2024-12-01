@@ -29,6 +29,9 @@ import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.profile.ProfileViewModel;
+import interface_adapter.matches.MatchesController;
+import interface_adapter.matches.MatchesViewModel;
+import interface_adapter.matches.MatchesPresenter;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -38,13 +41,16 @@ import use_case.createProfile.CreateProfileOutputBoundary;
 import use_case.home.HomeInputBoundary;
 import use_case.home.HomeInteractor;
 import use_case.home.HomeOutputBoundary;
+import use_case.matches.MatchesInputBoundary;
+import use_case.matches.MatchesInteractor;
+import use_case.matches.MatchesOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
-import use_case.matches.MatchInputBoundary;
+//import use_case.matches.MatchInputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -69,6 +75,7 @@ public class AppBuilder {
     private final ProfileFactory profileFactory = new CommonProfileFactory();
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final HomePageViewModel homePageViewModel = new HomePageViewModel();
+    private final MatchesViewModel matchesViewModel = new MatchesViewModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // thought question: is the hard dependency below a problem?
@@ -86,14 +93,13 @@ public class AppBuilder {
     private ProfileView profileView;
     private DashBoardViewModel dashBoardViewModel;
     private DashBoardView dashBoardView;
+    private MatchesView matchesView;
 
 
     private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
     private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
-    private MatchInputBoundary matchInputBoundary;
-    private MatchesController matchesController = new MatchesController(viewManagerModel, matchInputBoundary);
 
     public AppBuilder() throws IOException {
         cardPanel.setLayout(cardLayout);
@@ -238,6 +244,21 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addMatchesView() {
+        matchesView = new MatchesView(matchesViewModel);
+        cardPanel.add(matchesView, matchesView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addMatchesUseCase() {
+        final MatchesOutputBoundary matchesOutputBoundary = new MatchesPresenter(matchesViewModel, viewManagerModel);
+        final MatchesInputBoundary matchesInteractor = new MatchesInteractor(remoteDataAccessObject, matchesOutputBoundary);
+        final MatchesController matchesController = new MatchesController(matchesInteractor, viewManagerModel, remoteDataAccessObject);
+
+        matchesView.setMatchesController(matchesController);
+        return this;
+    }
+
 //    public AppBuilder addCreateProfileUseCase() {
 //        final CreateProfileOutputBoundary createProfileOutputBoundary = new ProfilePresenter(profileViewModel, viewManagerModel);
 //        final CreateProfileInputBoundary createProfileInteracter = new CreateProfileInteractor(remoteDataAccessObject, createProfileOutputBoundary, profileFactory);
@@ -261,16 +282,16 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addMatchView() {
-        Matches matches = new Matches();
-        // Populate Matches with sample data (replace with real data retrieval in the future)
-        matches.addMatch("John Doe", List.of("Phone", "123-456-7890"));
-        matches.addMatch("Jane Smith", List.of("Email", "jane@example.com"));
-
-        MatchesView matchView = new MatchesView(matches, matchesController);
-        cardPanel.add(matchView, "matchView");
-        return this;
-    }
+//    public AppBuilder addMatchView() {
+//        Matches matches = new Matches();
+//        // Populate Matches with sample data (replace with real data retrieval in the future)
+//        matches.addMatch("John Doe", List.of("Phone", "123-456-7890"));
+//        matches.addMatch("Jane Smith", List.of("Email", "jane@example.com"));
+//
+////        MatchView matchView = new MatchView(matches, matchesController);
+////        cardPanel.add(matchView, "matchView");
+//        return this;
+//    }
 
     /**
      * Creates the JFrame for the application and initially sets the HomePageView to be displayed.
