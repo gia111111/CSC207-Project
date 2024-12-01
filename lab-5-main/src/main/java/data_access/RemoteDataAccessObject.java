@@ -201,7 +201,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     }
 
     @Override
-    public void save(Finds finds){
+    public void save(Finds finds) {
         //DocumentReference docRef = db.collection("finds").document(finds.getRequestStatus())
         // Get a reference to the Firestore database
         //FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -245,6 +245,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
             docRef.set(userMap);
         }
     }
+
     /**
      * Impelmentations of the save method in the LogoutUserDataAccessInterface.
      */
@@ -260,6 +261,24 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.update("weights", editProfileInputData.getWeights());
     }
 
+
+//    @Override
+//    public List<String> getNames() throws ExecutionException, InterruptedException {
+//        // Reference the specified collection
+//        CollectionReference collection = db.collection("profiles");
+//
+//        // Fetch all documents in the collection
+//        ApiFuture<QuerySnapshot> future = collection.get();
+//        QuerySnapshot querySnapshot = future.get();
+//
+//        // Extract and return document IDs
+//        List<String> documentNames = new ArrayList<>();
+//        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+//            documentNames.add(document.getId()); // Use document ID as username
+//        }
+//        System.out.println("getnames" + documentNames);
+//        return documentNames;
+//    }
 
     @Override
     public List<String> getNames() throws Exception {
@@ -298,22 +317,85 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     @Override
     public Boolean isValidRequest(String myname, String partnerName) {
         AtomicReference<Boolean> check = new AtomicReference<>(Boolean.FALSE);
-
+        DocumentReference docRef = db.collection("finds").document(partnerName);
         try {
-            DocumentReference docRef = db.collection("finds").document(partnerName);
             DocumentSnapshot document = docRef.get().get();
             if (document.exists()) {
                 HashMap<String, Boolean> statusMap = (HashMap<String, Boolean>) document.get("requestStatus");
-                if(statusMap.containsKey(myname) && statusMap.get(myname)){
-                    check.set(Boolean.TRUE);
+                if (statusMap.containsKey(myname)) {
+                    if (statusMap.get(myname) != null && statusMap.get(myname)) {
+                        check.set(Boolean.TRUE);
+                    }
                 }
+                return check.get();
+            }
+        } catch (InterruptedException | ExecutionException | NullPointerException e) {
+            e.printStackTrace();
+            System.out.println("isValidRequest error");
+        }
+        return null;
+
+//        try {
+//            // Reference the Firestore document
+//            DocumentReference docRef = db.collection("finds").document(partnerName);
+//
+//            // Fetch the document snapshot synchronously
+//            DocumentSnapshot document = docRef.get().get();
+//
+//            if (document.exists()) {
+//                // Retrieve the "requestStatus" field as a HashMap
+//                HashMap<String, Boolean> statusMap = (HashMap<String, Boolean>) document.get("requestStatus");
+//
+//                if (statusMap != null && statusMap.containsKey(myname)) {
+//                    // Check if the value associated with `myName` is TRUE
+//                    return Boolean.TRUE.equals(statusMap.get(myname));
+//                }
+//            }
+//        } catch (InterruptedException | ExecutionException e) {
+//            // Log the error message for debugging
+//            System.err.println("Error in isValidRequest: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+
+//        // Return FALSE if something goes wrong or conditions aren't met
+//        return Boolean.FALSE;
+    }
+
+    public Map<String, Boolean> getFinds(String partnerName) {
+        DocumentReference docRef = db.collection("finds").document(partnerName);
+        try {
+            DocumentSnapshot document = docRef.get().get();
+            if (document.exists()) {
+                return (Map<String, Boolean>) document.get("requestStatus");
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return check.get();
+        return null;
     }
 
+//
+//    @Override
+//    public Boolean isValidRequest(String myname, String partnerName) {
+//        AtomicReference<Boolean> check = new AtomicReference<>(Boolean.FALSE);
+//
+//        try {
+//            DocumentReference docRef = db.collection("finds").document(partnerName);
+//            DocumentSnapshot document = docRef.get().get();
+//            if (document.exists()) {
+//                HashMap<String, Boolean> statusMap = (HashMap<String, Boolean>) document.get("requestStatus");
+//                if (statusMap.containsKey(myname)) {
+//                    Boolean thisStatus = statusMap.get(myname);
+//                    if(thisStatus == true) {
+//                        check.set(Boolean.TRUE);
+//                    }
+//                }
+//            }
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//        return check.get();
+//    }
 
 
     @Override
@@ -344,7 +426,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
                 return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace(); // Log any errors during the fetch
+//            e.printStackTrace(); // Log any errors during the fetch
         }
 
         return null; // Return null if no profile is found or an error occurs
@@ -382,72 +464,85 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
                 return RequestsActions;
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println("getRequestsactionMap error");
         }
         return null;
 
     }
 
 //    @Override
-//    public List<Profile> getAllProfiles() {
-//        return List.of();
+//    public void save(Requests requests) {
+//        Map<String, Object> userMap = new HashMap<>();
+//        Map<String, Object> actionsToRequests = new HashMap<>();
+//        for (Map.Entry<String, Boolean> requestEntry : requests.getRequests().entrySet()) {
+//            String otherUser = requestEntry.getKey();
+//            Boolean action = requestEntry.getValue();
+//            if (otherUser != currentUsername) {
+//                actionsToRequests.put(otherUser, action);
+//            }
+//        }
+//        userMap.put("actionsToRequests", actionsToRequests);
+//        DocumentReference docRef = db.collection("requests").document(currentUsername);
+//
+//        // Save the data to Firestore
+//        docRef.set(userMap);
+//
+//
 //    }
 
-//    @Override
-//    public void saveMatch(String username, Matches matches) {
-//        DocumentReference docRef = db.collection("matches").document(username);
-//
-//        try {
-//            // Fetch existing matches
-//            DocumentSnapshot document = docRef.get().get();
-//            HashMap<String, List<String>> matches = new HashMap<>();
-//
-//            if (document.exists()) {
-//                matches = (HashMap<String, List<String>>) document.get("matches");
-//            }
-//
-//            // Add or update the match
-//            matches.put(matchName, contactInfo);
-//
-//            // Save updated matches map back to Firestore
-//            docRef.set(Map.of("matches", matches));
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Override
-//    public HashMap<String, List<String>> getMatches(String username) {
-//        DocumentReference docRef = db.collection("matches").document(username);
-//
-//        try {
-//            // Fetch user's matches
-//            DocumentSnapshot document = docRef.get().get();
-//            if (document.exists()) {
-//                return (HashMap<String, List<String>>) document.get("matches");
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Return an empty map if no matches are found
-//        return new HashMap<>();
-//    }
-//
-//    @Override
-//    public boolean matchExists(String username, String matchName) {
-//        DocumentReference docRef = db.collection("matches").document(username);
-//
-//        try {
-//            DocumentSnapshot document = docRef.get().get();
-//            if (document.exists()) {
-//                HashMap<String, List<String>> matches = (HashMap<String, List<String>>) document.get("matches");
-//                return matches != null && matches.containsKey(matchName);
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return false;
-//    }
+
+    @Override
+    public void save(Requests requests) {
+        //DocumentReference docRef = db.collection("finds").document(finds.getRequestStatus())
+        // Get a reference to the Firestore database
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Iterate over each request in the Finds entity
+        for (Map.Entry<String, Boolean> requestEntry : requests.getRequests().entrySet()) {
+            String otherUser = requestEntry.getKey();
+            Map<String, Object> userMap = new HashMap<>();
+            Map<String, Object> requestStatusMap = new HashMap<>();
+
+            // Populate requestStatusMap with initial values (other users and null requestStatus)
+            for (String otherUsername : requests.getRequests().keySet()) {
+                if (!otherUsername.equals(otherUser)) {
+                    requestStatusMap.put(otherUsername, null);
+                }
+            }
+
+            // Add the requestStatusMap to the userMap
+            userMap.put("actionsToRequests", requestStatusMap);
+
+            // Reference to the document path: finds/{otherUser}
+            DocumentReference docRef = db.collection("requests").document(currentUsername);
+
+            // Save the data to Firestore
+            docRef.set(userMap);
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

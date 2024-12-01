@@ -18,10 +18,11 @@ public class RequestsPresenter implements RequestsOutputBoundary {
     @Override
     public void prepareSuccessView(RequestsOutputData response) {
         final RequestsState requestsState = requestsViewModel.getState();
-//        requestsState.setCurrentUserName(response.getName());
-        requestsState.setScoresMap(response.getScoresMap());
-        this.requestsViewModel.setState(requestsState);
-        requestsViewModel.firePropertyChanged();
+        requestsState.setCurrentUserName(response.getName());
+//        requestsState.setScoresMap(response.getScoresMap());
+//        requestsState.setActionsToRequests(response.getStatusMap());
+        requestsViewModel.setState(requestsState);
+//        requestsViewModel.firePropertyChanged();
 
         viewManagerModel.setState("requests");
 //        viewManagerModel.firePropertyChanged();
@@ -31,7 +32,7 @@ public class RequestsPresenter implements RequestsOutputBoundary {
     public void prepareFailView(String error) {
         final RequestsState requestsState = requestsViewModel.getState();
         requestsState.setErrorMessage(error);
-        requestsViewModel.firePropertyChanged();
+//        requestsViewModel.firePropertyChanged();
     }
 
     @Override

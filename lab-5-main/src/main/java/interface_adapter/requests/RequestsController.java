@@ -1,9 +1,9 @@
 package interface_adapter.requests;
 
+import data_access.RemoteDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import use_case.requests.RequestsInputBoundary;
 import use_case.requests.RequestsInputData;
-import use_case.requests.RequestsInteractor;
 
 import java.util.HashMap;
 
@@ -11,10 +11,13 @@ import java.util.HashMap;
 public class RequestsController {
     private final ViewManagerModel viewManagerModel;
     private final RequestsInputBoundary requestsInputBoundary;
+    private final RemoteDataAccessObject remoteDataAccessObject;
 
-    public RequestsController(ViewManagerModel viewManagerModel, RequestsInputBoundary requestsInteractor) {
+    public RequestsController(ViewManagerModel viewManagerModel, RequestsInputBoundary requestsInteractor,
+                              RemoteDataAccessObject remoteDataAccessObject) {
         this.viewManagerModel = viewManagerModel;
         this.requestsInputBoundary = requestsInteractor;
+        this.remoteDataAccessObject = remoteDataAccessObject;
     }
 
     public void switchToDashboard() {
@@ -24,26 +27,25 @@ public class RequestsController {
     }
 
     /**
-     * Return a map with requesters and status.
-     *
-     * @param username The username of the current user.
+     * Return a map with requesters and scores.
      */
-    public HashMap<String,Double> execute(String username){
-        // RequestsInputData requestsInputData = new RequestsInputData(username);
-         return requestsInputBoundary.execute(username);
+    public HashMap<String,Double> execute(){
+         System.out.println("Controller execute");
+         final RequestsInputData requestsInputData = new RequestsInputData(remoteDataAccessObject, null);
+         return requestsInputBoundary.execute(requestsInputData);
 //        viewManagerModel.setState("requests");
 //        viewManagerModel.firePropertyChanged();
 //        return scoresMap;
     }
 
-    public HashMap<String, Boolean>  accept(String myName, String partnerName){
-        final RequestsInputData requestsInputData = new RequestsInputData(myName, partnerName);
+    public HashMap<String, Boolean>  accept(String partnerName){
+        final RequestsInputData requestsInputData = new RequestsInputData(remoteDataAccessObject,partnerName);
         return requestsInputBoundary.accept(requestsInputData);
 
     }
 
-    public HashMap<String, Boolean> reject(String myname, String partnerName) {
-        final RequestsInputData requestsInputData = new RequestsInputData(myname, partnerName);
+    public HashMap<String, Boolean> reject(String partnerName) {
+        final RequestsInputData requestsInputData = new RequestsInputData(remoteDataAccessObject,partnerName);
         return requestsInputBoundary.reject(requestsInputData);
     }
 

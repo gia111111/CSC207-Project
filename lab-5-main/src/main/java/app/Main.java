@@ -1,9 +1,6 @@
 package app;
 
-import data_access.RemoteDataAccessObject;
-
 import javax.swing.*;
-import mdlaf.MaterialLookAndFeel;
 import javax.swing.JFrame;
 import java.io.IOException;
 
@@ -19,8 +16,8 @@ public class Main {
         try {
             // Set Material Look-and-Feel
             UIManager.setLookAndFeel(new mdlaf.MaterialLookAndFeel());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException evt) {
+            evt.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
             try {
@@ -49,8 +46,10 @@ public class Main {
                 // Launch the application
                 application.pack();
                 application.setVisible(true);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException evt) {
+                evt.printStackTrace();
+            } catch (Exception evt) {
+                throw new RuntimeException(evt);
             }
         });
     }

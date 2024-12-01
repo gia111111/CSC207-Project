@@ -53,9 +53,7 @@ import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
 import use_case.matches.MatchInputBoundary;
 //import use_case.requests.RequestsDataAccessInterface;
-import use_case.requests.RequestsInputBoundary;
-import use_case.requests.RequestsInteractor;
-import use_case.requests.RequestsOutputBoundary;
+import use_case.requests.*;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -108,6 +106,8 @@ public class AppBuilder {
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
     private MatchInputBoundary matchInputBoundary;
+    private RequestsInputBoundary requestsInputBoundary;
+    // private final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary);
     private MatchesController matchesController = new MatchesController(viewManagerModel, matchInputBoundary);
     //private FindProfilesController findProfilesController = new FindProfilesController();
 
@@ -159,16 +159,16 @@ public class AppBuilder {
         return this;
     }
 
-    /**
-     * Adds the Requests View to the application.
-     * @return this builder
-     */
-    public AppBuilder addRequestsView() {
-        requestsViewModel = new RequestsViewModel();
-        requestsView = new RequestsView(requestsViewModel);
-        cardPanel.add(requestsView,requestsView.getViewName());
-        return this;
-    }
+//    /**
+//     * Adds the Requests View to the application.
+//     * @return this builder
+//     */
+//    public AppBuilder addRequestsView() {
+//        requestsViewModel = new RequestsViewModel();
+//        requestsView = new RequestsView(requestsViewModel);
+//        cardPanel.add(requestsView,requestsView.getViewName());
+//        return this;
+//    }
 
 
     /**
@@ -247,6 +247,7 @@ public class AppBuilder {
         return this;
     }
 
+
     public AppBuilder addFindUseCase(){
         // Initialize the compatibility algorithm
         final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
@@ -312,20 +313,40 @@ public class AppBuilder {
         return this;
     }
 
-//    /**
-//     * Adds the Requests Use Case to the application.
-//     * @return this builder
-//     */
-//    public AppBuilder addRequestsUseCase() {
+
+    /**
+     * Adds the Requests Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addRequestsUseCase() {
+        // Initialize the compatibility algorithm
+        final RequestsOutputBoundary requestsOutputBoundary = new RequestsPresenter(viewManagerModel, requestsViewModel);
+        final CompatibilityAlgorithm2 compatibilityAlgorithm = new BasicCompatibilityAlgorithm2();
+        final RequestsInputBoundary requestsInputBoundary = new RequestsInteractor(requestsOutputBoundary, remoteDataAccessObject,
+                compatibilityAlgorithm);
+
+        final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary,remoteDataAccessObject);
+        requestsView.setRequestsController(requestsController);
+        return this;
+    }
+
+
+    /**
+     * Adds the Requests View to the application.
+     * @return this builder
+     */
+    public AppBuilder addRequestsView(){
+        requestsViewModel = new RequestsViewModel();
 //        final RequestsOutputBoundary requestsOutputBoundary = new RequestsPresenter(viewManagerModel, requestsViewModel);
-//        final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
-//        final RequestsInputBoundary requestsInputBoundary = new RequestsInteractor(requestsOutputBoundary,remoteDataAccessObject,
+//        final CompatibilityAlgorithm2 compatibilityAlgorithm = new BasicCompatibilityAlgorithm2();
+//        final RequestsInputBoundary requestsInputBoundary = new RequestsInteractor(requestsOutputBoundary, remoteDataAccessObject,
 //                compatibilityAlgorithm);
-//
-//        final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary);
-//        requestsView.setRequestsController(requestsController);
-//        return this;
-//    }
+
+//        final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary,remoteDataAccessObject);
+        requestsView = new RequestsView(requestsViewModel);
+        cardPanel.add(requestsView,requestsView.getViewName());
+        return this;
+    }
 
 
 
