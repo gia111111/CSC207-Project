@@ -18,11 +18,12 @@ public class RequestsPresenter implements RequestsOutputBoundary {
     @Override
     public void prepareSuccessView(RequestsOutputData response) {
         final RequestsState requestsState = requestsViewModel.getState();
-        requestsState.setCurrentUserName(response.getName());
+//        requestsState.setCurrentUserName(response.getName());
+        requestsState.setScoresMap(response.getScoresMap());
         this.requestsViewModel.setState(requestsState);
         requestsViewModel.firePropertyChanged();
 
-//        viewManagerModel.setState("");
+        viewManagerModel.setState("requests");
 //        viewManagerModel.firePropertyChanged();
     }
 

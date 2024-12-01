@@ -1,5 +1,6 @@
 package use_case.requests;
 
+import entity.Finds;
 import entity.Profile;
 
 import java.util.HashMap;
@@ -9,13 +10,13 @@ import java.util.concurrent.ExecutionException;
 public class RequestsInteractor implements RequestsInputBoundary{
     private final RequestsOutputBoundary userPresenter;
     private final RequestsDataAccessInterface requestsDataAccessInterface;
-    private final CompatibilityAlgorithm compatibilityAlgorithm;
+    private final CompatibilityAlgorithm2 compatibilityAlgorithm2;
 
     public RequestsInteractor(RequestsOutputBoundary outputBoundary, RequestsDataAccessInterface requestsDataAccessInterface,
-                              CompatibilityAlgorithm compatibilityAlgorithm) {
+                              CompatibilityAlgorithm2 compatibilityAlgorithm2) {
         this.userPresenter = outputBoundary;
         this.requestsDataAccessInterface = requestsDataAccessInterface;
-        this.compatibilityAlgorithm = compatibilityAlgorithm;
+        this.compatibilityAlgorithm2 = compatibilityAlgorithm2;
     }
 
 //    @Override
@@ -27,28 +28,32 @@ public class RequestsInteractor implements RequestsInputBoundary{
     public HashMap<String, Double> execute(String username) {
         HashMap<String, Double> scoresMap = new HashMap<>();
         try {
-            String myname = username;
             List<String> names = requestsDataAccessInterface.getNames();
-            names.remove(myname);
+             username = "abby"; // debug test
+            names.remove(username);
             // HashMap<String, Double> scoresMap = new HashMap<>();
            // HashMap<String, Boolean> matches = new HashMap<>();
-            for (int i = 1; i <= names.size(); i++) {
-                String partnerName = names.get(i);
-                if (requestsDataAccessInterface.isValidRequest(myname, partnerName)) {
-                    Profile myProfile = requestsDataAccessInterface.getProfile(myname);
+            for (String partnerName: names) {
+                if (requestsDataAccessInterface.isValidRequest(username, partnerName)) {
+                    Profile myProfile = requestsDataAccessInterface.getProfile(username);
                     Profile partnerProfile = requestsDataAccessInterface.getProfile(partnerName);
-                    Double score = compatibilityAlgorithm.calculateScore(myProfile, partnerProfile);
+                    Double score = compatibilityAlgorithm2.calculateScore(myProfile, partnerProfile);
                     scoresMap.put(partnerName, score);
                 }
             }
+            RequestsOutputData requestsOutputData = new RequestsOutputData(false,scoresMap);
+            userPresenter.prepareSuccessView(requestsOutputData);
+//            return scoresMap;
 
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return scoresMap;
     }
+
+    //        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
 
 
     @Override
@@ -56,8 +61,8 @@ public class RequestsInteractor implements RequestsInputBoundary{
         String myName = inputData.getUsername();
         String partnerName = inputData.getPartnername();
         requestsDataAccessInterface.updateSatus(myName, partnerName, true);
-        final RequestsOutputData requestsOutputData = new RequestsOutputData(myName, partnerName, false);
-        userPresenter.prepareSuccessView(requestsOutputData);
+//        final RequestsOutputData requestsOutputData = new RequestsOutputData(myName, partnerName, false);
+//        userPresenter.prepareSuccessView(requestsOutputData);
 
         return requestsDataAccessInterface.getRequestsActionsMap(myName);
     }
@@ -68,15 +73,15 @@ public class RequestsInteractor implements RequestsInputBoundary{
         String myName = requestsInputData.getUsername();
         String partnerName = requestsInputData.getPartnername();
         requestsDataAccessInterface.updateSatus(myName, partnerName, false);
-        final RequestsOutputData requestsOutputData = new RequestsOutputData(myName, partnerName, false);
-        userPresenter.prepareSuccessView(requestsOutputData);
+//        final RequestsOutputData requestsOutputData = new RequestsOutputData(myName, partnerName, false);
+//        userPresenter.prepareSuccessView(requestsOutputData);
 
         return requestsDataAccessInterface.getRequestsActionsMap(myName);
 
 
         }
-    @Override
-    public void switchToDashBoardView() {
-        userPresenter.switchToDashBoardView();
-    }
+//    @Override
+//    public void switchToDashBoardView() {
+//        userPresenter.switchToDashBoardView();
+//    }
 }

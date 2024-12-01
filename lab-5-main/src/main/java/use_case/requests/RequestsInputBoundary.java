@@ -3,7 +3,7 @@ package use_case.requests;
 import java.util.HashMap;
 
 public interface RequestsInputBoundary {
-    void switchToDashBoardView();
+//    void switchToDashBoardView();
     HashMap<String, Double> execute(String username);
 
     HashMap<String,Boolean> accept(RequestsInputData requestsInputData);

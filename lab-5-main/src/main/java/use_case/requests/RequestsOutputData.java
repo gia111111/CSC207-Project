@@ -1,27 +1,23 @@
 package use_case.requests;
 
+import java.util.HashMap;
+
 public class RequestsOutputData {
-    private final String name;
-    private final String partnername;
+    private final HashMap<String, Double> scoresMap;
 
     private final boolean useCaseFailed;
 
-    public RequestsOutputData(String name, String partnername, boolean useCaseFailed) {
-        this.name = name;
-        this.partnername = partnername;
+    public RequestsOutputData(boolean useCaseFailed, HashMap<String, Double> scoresMap) {
         this.useCaseFailed = useCaseFailed;
+        this.scoresMap = scoresMap;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getPartnername() {
-        return partnername;
-    }
 
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }
 
+    public HashMap<String, Double> getScoresMap() {
+        return scoresMap;
+    }
 }

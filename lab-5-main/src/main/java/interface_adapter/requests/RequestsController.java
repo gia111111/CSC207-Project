@@ -3,6 +3,7 @@ package interface_adapter.requests;
 import interface_adapter.ViewManagerModel;
 import use_case.requests.RequestsInputBoundary;
 import use_case.requests.RequestsInputData;
+import use_case.requests.RequestsInteractor;
 
 import java.util.HashMap;
 
@@ -11,9 +12,9 @@ public class RequestsController {
     private final ViewManagerModel viewManagerModel;
     private final RequestsInputBoundary requestsInputBoundary;
 
-    public RequestsController(ViewManagerModel viewManagerModel, RequestsInputBoundary requestsInputBoundary) {
+    public RequestsController(ViewManagerModel viewManagerModel, RequestsInputBoundary requestsInteractor) {
         this.viewManagerModel = viewManagerModel;
-        this.requestsInputBoundary = requestsInputBoundary;
+        this.requestsInputBoundary = requestsInteractor;
     }
 
     public void switchToDashboard() {
@@ -29,20 +30,10 @@ public class RequestsController {
      */
     public HashMap<String,Double> execute(String username){
         // RequestsInputData requestsInputData = new RequestsInputData(username);
-        HashMap<String, Double> scoresMap = requestsInputBoundary.execute(username);
+         return requestsInputBoundary.execute(username);
 //        viewManagerModel.setState("requests");
 //        viewManagerModel.firePropertyChanged();
-        return scoresMap;
-    }
-
-
-
-
-    public HashMap<String,Double> getActionMap(String username){
-        HashMap<String, Double> scoresMap = requestsInputBoundary.execute(username);
-//        viewManagerModel.setState("requests");
-//        viewManagerModel.firePropertyChanged();
-        return scoresMap;
+//        return scoresMap;
     }
 
     public HashMap<String, Boolean>  accept(String myName, String partnerName){

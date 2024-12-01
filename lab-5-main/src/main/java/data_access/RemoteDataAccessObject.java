@@ -200,11 +200,51 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 
     }
 
-//    @Override
-//    public void save(Finds finds){
-//        DocumentReference docRef = db.collection("finds").document(finds.getRequestStatus())
-//    }
+    @Override
+    public void save(Finds finds){
+        //DocumentReference docRef = db.collection("finds").document(finds.getRequestStatus())
+        // Get a reference to the Firestore database
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        // Iterate over each request in the Finds entity
+        for (Map.Entry<String, Boolean> requestEntry : finds.getFinds().entrySet()) {
+            String otherUser = requestEntry.getKey();
+//            boolean requestStatus = requestEntry.getValue();
+//
+//            // Get compatibility score for the current user
+//            double score = finds.getScore(otherUser);
+//
+//            // Create a map to store request status and compatibility score
+//            Map<String, Object> data = new HashMap<>();
+//            data.put("requestStatus", requestStatus ? "Accept" : "Reject");
+//            data.put("compatibilityScore", score);
+//
+//            // Reference to the document path: finds/{otherUser}
+//            DocumentReference docRef = db.collection("finds").document(otherUser);
+//
+//            // Save the data to Firestore
+//            docRef.set(data);
+            // Create a nested map for requestStatus mapping
+            Map<String, Object> userMap = new HashMap<>();
+            Map<String, Object> requestStatusMap = new HashMap<>();
+
+            // Populate requestStatusMap with initial values (other users and null requestStatus)
+            for (String otherUsername : finds.getFinds().keySet()) {
+                if (!otherUsername.equals(otherUser)) {
+                    requestStatusMap.put(otherUsername, null);
+                }
+            }
+
+            // Add the requestStatusMap to the userMap
+            userMap.put("requestStatus", requestStatusMap);
+
+            // Reference to the document path: finds/{otherUser}
+            DocumentReference docRef = db.collection("finds").document(currentUsername);
+
+            // Save the data to Firestore
+            docRef.set(userMap);
+        }
+    }
     /**
      * Impelmentations of the save method in the LogoutUserDataAccessInterface.
      */
@@ -239,36 +279,41 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         return documentNames;
     }
 
+    public void setRequestStatus(String otherUser, Boolean isAccepted) {
+        // Construct the path to the Firestore document
+        DocumentReference docRef = db.collection("finds").document(currentUsername);
+
+        // Construct the field path for the specific other user
+        String fieldPath = "requestStatus." + otherUser;
+
+        // Determine the status value (true for Accept, false for Reject)
+        Boolean status = isAccepted;
+
+        // Debugging: Print the fieldPath and status
+        System.out.println("Updating Firestore fieldPath: " + fieldPath + " with status: " + status);
+        // Update Firestore with the new status
+        docRef.update(fieldPath, status);
+    }
+
     @Override
     public Boolean isValidRequest(String myname, String partnerName) {
-        AtomicReference<Boolean> check = new AtomicReference<>(false);
+        AtomicReference<Boolean> check = new AtomicReference<>(Boolean.FALSE);
 
         try {
-            QuerySnapshot querySnapshot = db.collection("finds").get().get(); // Blocks until the result is available
-            querySnapshot.getDocuments().forEach(document -> {
-                if (document.getId() != myname) {
-                    Map<String, Boolean> map = (Map<String, Boolean>) document.get("requestStatus");
-                    for (Map.Entry<String, Boolean> entry : map.entrySet()) {
-                        String requestToName = entry.getKey();
-                        Boolean whetherRequest = entry.getValue();
-                        if (requestToName == myname && whetherRequest){
-//                            DocumentReference docRef = db.collection("requests").document(myname);
-//                            DocumentSnapshot document2 = docRef.get().get();
-//                            Map<String, Boolean> map2 = (Map<String, Boolean>) document2.get("actionsToRequests");
-//                            for (Map.Entry<String, Boolean> entry2 : map2.entrySet()) {
-//                                String requesterName = entry2.getKey();
-//                                Boolean acceptedRequest = entry2.getValue();
-//                                if (requesterName == document.getId() && acceptedRequest == null)
-                            check.set(false);
-                                }
-                            }
-                        }
-                    });
-                } catch (InterruptedException | ExecutionException e) {
+            DocumentReference docRef = db.collection("finds").document(partnerName);
+            DocumentSnapshot document = docRef.get().get();
+            if (document.exists()) {
+                HashMap<String, Boolean> statusMap = (HashMap<String, Boolean>) document.get("requestStatus");
+                if(statusMap.containsKey(myname) && statusMap.get(myname)){
+                    check.set(Boolean.TRUE);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-            return check.get();
+        return check.get();
     }
+
 
 
     @Override
@@ -343,10 +388,10 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 
     }
 
-    @Override
-    public List<Profile> getAllProfiles() {
-        return List.of();
-    }
+//    @Override
+//    public List<Profile> getAllProfiles() {
+//        return List.of();
+//    }
 
 //    @Override
 //    public void saveMatch(String username, Matches matches) {

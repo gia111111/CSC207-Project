@@ -4,10 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RequestsState {
-    private String currentUserName;
+    private String currentUserName = "";
     private HashMap<String, Double> scoresMap; // Username -> Compatibility score
     private HashMap<String, Boolean> actionsToRequests; // Username -> Accepted/Rejected
     private String errorMessage;
+
+    public RequestsState(){
+        this.scoresMap = new HashMap<>();
+        this.actionsToRequests = new HashMap<>();
+        this.errorMessage = null;
+
+    }
 
     public String getErrorMessage() {
         return errorMessage;
@@ -39,5 +46,15 @@ public class RequestsState {
 
     public void setCurrentUserName(String currentUserName) {
         this.currentUserName = currentUserName;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestsState{"
+                + "currentUserName='" + currentUserName + '\''
+                + ", scoresMap='" + scoresMap + '\''
+                + ", actionsToRequest='" + actionsToRequests + '\''
+                + ", errorMessage='" +errorMessage + '\''
+                + '}';
     }
 }

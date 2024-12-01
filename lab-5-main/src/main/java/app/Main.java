@@ -41,6 +41,8 @@ public class Main {
                         .addLogoutUseCase()
                         .addFindView()
                         .addFindUseCase()
+                        .addRequestsView()
+                        .addRequestsUseCase()
                         .addMatchView()
                         .build();
 
