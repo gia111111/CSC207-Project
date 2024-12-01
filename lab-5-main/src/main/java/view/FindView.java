@@ -179,7 +179,7 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         table.getColumnModel().getColumn(2).setCellRenderer(new ActionsRenderer());
         table.getColumnModel().getColumn(2).setCellEditor(new ActionsEditor());
 
-        // Customize table appearance
+        // Customize table appearancex
         table.setBackground(MaterialColors.WHITE);
         table.setSelectionBackground(MaterialColors.LIGHT_BLUE_400);
 
