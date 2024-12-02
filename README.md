@@ -29,7 +29,7 @@ Users can create secure accounts with a username, password, and a security word 
 
 - Profile Creation:
 Users complete a detailed questionnaire covering personal details, preferences, and romantic expectations.
-The ability to weight compatibility questions ensures personalized matching criteria.
+The ability to weigh compatibility questions ensures personalized matching criteria.
 
 - Compatibility-Based Searching and Matching:
 Users are presented with a list of potential matches ranked by compatibility score.
