@@ -8,11 +8,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Interactor responsible for finding requests of the current user.
+ * Implements the {@Link RequestsInputBoundary} interface to define use case behaviour.
+ */
 public class RequestsInteractor implements RequestsInputBoundary{
     private final RequestsOutputBoundary outputBoundary;
     private final RequestsDataAccessInterface requestsDataAccessInterface;
     private final CompatibilityAlgorithm2 compatibilityAlgorithm2;
 
+    /**
+     * Constructs a new RequestsInteractor instance.
+     *
+     * @param outputBoundary the output boundary for presenting results or errors
+     * @param requestsDataAccessInterface the remote data access object for interacting with the database
+     * @param compatibilityAlgorithm2 the algorithm used to calculate compatibility scores
+     */
     public RequestsInteractor(RequestsOutputBoundary outputBoundary, RequestsDataAccessInterface requestsDataAccessInterface,
                               CompatibilityAlgorithm2 compatibilityAlgorithm2) {
         this.outputBoundary= outputBoundary;
@@ -20,6 +31,15 @@ public class RequestsInteractor implements RequestsInputBoundary{
         this.compatibilityAlgorithm2 = compatibilityAlgorithm2;
     }
 
+    /**
+     * Executes the requests use case.
+     * Fetches the Finds of each other user, determines if they liked current user, calculates compatibility score
+     * between current user and other user, and compiles list of requests.
+     *
+     * @param requestsInputData input data containing request details..
+     * @return a map of users that requested current user and the status current user has towards them,
+     * or null if an error occurs
+     */
     @Override
     public HashMap<String, Double> execute(RequestsInputData requestsInputData) {
         String username = requestsInputData.getUsername();

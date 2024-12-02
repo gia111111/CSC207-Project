@@ -6,15 +6,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Interactor responsible for finding matches of the current user.
+ * Implements the {@Link MatchesInputBoundary} interface to define use case behaviour.
+ */
 public class MatchesInteractor implements MatchesInputBoundary {
     private final MatchesDataAccessObject matchesDataAccessObject;
     private final MatchesOutputBoundary matchesOutputBoundary;
 
+    /**
+     * Constructs a new MatchesInteractor instance.
+     *
+     * @param matchesDataAccessObject the data access object for interacting with the database
+     * @param matchesOutputBoundary the output boundary for presenting results or errors
+     */
     public MatchesInteractor(MatchesDataAccessObject matchesDataAccessObject, MatchesOutputBoundary matchesOutputBoundary) {
         this.matchesDataAccessObject = matchesDataAccessObject;
         this.matchesOutputBoundary = matchesOutputBoundary;
     }
 
+    /**
+     * Executes the matches use case.
+     * Fetches the current users matches and retrieves their contact information.
+     *
+     * @param matchesInputData input data containing match details.
+     * @return a map of the current users matches' usernames and a list of their contact information,
+     * or null if an error occurs
+     */
     @Override
     public Map<String, List<String>> execute(MatchesInputData matchesInputData) {
         List<String> otherUsers = matchesDataAccessObject.getRequests(matchesInputData.getName());
@@ -36,6 +54,9 @@ public class MatchesInteractor implements MatchesInputBoundary {
         }
     }
 
+    /**
+     * Switch view to DashboardView.
+     */
     @Override
     public void switchToDashBoardView() {
     }
