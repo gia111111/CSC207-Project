@@ -32,6 +32,7 @@ public class Main {
                         .addSignupView()
                         .addLoggedInView()
                         .addProfileView()
+                        .addChangePasswordView()
                         .addDashboardView()
                         .addSignupUseCase()
                         .addLoginUseCase()

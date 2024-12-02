@@ -10,8 +10,8 @@ public class ChangePasswordInputData {
     private final String security;
 
     public ChangePasswordInputData(String username, String password, String repeatPassword, String security) {
-        this.password = password;
         this.username = username;
+        this.password = password;
         this.repeatPassword = repeatPassword;
         this.security = security;
     }

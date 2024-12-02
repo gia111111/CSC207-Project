@@ -1,5 +1,6 @@
 package interface_adapter.change_password;
 
+import data_access.RemoteDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInputData;
@@ -10,11 +11,13 @@ import use_case.change_password.ChangePasswordInputData;
 public class ChangePasswordController {
     private final ChangePasswordInputBoundary userChangePasswordUseCaseInteractor;
     private final ViewManagerModel viewManagerModel;
+    private final RemoteDataAccessObject remoteDataAccessObject;
 
     public ChangePasswordController(ChangePasswordInputBoundary userChangePasswordUseCaseInteractor,
-                                    ViewManagerModel viewManagerModel) {
+                                    ViewManagerModel viewManagerModel, RemoteDataAccessObject dataAccessObject) {
         this.userChangePasswordUseCaseInteractor = userChangePasswordUseCaseInteractor;
         this.viewManagerModel = viewManagerModel;
+        this.remoteDataAccessObject = dataAccessObject;
     }
 
     /**
@@ -24,9 +27,12 @@ public class ChangePasswordController {
      * @param securityWord the security word to verify the user
      */
 
-    public void execute(String password, String username, String repeatPassword, String securityWord) {
+    public void execute(String username, String password, String repeatPassword, String securityWord) {
         final ChangePasswordInputData changePasswordInputData = new ChangePasswordInputData(username, password, repeatPassword, securityWord);
         userChangePasswordUseCaseInteractor.execute(changePasswordInputData);
+        remoteDataAccessObject.setCurrentUsername(username);
+        System.out.println(remoteDataAccessObject.getCurrentUsername());
+
 
     }
 
@@ -35,6 +41,14 @@ public class ChangePasswordController {
      */
     public void redirectToLogin() {
         viewManagerModel.setState("log in");
+        viewManagerModel.firePropertyChanged();
+    }
+
+    /**
+     * Handles the Cancel action to switch back to the homepage.
+     */
+    public void handleCancel() {
+        viewManagerModel.setState("home");
         viewManagerModel.firePropertyChanged();
     }
 }

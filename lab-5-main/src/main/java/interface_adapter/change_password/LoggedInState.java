@@ -7,23 +7,46 @@ public class LoggedInState {
     private String username = "";
 
     private String password = "";
-    private String security = "";
+    private String repeatPassword = "";
+//    private String security = "";
     // private String userNotExistError;
     private String passwordError;
-    private String securityWord = "";
+     private String securityWord = "";
 
-    public LoggedInState(LoggedInState copy) {
-        username = copy.username;
-        password = copy.password;
-        security = copy.security;
-        // userNotExistError = copy.userNotExistError;
-        passwordError = copy.passwordError;
-        securityWord = copy.securityWord;
-    }
+//    public LoggedInState(LoggedInState copy) {
+//        username = copy.username;
+//        password = copy.password;
+//        security = copy.security;
+//        // userNotExistError = copy.userNotExistError;
+//        passwordError = copy.passwordError;
+//        securityWord = copy.securityWord;
+//    }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
-    public LoggedInState() {
+//    public LoggedInState() {
+//
+//    }
 
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
+    }
+
+//    public void setSecurityWord(String securityWord) {
+//        this.securityWord = securityWord;
+//    }
+
+
+    public String getSecurityWord() {
+        return securityWord;
+    }
+
+    public void setSecurityWord(String securityWord) {
+        this.securityWord = securityWord;
     }
 
     public String getUsername() {
@@ -51,25 +74,25 @@ public class LoggedInState {
     }
 
 
-    public String getSecurityWord() { return securityWord; }
+//    public String getSecurityWord() { return securityWord; }
 
 //    public String getUserNotExistError() {
 //        return userNotExistError;
 //    }
 
-    public String getSecurity() {
-        return security;
-    }
-
-    public void setSecurity(String security) {
-        this.security = security;
-    }
+//    public String getSecurity() {
+//        return security;
+//    }
+//
+//    public void setSecurity(String security) {
+//        this.security = security;
+//    }
 
     public String toString() {
         return "LoggedInState{"
                 + "username='" + username + '\''
                 + ", password='" + password + '\''
-                + ", security='" + security + '\''
+//                + ", security='" + security + '\''
                 + ", passwordError='" + passwordError + '\''
                 + ", securityWord='" + securityWord + '\''
                 + '}';
