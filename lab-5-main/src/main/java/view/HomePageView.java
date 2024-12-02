@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -17,6 +17,7 @@ import interface_adapter.home.HomePageViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import mdlaf.utils.MaterialColors;
 
 /**
  * The View for when the user is logging into the program.
@@ -47,6 +48,16 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
 
         // Add space after the title
         add(Box.createVerticalStrut(30));
+
+        // Add privacy text at the bottom
+        JLabel privacyLabel = new JLabel(
+                "<html><body style='text-align: center;'>At Code & Cupid, we take your privacy seriously. <br>" +
+                        "We are committed to protecting your personal information and ensuring transparency in how it is used.</body></html>");
+        privacyLabel.setFont(new Font("Roboto", Font.ITALIC, 12));
+        privacyLabel.setForeground(MaterialColors.PINK_200);
+        privacyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        this.add(privacyLabel, BorderLayout.SOUTH);
         // Initialize and align buttons
         toLoginButton = new JButton(HomePageViewModel.LOGIN_BUTTON_LABEL);
         toLoginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
