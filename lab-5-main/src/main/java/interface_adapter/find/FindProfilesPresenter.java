@@ -17,15 +17,9 @@ public class FindProfilesPresenter implements FindProfilesOutputBoundary {
 
     @Override
     public void presentFinds(Finds finds) {
-//        // Format and display the results (e.g., send to the UI)
-//        finds.getScores().forEach((username, score) -> {
-//            System.out.println("Username: " + username + ", Compatibility Score: " + score);
-//        });
         final FindState state = findViewModel.getState();
         state.setScores(finds.getScores());
         findViewModel.setState(state);
-        //findViewModel.firePropertyChanged();
-
         viewManagerModel.setState("find");
     }
 

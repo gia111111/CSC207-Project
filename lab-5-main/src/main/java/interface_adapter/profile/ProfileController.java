@@ -14,13 +14,11 @@ public class ProfileController {
     private final CreateProfileInputBoundary userCreateProfileUseCaseInteractor;
     private final ViewManagerModel viewManagerModel;
     private final RemoteDataAccessObject remoteDataAccessObject;
-//    private final String username;
 
     public ProfileController(CreateProfileInputBoundary userCreateProfileUseCaseInteractor, ViewManagerModel viewManagerModel, RemoteDataAccessObject dataAccessObject) {
         this.userCreateProfileUseCaseInteractor = userCreateProfileUseCaseInteractor;
         this.viewManagerModel = viewManagerModel;
         this.remoteDataAccessObject = dataAccessObject;
-//        this.username = dataAccessObject.getCurrentUsername();
     }
 
     /**
@@ -41,17 +39,6 @@ public class ProfileController {
         remoteDataAccessObject.setSectionWeights(weights);
         remoteDataAccessObject.setContactInfo(contactInfo);
         remoteDataAccessObject.setContactMethod(contactMethod);
-//        System.out.println(remoteDataAccessObject.getGender());
-//        System.out.println(remoteDataAccessObject.getSectionWeights());
-
     }
-
-
-    /**x
-     * Executes the "switch to DashboardView" Use Case.
-     */
-    //    void switchToDashboardView(){
-//
-//    }
 
 }

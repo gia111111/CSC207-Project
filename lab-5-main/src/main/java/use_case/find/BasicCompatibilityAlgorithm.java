@@ -48,4 +48,4 @@ public class BasicCompatibilityAlgorithm implements CompatibilityAlgorithm {
 
         return sectionScore;
     }
-    }
+}

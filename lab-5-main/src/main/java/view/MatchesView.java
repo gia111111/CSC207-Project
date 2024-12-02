@@ -89,18 +89,6 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
         } else {
             tableModel.addRow(new String[]{"Sorry", "No matches currently", "Go to Finds to search for matches."});
         }
-//        Map<String, List<String>> matchesContact = new HashMap<>();
-//        List<String> contact1 = new ArrayList<>();
-//        contact1.add("instagram");
-//        contact1.add("@blub");
-//        List<String> contact2 = new ArrayList<>();
-//        contact2.add("Wechat");
-//        contact2.add("@bloop");
-//        matchesContact.put("hello", contact1);
-//        matchesContact.put("hi", contact2);
-//        for (Map.Entry<String, List<String>> entry : matchesContact.entrySet()) {
-//            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue().get(0), entry.getValue().get(1)});
-//        }
     }
 
     @Override

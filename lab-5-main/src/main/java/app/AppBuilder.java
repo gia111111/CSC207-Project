@@ -69,15 +69,10 @@ import view.*;
  * <p/>
  * This is done by adding each View and then adding related Use Cases.
  */
-// Checkstyle note: you can ignore the "Class Data Abstraction Coupling"
-//                  and the "Class Fan-Out Complexity" issues for this lab; we encourage
-//                  your team to think about ways to refactor the code to resolve these
-//                  if your team decides to work with this as your starter code
-//                  for your final project this term.
+
 public class AppBuilder {
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
-    // thought question: is the hard dependency below a problem?
     private final UserFactory userFactory = new CommonUserFactory();
     private final ProfileFactory profileFactory = new CommonProfileFactory();
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
@@ -85,8 +80,6 @@ public class AppBuilder {
     private final MatchesViewModel matchesViewModel = new MatchesViewModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    // thought question: is the hard dependency below a problem?
-    // private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final RemoteDataAccessObject remoteDataAccessObject = new RemoteDataAccessObject();
 
     private HomePageView homePageView;
@@ -159,17 +152,6 @@ public class AppBuilder {
         cardPanel.add(profileView, profileView.getViewName());
         return this;
     }
-
-//    /**
-//     * Adds the Requests View to the application.
-//     * @return this builder
-//     */
-//    public AppBuilder addRequestsView() {
-//        requestsViewModel = new RequestsViewModel();
-//        requestsView = new RequestsView(requestsViewModel);
-//        cardPanel.add(requestsView,requestsView.getViewName());
-//        return this;
-//    }
 
 
     /**
@@ -293,10 +275,6 @@ public class AppBuilder {
     }
 
     public AppBuilder addHomePageUseCase() {
-        final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel,
-                signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
-        final HomeInputBoundary userHomeInteractor = new HomeInteractor(homeOutputBoundary);
-
         final HomePageController controller = new HomePageController(viewManagerModel);
         homePageView.setHomePageController(controller);
         return this;
@@ -316,14 +294,6 @@ public class AppBuilder {
         matchesView.setMatchesController(matchesController);
         return this;
     }
-
-//    public AppBuilder addCreateProfileUseCase() {
-//        final CreateProfileOutputBoundary createProfileOutputBoundary = new ProfilePresenter(profileViewModel, viewManagerModel);
-//        final CreateProfileInputBoundary createProfileInteracter = new CreateProfileInteractor(remoteDataAccessObject, createProfileOutputBoundary, profileFactory);
-//        final ProfileController profileController = new ProfileController(createProfileInteracter, viewManagerModel);
-//        profileView.setProfileController(profileController);
-//        return this;
-//    }
 
     /**
      * Adds the Profile Use Case to the application.
@@ -364,12 +334,6 @@ public class AppBuilder {
      */
     public AppBuilder addRequestsView(){
         requestsViewModel = new RequestsViewModel();
-//        final RequestsOutputBoundary requestsOutputBoundary = new RequestsPresenter(viewManagerModel, requestsViewModel);
-//        final CompatibilityAlgorithm2 compatibilityAlgorithm = new BasicCompatibilityAlgorithm2();
-//        final RequestsInputBoundary requestsInputBoundary = new RequestsInteractor(requestsOutputBoundary, remoteDataAccessObject,
-//                compatibilityAlgorithm);
-
-//        final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary,remoteDataAccessObject);
         requestsView = new RequestsView(requestsViewModel);
         cardPanel.add(requestsView,requestsView.getViewName());
         return this;
@@ -397,8 +361,6 @@ public class AppBuilder {
     public JFrame build() {
         final JFrame application = new JFrame("Code & Cupid");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-//        application.add(cardPanel);
         JScrollPane scroll = new JScrollPane(cardPanel);
         application.add(scroll);
 

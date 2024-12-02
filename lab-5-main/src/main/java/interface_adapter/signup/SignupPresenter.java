@@ -14,7 +14,6 @@ import use_case.signup.SignupOutputData;
 public class SignupPresenter implements SignupOutputBoundary {
 
     private final SignupViewModel signupViewModel;
-    //private final LoginViewModel loginViewModel;
     private ProfileViewModel profileViewModel;
     private final ViewManagerModel viewManagerModel;
 
@@ -23,20 +22,12 @@ public class SignupPresenter implements SignupOutputBoundary {
                            ProfileViewModel profileViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
-        //this.loginViewModel = loginViewModel;
         this.profileViewModel = profileViewModel;
     }
 
     @Override
     public void prepareSuccessView(SignupOutputData response) {
         // On success, switch to the login view.
-//        final LoginState loginState = loginViewModel.getState();
-//        loginState.setUsername(response.getUsername());
-//        this.loginViewModel.setState(loginState);
-//        loginViewModel.firePropertyChanged();
-//
-//        viewManagerModel.setState(loginViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
         final SignupState signupState = signupViewModel.getState();
         signupState.setUsername(response.getUsername());
         this.signupViewModel.setState(signupState);
@@ -55,7 +46,6 @@ public class SignupPresenter implements SignupOutputBoundary {
 
     @Override
     public void switchToProfileView() {
-        //viewManagerModel.setState(loginViewModel.getViewName());
         viewManagerModel.setState("profile");
         viewManagerModel.firePropertyChanged();
     }

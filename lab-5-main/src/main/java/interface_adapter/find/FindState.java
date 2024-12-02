@@ -16,10 +16,6 @@ public class FindState {
     }
 
     public Map<String, Double> getScores() {
-//        final Map<String, Double> hello = new HashMap<>();
-//        hello.put("hello", 1.0);
-//        hello.put("world", 1.0);
-//        return hello;
         System.out.println("Current scores: " + this.scores);
         return this.scores;
     }

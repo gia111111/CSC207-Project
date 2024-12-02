@@ -304,9 +304,6 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
         tableModel.setRowCount(0);
         System.out.println("view refresh table");
 
-        // Get current state from the ViewModel
-//        final RequestsState currentState = requestsViewModel.getState();
-
         // Populate table with data from the ViewModel's state
         Map<String, Double> scores = requestsController.execute();
         if (scores != null) {
