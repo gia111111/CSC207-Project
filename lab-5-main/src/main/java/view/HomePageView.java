@@ -43,37 +43,55 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
         // Title label
         JLabel titleLabel = new JLabel(HomePageViewModel.TITLE_LABEL);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(Box.createVerticalStrut(50)); // Adds some space before the title
-        add(titleLabel);
+        this.add(Box.createVerticalStrut(50)); // Adds some space before the title
+        this.add(titleLabel);
 
         // Add space after the title
-        add(Box.createVerticalStrut(30));
+        this.add(Box.createVerticalStrut(30));
 
-        // Add privacy text at the bottom
+        // Create the main panel with BoxLayout for vertical alignment
+        JPanel centeredPanel = new JPanel();
+        centeredPanel.setLayout(new BoxLayout(centeredPanel, BoxLayout.Y_AXIS));
+        centeredPanel.setOpaque(false); // Ensure the panel blends with its parent
+
+        // Add the privacy label
         JLabel privacyLabel = new JLabel(
-                "<html><body style='text-align: center;'>At Code & Cupid, we take your privacy seriously. <br>" +
-                        "We are committed to protecting your personal information and ensuring transparency in how it is used.</body></html>");
+                "<html><div align='center'>At Code & Cupid, we take your privacy seriously.<br>" +
+                        "We are committed to protecting your personal information and ensuring transparency in how it is used.</body></html>"
+        );
         privacyLabel.setFont(new Font("Roboto", Font.ITALIC, 12));
         privacyLabel.setForeground(MaterialColors.PINK_200);
-        privacyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        privacyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        privacyLabel.setHorizontalAlignment(SwingConstants.CENTER);// Center alignment within BoxLayout
+        centeredPanel.add(privacyLabel);
 
-        this.add(privacyLabel, BorderLayout.SOUTH);
-        // Initialize and align buttons
+        // Add spacing between the label and buttons
+        centeredPanel.add(Box.createVerticalStrut(20)); // 20px vertical space
+
+        // Add the login button
         toLoginButton = new JButton(HomePageViewModel.LOGIN_BUTTON_LABEL);
-        toLoginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(toLoginButton);
-        add(Box.createVerticalStrut(20)); // Space between buttons
+        toLoginButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Center alignment
+        centeredPanel.add(toLoginButton);
 
+        // Add spacing between buttons
+        centeredPanel.add(Box.createVerticalStrut(10)); // 10px vertical space
+
+        // Add the signup button
         toSignupButton = new JButton(HomePageViewModel.SIGNUP_BUTTON_LABEL);
-        toSignupButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(toSignupButton);
-        add(Box.createVerticalStrut(20));
+        toSignupButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Center alignment
+        centeredPanel.add(toSignupButton);
 
+        // Add spacing between buttons
+        centeredPanel.add(Box.createVerticalStrut(10)); // 10px vertical space
 
+        // Add the reset password button
         toResetPasswordButton = new JButton(HomePageViewModel.RESET_PASSWORD_BUTTON_LABEL);
-        toResetPasswordButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(toResetPasswordButton);
+        toResetPasswordButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Center alignment
+        centeredPanel.add(toResetPasswordButton);
 
+        // Add the centered panel to the NORTH region to align it at the top
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(centeredPanel);
 
         toLoginButton.addActionListener(e -> homePageController.switchToLoginView());
         toSignupButton.addActionListener(e -> homePageController.switchToSignupView());

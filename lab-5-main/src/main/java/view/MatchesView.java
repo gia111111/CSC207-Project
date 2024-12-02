@@ -57,13 +57,13 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
 
         JButton dashboard = new JButton("Dashboard");
         dashboard.addActionListener(evt -> matchesController.switchToDashBoardView());
-        dashboard.setForeground(MaterialColors.WHITE);
+        dashboard.setForeground(MaterialColors.BLUE_800);
         dashboard.setBackground(MaterialColors.PINK_100);
         add(dashboard, BorderLayout.SOUTH);
 
         JButton load = new JButton("Press to load all matches!");
         load.setBackground(MaterialColors.PINK_100);
-        load.setForeground(MaterialColors.WHITE);
+        load.setForeground(MaterialColors.BLUE_800);
         load.addActionListener(evt -> {
                     if (evt.getSource().equals(load)) {
                         refreshTable(); // Refresh the table on Load button click

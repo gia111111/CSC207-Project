@@ -278,14 +278,14 @@ public class RequestsView extends JPanel implements ActionListener, PropertyChan
         // Add "Return to Dashboard" button at the bottom
         JButton returnButton = new JButton("Dashboard");
         returnButton.addActionListener(evt -> requestsController.switchToDashboard());
-        returnButton.setBackground(MaterialColors.LIGHT_BLUE_400);
-        returnButton.setForeground(MaterialColors.WHITE);
+        returnButton.setBackground(MaterialColors.PINK_100);
+        returnButton.setForeground(MaterialColors.BLUE_800);
         add(returnButton, BorderLayout.SOUTH);
 
         // Add a Load button at the top
         JButton loadButton = new JButton("Press to start browsing!");
         loadButton.setBackground(MaterialColors.PINK_100);
-        loadButton.setForeground(MaterialColors.WHITE);
+        loadButton.setForeground(MaterialColors.BLUE_800);
         add(loadButton, BorderLayout.NORTH);
         loadButton.addActionListener(
                 evt -> {

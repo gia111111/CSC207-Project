@@ -48,7 +48,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/abigail/IdeaProjects/CSC207-Project/lab-5-main/src/credential.json");
+        FileInputStream serviceAccount = new FileInputStream("/Users/vickichen/Downloads/csc207-765dd-firebase-adminsdk-zgsb1-4e0e76fc06.json");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
@@ -196,8 +196,6 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.set(profile);
         System.out.println("save" + profile.getAnswer());
         System.out.println("save" + profile.getWeights());
-
-
     }
 
     @Override

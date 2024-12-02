@@ -104,7 +104,7 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setFont(new Font("Roboto", Font.PLAIN, 14));
         button.setBackground(MaterialColors.LIGHT_BLUE_400);
-        button.setForeground(MaterialColors.WHITE);
+        button.setForeground(MaterialColors.BLUE_800);
 
         // Add hover effect
         MaterialUIMovement.add(button, MaterialColors.BLUE_800);
