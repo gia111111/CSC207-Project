@@ -14,6 +14,9 @@ import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.dashboard.DashBoardController;
 import interface_adapter.dashboard.DashBoardViewModel;
+import interface_adapter.find.FindProfilesController;
+import interface_adapter.find.FindProfilesPresenter;
+import interface_adapter.find.FindViewModel;
 import interface_adapter.home.HomePageController;
 import interface_adapter.home.HomePagePresenter;
 import interface_adapter.home.HomePageViewModel;
@@ -25,6 +28,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.matches.MatchesController;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfilePresenter;
+import interface_adapter.requests.RequestsController;
+import interface_adapter.requests.RequestsPresenter;
+import interface_adapter.requests.RequestsViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -38,6 +44,7 @@ import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.createProfile.CreateProfileInputBoundary;
 import use_case.createProfile.CreateProfileInteractor;
 import use_case.createProfile.CreateProfileOutputBoundary;
+import use_case.find.*;
 import use_case.home.HomeInputBoundary;
 import use_case.home.HomeInteractor;
 import use_case.home.HomeOutputBoundary;
@@ -50,7 +57,6 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
-//import use_case.matches.MatchInputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -94,12 +100,18 @@ public class AppBuilder {
     private DashBoardViewModel dashBoardViewModel;
     private DashBoardView dashBoardView;
     private MatchesView matchesView;
-
+    private RequestsView requestsView;
+    private RequestsViewModel requestsViewModel;
+    private FindViewModel findViewModel;
+    private FindView findView;
 
     private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
     private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
+    private MatchInputBoundary matchInputBoundary;
+    private RequestsInputBoundary requestsInputBoundary;
+    private MatchesController matchesController = new MatchesController(viewManagerModel, matchInputBoundary);
 
     public AppBuilder() throws IOException {
         cardPanel.setLayout(cardLayout);
@@ -149,6 +161,18 @@ public class AppBuilder {
         return this;
     }
 
+//    /**
+//     * Adds the Requests View to the application.
+//     * @return this builder
+//     */
+//    public AppBuilder addRequestsView() {
+//        requestsViewModel = new RequestsViewModel();
+//        requestsView = new RequestsView(requestsViewModel);
+//        cardPanel.add(requestsView,requestsView.getViewName());
+//        return this;
+//    }
+
+
     /**
      * Adds the Dashboard View to the application.
      * @return this builder
@@ -193,18 +217,29 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the LoggedIn View to the application.
+     * @return this builder
+     */
+    public AppBuilder addChangePasswordView() {
+        loggedInViewModel = new LoggedInViewModel();
+        loggedInView = new LoggedInView(loggedInViewModel);
+        cardPanel.add(loggedInView, loggedInView.getViewName());
+        return this;
+    }
+
+    /**
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
     public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(loggedInViewModel, viewManagerModel);
+                new ChangePasswordPresenter(loggedInViewModel, viewManagerModel,loginViewModel);
 
         final ChangePasswordInputBoundary changePasswordInteractor =
                 new ChangePasswordInteractor(remoteDataAccessObject, changePasswordOutputBoundary, userFactory);
 
         final ChangePasswordController changePasswordController =
-                new ChangePasswordController(changePasswordInteractor, viewManagerModel);
+                new ChangePasswordController(changePasswordInteractor, viewManagerModel, remoteDataAccessObject);
         loggedInView.setChangePasswordController(changePasswordController);
         return this;
     }
@@ -222,6 +257,30 @@ public class AppBuilder {
 
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         loggedInView.setLogoutController(logoutController);
+        return this;
+    }
+
+
+    public AppBuilder addFindUseCase(){
+        // Initialize the compatibility algorithm
+        final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
+
+        // Initialize the output boundary (Presenter)
+        final FindProfilesOutputBoundary outputBoundary = new FindProfilesPresenter(findViewModel, viewManagerModel);
+
+        // Create the FindProfilesInteractor
+        final FindProfilesInteractor findProfilesInteractor = new FindProfilesInteractor(
+                compatibilityAlgorithm, // The data access interface
+                outputBoundary,
+                remoteDataAccessObject
+                );
+
+        // Create the controller and assign the interactor
+        final FindProfilesController findProfilesController = new FindProfilesController(findProfilesInteractor, viewManagerModel, remoteDataAccessObject);
+
+        // Assign the controller to the FindViewModel or other components if necessary
+        findView.setFindProfilesController(findProfilesController);
+
         return this;
     }
 
@@ -282,16 +341,55 @@ public class AppBuilder {
         return this;
     }
 
-//    public AppBuilder addMatchView() {
-//        Matches matches = new Matches();
-//        // Populate Matches with sample data (replace with real data retrieval in the future)
-//        matches.addMatch("John Doe", List.of("Phone", "123-456-7890"));
-//        matches.addMatch("Jane Smith", List.of("Email", "jane@example.com"));
-//
-////        MatchView matchView = new MatchView(matches, matchesController);
-////        cardPanel.add(matchView, "matchView");
-//        return this;
-//    }
+
+    /**
+     * Adds the Requests Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addRequestsUseCase() {
+        // Initialize the compatibility algorithm
+        final RequestsOutputBoundary requestsOutputBoundary = new RequestsPresenter(viewManagerModel, requestsViewModel);
+        final CompatibilityAlgorithm2 compatibilityAlgorithm = new BasicCompatibilityAlgorithm2();
+        final RequestsInputBoundary requestsInputBoundary = new RequestsInteractor(requestsOutputBoundary, remoteDataAccessObject,
+                compatibilityAlgorithm);
+
+        final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary,remoteDataAccessObject);
+        requestsView.setRequestsController(requestsController);
+        return this;
+    }
+
+
+    /**
+     * Adds the Requests View to the application.
+     * @return this builder
+     */
+    public AppBuilder addRequestsView(){
+        requestsViewModel = new RequestsViewModel();
+//        final RequestsOutputBoundary requestsOutputBoundary = new RequestsPresenter(viewManagerModel, requestsViewModel);
+//        final CompatibilityAlgorithm2 compatibilityAlgorithm = new BasicCompatibilityAlgorithm2();
+//        final RequestsInputBoundary requestsInputBoundary = new RequestsInteractor(requestsOutputBoundary, remoteDataAccessObject,
+//                compatibilityAlgorithm);
+
+//        final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary,remoteDataAccessObject);
+        requestsView = new RequestsView(requestsViewModel);
+        cardPanel.add(requestsView,requestsView.getViewName());
+        return this;
+    }
+
+
+
+    public AppBuilder addFindView() {
+
+        // Initialize the FindViewModel
+        findViewModel = new FindViewModel();
+        // Create the FindView and link it to the view model and controller
+        findView = new FindView(findViewModel);
+
+        // Add the FindView to the card panel or relevant UI component
+        cardPanel.add(findView, findView.getViewName());
+
+        return this;
+    }
 
     /**
      * Creates the JFrame for the application and initially sets the HomePageView to be displayed.

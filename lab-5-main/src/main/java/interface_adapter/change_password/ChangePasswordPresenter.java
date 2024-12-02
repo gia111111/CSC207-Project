@@ -1,6 +1,8 @@
 package interface_adapter.change_password;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupState;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.change_password.ChangePasswordOutputData;
@@ -13,10 +15,13 @@ import javax.swing.*;
 public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoggedInViewModel loggedInViewModel;
+    private final LoginViewModel loginViewModel;
 
-    public ChangePasswordPresenter(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
+    public ChangePasswordPresenter(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel,
+                                   LoginViewModel loginViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.loginViewModel = loginViewModel;
     }
 
     @Override
@@ -29,14 +34,36 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
         // On success, switch to the homepage view.;
 
         // Switch to the login view after successful password change
-        viewManagerModel.setState("log in");
-        viewManagerModel.firePropertyChanged();
+
+        final LoginState logInState = loginViewModel.getState();
+        logInState.setUsername(outputData.getUsername());
+        this.loginViewModel.setState(logInState);
+        this.loginViewModel.firePropertyChanged();
+
+        this.viewManagerModel.setState("log in");
+        this.viewManagerModel.firePropertyChanged();
+
+//        viewManagerModel.setState("log in");
+//        viewManagerModel.firePropertyChanged();
     }
+
+
+//    final LoggedInState loggedInState = loggedInViewModel.getState();
+//        loggedInState.setUsername(response.getUsername());
+//        this.loggedInViewModel.setState(loggedInState);
+//        this.loggedInViewModel.firePropertyChanged();
+//
+//        this.viewManagerModel.setState("dashboard");
+//        this.viewManagerModel.firePropertyChanged();
+//
+
+
 
     @Override
     public void prepareFailView(String error) {
        final LoggedInState changePasswordState = loggedInViewModel.getState();
        // changepasswordState.setUserNotExistError(error);
+
        changePasswordState.setPasswordError(error);
        loggedInViewModel.firePropertyChanged();
     }
