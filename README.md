@@ -101,6 +101,13 @@ After downloading the credentials, add the credential file and replace the file 
 
 ## Usage
 
+To run the program, follow the steps below:
+1. Clone the repository to your local machine.
+2. Open the project in IntelliJ IDEA.
+3. Build the project by clicking Build > Build Project in the top menu.
+4. Set up your Firestore database and replace the file path in the line #51 src/main/java/data_access/RemoteDataAccessObject.java with your own credentials file path.
+5. Run the program by clicking the green play button in the top right corner.
+6. Follow the on-screen instructions to create an account, complete your profile, and interact with other users.
 
 ## Contribution
 
