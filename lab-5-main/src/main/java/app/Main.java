@@ -40,6 +40,8 @@ public class Main {
                         .addProfileUseCase()
                         .addHomePageUseCase()
                         .addLogoutUseCase()
+                        .addFindView()
+                        .addFindUseCase()
                         .addMatchView()
                         .build();
 

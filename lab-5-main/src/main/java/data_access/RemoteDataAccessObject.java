@@ -7,18 +7,14 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
 import com.google.firebase.cloud.FirestoreClient;
-import entity.CommonProfile;
-import entity.CommonUser;
-import entity.Matches;
-import entity.Profile;
-import entity.User;
+import entity.*;
+import use_case.find.FindUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.createProfile.CreateProfileDataAccessInterface;
 import use_case.editprofile.EditProfileInputData;
 import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.matches.MatchDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.FileInputStream;
@@ -34,7 +30,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         CreateProfileDataAccessInterface,
         EditProfileUserDataAccessInterface,
-        MatchDataAccessInterface,
+        FindUserDataAccessInterface,
         LogoutUserDataAccessInterface {
 
     private final Firestore db;
@@ -46,14 +42,17 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     private Map<String, Integer> sectionWeights = new HashMap<>();
     private String contactMethod;
     private String contactInfo;
+    private final ProfileFactory profileFactory;
+
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
+        FileInputStream serviceAccount = new FileInputStream("/Users/kensleyzhou/IdeaProjects/Week9_login/CSC207-Project/lab-5-main/src/credential");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
         FirebaseApp.initializeApp(options);
         db = FirestoreClient.getFirestore();
+        this.profileFactory = new CommonProfileFactory();
     }
 
     /**
@@ -189,46 +188,59 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
      */
     @Override
     public void save(Profile profile) {
-//        DocumentReference docRef = db.collection("profiles").document(profile.getName());
-       // DocumentReference docRef = db.collection("profiles").document("test6");
-//        System.out.println("age"+profile.getAge());
-//        db.collection("users").document("test9").set(profile, SetOptions.merge());
-        //docRef.set(profile);
 
         DocumentReference docRef = db.collection("profiles").document(profile.getName());
         docRef.set(profile);
         System.out.println("save" + profile.getAnswer());
         System.out.println("save" + profile.getWeights());
 
-//        ArrayList<String> blub = new ArrayList<>();
-//        blub.add("hello");
-//        blub.add("bye");
-//        ArrayList<String> blip = new ArrayList<>();
-//        blip.add("murp");
-//        blip.add("aur");
-//        HashMap<String, List<String>> hi = new HashMap<>();
-//        hi.put("section1", blub);
-//        hi.put("section2", blip);
+
+    }
+
+    @Override
+    public void save(Finds finds){
+        //DocumentReference docRef = db.collection("finds").document(finds.getRequestStatus())
+        // Get a reference to the Firestore database
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Iterate over each request in the Finds entity
+        for (Map.Entry<String, Boolean> requestEntry : finds.getFinds().entrySet()) {
+            String otherUser = requestEntry.getKey();
+//            boolean requestStatus = requestEntry.getValue();
 //
-//        docRef.set(Map.of("name", profile.getName(), "age", profile.getAge(), "gender", profile.getGender(),
-//                "sexual orientation", profile.getSexualOrientation(),"answers",hi,"weights", profile.getWeights()));
+//            // Get compatibility score for the current user
+//            double score = finds.getScore(otherUser);
+//
+//            // Create a map to store request status and compatibility score
+//            Map<String, Object> data = new HashMap<>();
+//            data.put("requestStatus", requestStatus ? "Accept" : "Reject");
+//            data.put("compatibilityScore", score);
+//
+//            // Reference to the document path: finds/{otherUser}
+//            DocumentReference docRef = db.collection("finds").document(otherUser);
+//
+//            // Save the data to Firestore
+//            docRef.set(data);
+            // Create a nested map for requestStatus mapping
+            Map<String, Object> userMap = new HashMap<>();
+            Map<String, Object> requestStatusMap = new HashMap<>();
 
+            // Populate requestStatusMap with initial values (other users and null requestStatus)
+            for (String otherUsername : finds.getFinds().keySet()) {
+                if (!otherUsername.equals(otherUser)) {
+                    requestStatusMap.put(otherUsername, null);
+                }
+            }
 
+            // Add the requestStatusMap to the userMap
+            userMap.put("requestStatus", requestStatusMap);
 
+            // Reference to the document path: finds/{otherUser}
+            DocumentReference docRef = db.collection("finds").document(currentUsername);
 
-
-//        try {
-//            DocumentSnapshot document = docRef.get().get();
-//            if (document.exists()) {
-//                String name = document.getString("name");
-//                String age = document.get("age");
-//                System.out.println("save"+age);
-//                System.out.println("save"+name);
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-
+            // Save the data to Firestore
+            docRef.set(userMap);
+        }
     }
 
     /**
@@ -246,61 +258,130 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         docRef.update("weights", editProfileInputData.getWeights());
     }
 
+
     @Override
-    public void saveMatch(String username, Matches matches) {
-        DocumentReference docRef = db.collection("matches").document(username);
+    public List<String> getNames() throws Exception {
+        // Reference the specified collection
+        CollectionReference collection = db.collection("profiles");
 
-        try {
-            // Fetch existing matches
-            DocumentSnapshot document = docRef.get().get();
-            HashMap<String, List<String>> matches = new HashMap<>();
+        // Fetch all documents in the collection
+        ApiFuture<QuerySnapshot> future = collection.get();
+        QuerySnapshot querySnapshot = future.get();
 
-            if (document.exists()) {
-                matches = (HashMap<String, List<String>>) document.get("matches");
-            }
-
-            // Add or update the match
-            matches.put(matchName, contactInfo);
-
-            // Save updated matches map back to Firestore
-            docRef.set(Map.of("matches", matches));
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+        // Extract and return document IDs
+        List<String> documentNames = new ArrayList<>();
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            documentNames.add(document.getId()); // Use document ID as username
         }
+        System.out.println("getnames" + documentNames);
+        return documentNames;
     }
 
     @Override
-    public HashMap<String, List<String>> getMatches(String username) {
-        DocumentReference docRef = db.collection("matches").document(username);
-
-        try {
-            // Fetch user's matches
-            DocumentSnapshot document = docRef.get().get();
-            if (document.exists()) {
-                return (HashMap<String, List<String>>) document.get("matches");
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+    public Profile getProfile(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username must be a non-empty string.");
         }
 
-        // Return an empty map if no matches are found
-        return new HashMap<>();
-    }
-
-    @Override
-    public boolean matchExists(String username, String matchName) {
-        DocumentReference docRef = db.collection("matches").document(username);
+        // Reference the document with the given username in the "profiles" collection
+        DocumentReference docRef = db.collection("profiles").document(username);
 
         try {
+            // Fetch the document
             DocumentSnapshot document = docRef.get().get();
+
+            // If the document exists, map its fields to a Profile object
             if (document.exists()) {
-                HashMap<String, List<String>> matches = (HashMap<String, List<String>>) document.get("matches");
-                return matches != null && matches.containsKey(matchName);
+                String name = document.getString("name");
+                String gender = document.getString("gender");
+                String sexualOrientation = document.getString("sexualOrientation");
+                int age = document.getLong("age").intValue();
+                Map<String, Integer> weights = (Map<String, Integer>) document.get("weights");
+                Map<String, List<String>> answers = (Map<String, List<String>>) document.get("answer");
+                String contactInfo = document.getString("contactInfo");
+                String contactMethod = document.getString("contactMethod");
+
+                // Return the Profile object
+                return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Log any errors during the fetch
         }
 
-        return false;
+        return null; // Return null if no profile is found or an error occurs
     }
+
+    public void setRequestStatus(String otherUser, Boolean isAccepted) {
+        // Construct the path to the Firestore document
+        DocumentReference docRef = db.collection("finds").document(currentUsername);
+
+        // Construct the field path for the specific other user
+        String fieldPath = "requestStatus." + otherUser;
+
+        // Determine the status value (true for Accept, false for Reject)
+        Boolean status = isAccepted;
+
+        // Debugging: Print the fieldPath and status
+        System.out.println("Updating Firestore fieldPath: " + fieldPath + " with status: " + status);
+        // Update Firestore with the new status
+        docRef.update(fieldPath, status);
+    }
+
+//    @Override
+//    public void saveMatch(String username, Matches matches) {
+//        DocumentReference docRef = db.collection("matches").document(username);
+//
+//        try {
+//            // Fetch existing matches
+//            DocumentSnapshot document = docRef.get().get();
+//            HashMap<String, List<String>> matches = new HashMap<>();
+//
+//            if (document.exists()) {
+//                matches = (HashMap<String, List<String>>) document.get("matches");
+//            }
+//
+//            // Add or update the match
+//            matches.put(matchName, contactInfo);
+//
+//            // Save updated matches map back to Firestore
+//            docRef.set(Map.of("matches", matches));
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Override
+//    public HashMap<String, List<String>> getMatches(String username) {
+//        DocumentReference docRef = db.collection("matches").document(username);
+//
+//        try {
+//            // Fetch user's matches
+//            DocumentSnapshot document = docRef.get().get();
+//            if (document.exists()) {
+//                return (HashMap<String, List<String>>) document.get("matches");
+//            }
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Return an empty map if no matches are found
+//        return new HashMap<>();
+//    }
+//
+//    @Override
+//    public boolean matchExists(String username, String matchName) {
+//        DocumentReference docRef = db.collection("matches").document(username);
+//
+//        try {
+//            DocumentSnapshot document = docRef.get().get();
+//            if (document.exists()) {
+//                HashMap<String, List<String>> matches = (HashMap<String, List<String>>) document.get("matches");
+//                return matches != null && matches.containsKey(matchName);
+//            }
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return false;
+//    }
 }
