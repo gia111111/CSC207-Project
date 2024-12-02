@@ -27,7 +27,6 @@ public class MatchesPresenter implements MatchesOutputBoundary {
     public void prepareFailView(String errorMessage) {
         final MatchesState currentState = matchesViewModel.getState();
         currentState.setErrorMessage(errorMessage);
-        matchesViewModel.firePropertyChanged();
     }
 
     @Override

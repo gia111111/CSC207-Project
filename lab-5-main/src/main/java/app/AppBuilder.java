@@ -57,6 +57,7 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.requests.*;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -109,9 +110,7 @@ public class AppBuilder {
     private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
-    private MatchInputBoundary matchInputBoundary;
     private RequestsInputBoundary requestsInputBoundary;
-    private MatchesController matchesController = new MatchesController(viewManagerModel, matchInputBoundary);
 
     public AppBuilder() throws IOException {
         cardPanel.setLayout(cardLayout);

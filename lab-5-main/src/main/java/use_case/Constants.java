@@ -6,6 +6,11 @@ public class Constants {
     public static final String SECTION_3 = "section 3";
     public static final String SECTION_4 = "section 4";
     public static final String SECTION_5 = "section 5";
+    public static final String SECTION_1_WEIGHT = "section1";
+    public static final String SECTION_2_WEIGHT = "section2";
+    public static final String SECTION_3_WEIGHT = "section3";
+    public static final String SECTION_4_WEIGHT = "section4";
+    public static final String SECTION_5_WEIGHT = "section5";
     public static final int SECTION_NUMBER = 5;
     public static final int SECTION_ONE_QUESTIONS = 5;
     public static final int SECTION_TWO_QUESTIONS = 5;

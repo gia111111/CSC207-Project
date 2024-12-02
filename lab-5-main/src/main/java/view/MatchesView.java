@@ -24,6 +24,7 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
     private final String viewName = "matches";
     private final MatchesViewModel matchesViewModel;
     private MatchesController matchesController;
+    private final JLabel profileErrorField = new JLabel();
     private final DefaultTableModel tableModel;
     private final JTable table;
 
@@ -35,18 +36,30 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
 
         final JLabel title = new JLabel(matchesViewModel.TITLE_LABEL);
         this.add(title);
-        tableModel = new DefaultTableModel(new String[]{"Match Username", "Contact Method", "Contact Information"}, 0);
+
+        tableModel = new DefaultTableModel(new String[]{"Match Username", "Contact Method", "Contact Information"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         table = new JTable(tableModel);
+        table.setModel(tableModel);
+        System.out.println(table.getModel() == tableModel);
         table.setRowHeight(30);
-        table.setBackground(MaterialColors.PINK_100);
-        table.setSelectionBackground(MaterialColors.PINK_500);
-        this.add(table);
+        table.setBackground(MaterialColors.WHITE);
+        table.setSelectionBackground(MaterialColors.LIGHT_BLUE_400);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        add(scrollPane, BorderLayout.CENTER);
 
         JButton dashboard = new JButton("Dashboard");
         dashboard.addActionListener(evt -> matchesController.switchToDashBoardView());
         dashboard.setForeground(MaterialColors.WHITE);
         dashboard.setBackground(MaterialColors.PINK_100);
-        this.add(dashboard, BorderLayout.SOUTH);
+        add(dashboard, BorderLayout.SOUTH);
 
         JButton load = new JButton("Press to load all matches!");
         load.setBackground(MaterialColors.PINK_100);
@@ -57,17 +70,24 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
                     }
                 }
         );
-        this.add(load, BorderLayout.NORTH);
+        add(load, BorderLayout.NORTH);
+
     }
 
     private void refreshTable() {
         tableModel.setRowCount(0);
         final MatchesState currentState = matchesViewModel.getState();
         Map<String, List<String>> matchesContact = matchesController.execute(currentState.getMatchContacts());
-        if (matchesContact != null) {
+        System.out.println("view" + matchesContact);
+        if (matchesContact.size() != 0) {
             for(Map.Entry<String, List<String>> entry: matchesContact.entrySet()) {
-                tableModel.addRow(new Object[]{entry.getKey(), entry.getValue().get(0), entry.getValue().get(1)});
+                System.out.println(entry.getValue().get(0));
+                System.out.println(entry.getValue().get(1));
+                tableModel.addRow(new String[]{entry.getKey(), entry.getValue().get(0), entry.getValue().get(1)});
+                System.out.println("addRow");
             }
+        } else {
+            tableModel.addRow(new String[]{"Sorry", "No matches currently", "Go to Finds to search for matches."});
         }
 //        Map<String, List<String>> matchesContact = new HashMap<>();
 //        List<String> contact1 = new ArrayList<>();
@@ -80,6 +100,7 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
 //        matchesContact.put("hi", contact2);
 //        for (Map.Entry<String, List<String>> entry : matchesContact.entrySet()) {
 //            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue().get(0), entry.getValue().get(1)});
+//        }
     }
 
     @Override
@@ -88,8 +109,8 @@ public class MatchesView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-//        final MatchesState state = (MatchesState) evt.getNewValue();
-//        profileErrorField.setText(state.getErrorMessage());
+        final MatchesState state = (MatchesState) evt.getNewValue();
+        profileErrorField.setText(state.getErrorMessage());
     }
 
     public void setMatchesController(MatchesController matchesController) {

@@ -22,6 +22,7 @@ public class MatchesController {
     public Map<String, List<String>> execute(Map<String, List<String>> contactInfo) {
         final MatchesInputData matchesInputData = new MatchesInputData(contactInfo, remoteDataAccessObject);
         Map<String, List<String>> matchesInfo = matchesInputBoundary.execute(matchesInputData);
+        System.out.println("controller" + matchesInfo);
         return matchesInfo;
     }
 

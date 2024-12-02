@@ -20,7 +20,7 @@ public class DashBoardController {
         viewManagerModel.firePropertyChanged();
     }
 
-    public void switchToMatchView() {
+    public void switchToMatchesView() {
         viewManagerModel.setState("matches");
         viewManagerModel.firePropertyChanged();
     }

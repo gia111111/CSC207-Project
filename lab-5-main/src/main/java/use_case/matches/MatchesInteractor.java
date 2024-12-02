@@ -21,6 +21,7 @@ public class MatchesInteractor implements MatchesInputBoundary {
         HashMap<String, List<String>> matchContactInfo = new HashMap<>();
         for (String otherUser : otherUsers) {
             List<String> otherUserContactInfo = matchesDataAccessObject.getContactCard(otherUser);
+            System.out.println(otherUserContactInfo);
             matchContactInfo.put(otherUser, otherUserContactInfo);
         }
         final Matches matches = new Matches(matchesInputData.getName(), matchContactInfo);
@@ -28,6 +29,7 @@ public class MatchesInteractor implements MatchesInputBoundary {
             matchesDataAccessObject.save(matches);
             final MatchesOutputData matchesOutputData = new MatchesOutputData(matches.getCurrentUsername(), false);
             matchesOutputBoundary.prepareSuccessView(matchesOutputData);
+            System.out.println("interactor" + matches.getMatches());
             return matches.getMatches();
         }
         else {

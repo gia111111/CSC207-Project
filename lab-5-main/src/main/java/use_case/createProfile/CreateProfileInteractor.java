@@ -46,11 +46,11 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
                 || (profile.getAnswer().get(Constants.SECTION_4).size() != Constants.SECTION_FOUR_QUESTIONS)
                 || (profile.getAnswer().get(Constants.SECTION_5).size() != Constants.SECTION_FIVE_QUESTIONS)
                 || (profile.getWeights().size() != Constants.SECTION_NUMBER)
-                || ((profile.getWeights().get(Constants.SECTION_1)
-                + profile.getWeights().get(Constants.SECTION_2)
-                + profile.getWeights().get(Constants.SECTION_3)
-                + profile.getWeights().get(Constants.SECTION_4)
-                + profile.getWeights().get(Constants.SECTION_5) != Constants.TOTAL_WEIGHTS))
+                || ((profile.getWeights().get(Constants.SECTION_1_WEIGHT)
+                + profile.getWeights().get(Constants.SECTION_2_WEIGHT)
+                + profile.getWeights().get(Constants.SECTION_3_WEIGHT)
+                + profile.getWeights().get(Constants.SECTION_4_WEIGHT)
+                + profile.getWeights().get(Constants.SECTION_5_WEIGHT) != Constants.TOTAL_WEIGHTS))
                 || (profile.getContactMethod() == "")
                 || (profile.getContactInfo() == "")) {
             profilePresenter.prepareFailView(Constants.ERROR_MESSAGE);

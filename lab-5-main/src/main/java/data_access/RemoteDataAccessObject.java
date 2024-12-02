@@ -1,15 +1,13 @@
 package data_access;
 
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
 import com.google.firebase.cloud.FirestoreClient;
-import entity.CommonUser;
-import entity.Matches;
-import entity.Profile;
-import entity.User;
+import entity.*;
 import use_case.find.FindUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.createProfile.CreateProfileDataAccessInterface;
@@ -34,7 +32,6 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         CreateProfileDataAccessInterface,
-        EditProfileUserDataAccessInterface,
         MatchesDataAccessObject,
         FindUserDataAccessInterface,
         LogoutUserDataAccessInterface,
@@ -104,6 +101,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     @Override
     public void save(User user) {
         DocumentReference docRef = db.collection("users").document(user.getName());
+        System.out.println("save" + user.getName());
         docRef.set(user);
     }
 
@@ -250,20 +248,6 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         }
     }
 
-    /**
-     * Impelmentations of the save method in the LogoutUserDataAccessInterface.
-     */
-    @Override
-
-    public void save(EditProfileInputData editProfileInputData) {
-        DocumentReference docRef = db.collection("profiles").document(editProfileInputData.getName());
-        docRef.update("name", editProfileInputData.getName());
-        docRef.update("gender", editProfileInputData.getGender());
-        docRef.update("SexualOrientation", editProfileInputData.getSexualOrientation());
-        docRef.update("age", editProfileInputData.getAge());
-        docRef.update("answers", editProfileInputData.getAnswers());
-        docRef.update("weights", editProfileInputData.getWeights());
-    }
 
 
 //    @Override
@@ -422,11 +406,16 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
             DocumentSnapshot document = docRef.get().get();
             if (document.exists()) {
                 Map<String, Boolean> actionsToRequest = (Map<String, Boolean>) document.get("actionsToRequests");
+                System.out.println(actionsToRequest);
                 List<String> matchNames = new ArrayList<>();
                 for (String otherUser : actionsToRequest.keySet()) {
-                    if (actionsToRequest.get(otherUser) == true) {
-                        matchNames.add(otherUser);
+                    System.out.println("hi");
+                    if (actionsToRequest.get(otherUser) == null || actionsToRequest.get(otherUser) == false) {
+                        System.out.println("hello");
+                        continue;
                     }
+                    matchNames.add(otherUser);
+                    System.out.println(matchNames);
                 }
                 return matchNames;
               }
