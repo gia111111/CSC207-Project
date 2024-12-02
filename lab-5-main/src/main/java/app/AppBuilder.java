@@ -194,18 +194,29 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the LoggedIn View to the application.
+     * @return this builder
+     */
+    public AppBuilder addChangePasswordView() {
+        loggedInViewModel = new LoggedInViewModel();
+        loggedInView = new LoggedInView(loggedInViewModel);
+        cardPanel.add(loggedInView, loggedInView.getViewName());
+        return this;
+    }
+
+    /**
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
     public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(loggedInViewModel, viewManagerModel);
+                new ChangePasswordPresenter(loggedInViewModel, viewManagerModel,loginViewModel);
 
         final ChangePasswordInputBoundary changePasswordInteractor =
                 new ChangePasswordInteractor(remoteDataAccessObject, changePasswordOutputBoundary, userFactory);
 
         final ChangePasswordController changePasswordController =
-                new ChangePasswordController(changePasswordInteractor, viewManagerModel);
+                new ChangePasswordController(changePasswordInteractor, viewManagerModel, remoteDataAccessObject);
         loggedInView.setChangePasswordController(changePasswordController);
         return this;
     }
