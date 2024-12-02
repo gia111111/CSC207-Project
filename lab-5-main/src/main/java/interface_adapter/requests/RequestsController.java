@@ -33,9 +33,6 @@ public class RequestsController {
          System.out.println("Controller execute");
          final RequestsInputData requestsInputData = new RequestsInputData(remoteDataAccessObject, null);
          return requestsInputBoundary.execute(requestsInputData);
-//        viewManagerModel.setState("requests");
-//        viewManagerModel.firePropertyChanged();
-//        return scoresMap;
     }
 
     public HashMap<String, Boolean>  accept(String partnerName){

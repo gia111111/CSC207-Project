@@ -8,25 +8,8 @@ public class LoggedInState {
 
     private String password = "";
     private String repeatPassword = "";
-//    private String security = "";
-    // private String userNotExistError;
     private String passwordError;
-     private String securityWord = "";
-
-//    public LoggedInState(LoggedInState copy) {
-//        username = copy.username;
-//        password = copy.password;
-//        security = copy.security;
-//        // userNotExistError = copy.userNotExistError;
-//        passwordError = copy.passwordError;
-//        securityWord = copy.securityWord;
-//    }
-
-    // Because of the previous copy constructor, the default constructor must be explicit.
-//    public LoggedInState() {
-//
-//    }
-
+    private String securityWord = "";
 
     public String getRepeatPassword() {
         return repeatPassword;
@@ -35,10 +18,6 @@ public class LoggedInState {
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;
     }
-
-//    public void setSecurityWord(String securityWord) {
-//        this.securityWord = securityWord;
-//    }
 
 
     public String getSecurityWord() {
@@ -73,21 +52,6 @@ public class LoggedInState {
         return password;
     }
 
-
-//    public String getSecurityWord() { return securityWord; }
-
-//    public String getUserNotExistError() {
-//        return userNotExistError;
-//    }
-
-//    public String getSecurity() {
-//        return security;
-//    }
-//
-//    public void setSecurity(String security) {
-//        this.security = security;
-//    }
-
     public String toString() {
         return "LoggedInState{"
                 + "username='" + username + '\''
@@ -97,15 +61,4 @@ public class LoggedInState {
                 + ", securityWord='" + securityWord + '\''
                 + '}';
     }
-
-    
-
-//    public String getRepeatPasswordError() {
-//        return passwordError;
-//    }
-
-//    public void setUserNotExistError(String userNotExistError) {
-//        this.userNotExistError = userNotExistError;
-//    }
-
 }

@@ -42,20 +42,7 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
 
         this.viewManagerModel.setState("log in");
         this.viewManagerModel.firePropertyChanged();
-
-//        viewManagerModel.setState("log in");
-//        viewManagerModel.firePropertyChanged();
     }
-
-
-//    final LoggedInState loggedInState = loggedInViewModel.getState();
-//        loggedInState.setUsername(response.getUsername());
-//        this.loggedInViewModel.setState(loggedInState);
-//        this.loggedInViewModel.firePropertyChanged();
-//
-//        this.viewManagerModel.setState("dashboard");
-//        this.viewManagerModel.firePropertyChanged();
-//
 
 
 

@@ -11,8 +11,6 @@ import entity.*;
 import use_case.find.FindUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.createProfile.CreateProfileDataAccessInterface;
-import use_case.editprofile.EditProfileInputData;
-import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.matches.MatchesDataAccessObject;
@@ -50,7 +48,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/vickichen/Downloads/csc207-765dd-firebase-adminsdk-zgsb1-4e0e76fc06.json");
+        FileInputStream serviceAccount = new FileInputStream("/Users/abigail/IdeaProjects/CSC207-Project/lab-5-main/src/credential.json");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
@@ -211,21 +209,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         // Iterate over each request in the Finds entity
         for (Map.Entry<String, Boolean> requestEntry : finds.getFinds().entrySet()) {
             String otherUser = requestEntry.getKey();
-//            boolean requestStatus = requestEntry.getValue();
-//
-//            // Get compatibility score for the current user
-//            double score = finds.getScore(otherUser);
-//
-//            // Create a map to store request status and compatibility score
-//            Map<String, Object> data = new HashMap<>();
-//            data.put("requestStatus", requestStatus ? "Accept" : "Reject");
-//            data.put("compatibilityScore", score);
-//
-//            // Reference to the document path: finds/{otherUser}
-//            DocumentReference docRef = db.collection("finds").document(otherUser);
-//
-//            // Save the data to Firestore
-//            docRef.set(data);
+
             // Create a nested map for requestStatus mapping
             Map<String, Object> userMap = new HashMap<>();
             Map<String, Object> requestStatusMap = new HashMap<>();
@@ -249,24 +233,6 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     }
 
 
-
-//    @Override
-//    public List<String> getNames() throws ExecutionException, InterruptedException {
-//        // Reference the specified collection
-//        CollectionReference collection = db.collection("profiles");
-//
-//        // Fetch all documents in the collection
-//        ApiFuture<QuerySnapshot> future = collection.get();
-//        QuerySnapshot querySnapshot = future.get();
-//
-//        // Extract and return document IDs
-//        List<String> documentNames = new ArrayList<>();
-//        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-//            documentNames.add(document.getId()); // Use document ID as username
-//        }
-//        System.out.println("getnames" + documentNames);
-//        return documentNames;
-//    }
 
     @Override
     public void save(Matches matches) {
@@ -460,9 +426,6 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 
     @Override
     public void save(Requests requests) {
-        //DocumentReference docRef = db.collection("finds").document(finds.getRequestStatus())
-        // Get a reference to the Firestore database
-        //FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Iterate over each request in the Finds entity
         for (Map.Entry<String, Boolean> requestEntry : requests.getRequests().entrySet()) {
