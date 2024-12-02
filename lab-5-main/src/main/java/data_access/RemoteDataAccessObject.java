@@ -1,13 +1,15 @@
 package data_access;
 
-import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
 import com.google.firebase.cloud.FirestoreClient;
-import entity.*;
+import entity.CommonUser;
+import entity.Matches;
+import entity.Profile;
+import entity.User;
 import use_case.find.FindUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.createProfile.CreateProfileDataAccessInterface;
@@ -15,6 +17,7 @@ import use_case.editprofile.EditProfileInputData;
 import use_case.editprofile.EditProfileUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.matches.MatchesDataAccessObject;
 import use_case.requests.RequestsDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -32,6 +35,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         CreateProfileDataAccessInterface,
         EditProfileUserDataAccessInterface,
+        MatchesDataAccessObject,
         FindUserDataAccessInterface,
         LogoutUserDataAccessInterface,
         RequestsDataAccessInterface {
@@ -49,7 +53,7 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/abigail/IdeaProjects/CSC207-Project/lab-5-main/src/credential.json");
+        FileInputStream serviceAccount = new FileInputStream("/Users/vickichen/Downloads/csc207-765dd-firebase-adminsdk-zgsb1-4e0e76fc06.json");
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
@@ -281,6 +285,12 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
 //    }
 
     @Override
+    public void save(Matches matches) {
+        DocumentReference docRef = db.collection("matches").document(matches.getCurrentUsername());
+        docRef.set(matches);
+    }
+          
+    @Override
     public List<String> getNames() throws Exception {
         // Reference the specified collection
         CollectionReference collection = db.collection("profiles");
@@ -334,31 +344,6 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
             System.out.println("isValidRequest error");
         }
         return null;
-
-//        try {
-//            // Reference the Firestore document
-//            DocumentReference docRef = db.collection("finds").document(partnerName);
-//
-//            // Fetch the document snapshot synchronously
-//            DocumentSnapshot document = docRef.get().get();
-//
-//            if (document.exists()) {
-//                // Retrieve the "requestStatus" field as a HashMap
-//                HashMap<String, Boolean> statusMap = (HashMap<String, Boolean>) document.get("requestStatus");
-//
-//                if (statusMap != null && statusMap.containsKey(myname)) {
-//                    // Check if the value associated with `myName` is TRUE
-//                    return Boolean.TRUE.equals(statusMap.get(myname));
-//                }
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            // Log the error message for debugging
-//            System.err.println("Error in isValidRequest: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-
-//        // Return FALSE if something goes wrong or conditions aren't met
-//        return Boolean.FALSE;
     }
 
     public Map<String, Boolean> getFinds(String partnerName) {
@@ -374,30 +359,25 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
         return null;
     }
 
-//
-//    @Override
-//    public Boolean isValidRequest(String myname, String partnerName) {
-//        AtomicReference<Boolean> check = new AtomicReference<>(Boolean.FALSE);
-//
-//        try {
-//            DocumentReference docRef = db.collection("finds").document(partnerName);
-//            DocumentSnapshot document = docRef.get().get();
-//            if (document.exists()) {
-//                HashMap<String, Boolean> statusMap = (HashMap<String, Boolean>) document.get("requestStatus");
-//                if (statusMap.containsKey(myname)) {
-//                    Boolean thisStatus = statusMap.get(myname);
-//                    if(thisStatus == true) {
-//                        check.set(Boolean.TRUE);
-//                    }
-//                }
-//            }
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//        return check.get();
-//    }
-
-
+    @Override
+    public List<String> getContactCard(String username) {
+        DocumentReference docRef = db.collection("profiles").document(username);
+        try {
+          DocumentSnapshot document = docRef.get().get();
+          if (document.exists()) {
+                List<String> contactCard = new ArrayList<>();
+                String contactInfo = document.getString("contactInfo");
+                String contactMethod = document.getString("contactMethod");
+                contactCard.add(contactInfo);
+                contactCard.add(contactMethod);
+                return contactCard;
+           }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace(); // Log any errors during the fetch
+        }
+      return null;
+    }
+    
     @Override
     public Profile getProfile(String username) {
         if (username == null || username.trim().isEmpty()) {
@@ -426,9 +406,8 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
                 return profileFactory.create(name, gender, sexualOrientation, age, answers, weights, contactInfo, contactMethod);
             }
         } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace(); // Log any errors during the fetch
+            e.printStackTrace(); // Log any errors during the fetch
         }
-
         return null; // Return null if no profile is found or an error occurs
     }
 
@@ -436,6 +415,27 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
     /**
      * Update the status of the request, after accept or reject.
      */
+    @Override
+    public List<String> getRequests(String username) {
+        DocumentReference docRef = db.collection("requests").document(username);
+        try {
+            DocumentSnapshot document = docRef.get().get();
+            if (document.exists()) {
+                Map<String, Boolean> actionsToRequest = (Map<String, Boolean>) document.get("actionsToRequests");
+                List<String> matchNames = new ArrayList<>();
+                for (String otherUser : actionsToRequest.keySet()) {
+                    if (actionsToRequest.get(otherUser) == true) {
+                        matchNames.add(otherUser);
+                    }
+                }
+                return matchNames;
+              }
+        } catch (InterruptedException | ExecutionException e) {
+             e.printStackTrace();
+        }
+        return null;
+  }
+          
     @Override
     public void updateSatus(String myName, String partnerName, Boolean requestAccpeted) {
         // Specify the document and the field where the HashMap is stored
@@ -464,33 +464,10 @@ public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
                 return RequestsActions;
             }
         } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-            System.out.println("getRequestsactionMap error");
+            e.printStackTrace();
         }
         return null;
-
     }
-
-//    @Override
-//    public void save(Requests requests) {
-//        Map<String, Object> userMap = new HashMap<>();
-//        Map<String, Object> actionsToRequests = new HashMap<>();
-//        for (Map.Entry<String, Boolean> requestEntry : requests.getRequests().entrySet()) {
-//            String otherUser = requestEntry.getKey();
-//            Boolean action = requestEntry.getValue();
-//            if (otherUser != currentUsername) {
-//                actionsToRequests.put(otherUser, action);
-//            }
-//        }
-//        userMap.put("actionsToRequests", actionsToRequests);
-//        DocumentReference docRef = db.collection("requests").document(currentUsername);
-//
-//        // Save the data to Firestore
-//        docRef.set(userMap);
-//
-//
-//    }
-
 
     @Override
     public void save(Requests requests) {

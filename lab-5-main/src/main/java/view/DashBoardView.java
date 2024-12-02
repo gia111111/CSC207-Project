@@ -92,6 +92,12 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
             }
         });
         matches.addActionListener(e -> dashBoardController.switchToMatchView()); // Switch to MatchViewFrame
+
+        compatibility.addActionListener(e -> {
+            if (dashBoardController != null) {
+            dashBoardController.switchToMatchView();
+            }
+        });
     }
 
     private JButton createMaterialButton(String text) {

@@ -8,14 +8,22 @@ import java.util.List;
  * of the match and the value is a list of contact information
  */
 public class Matches {
+    private String currentUsername;
     private HashMap<String, List<String>> matches;
 
     public Matches() {
         this.matches = new HashMap<>();
     }
 
-    public Matches(HashMap<String, List<String>> matches) {
+    public Matches(String currentUsername, HashMap<String, List<String>> matches) {
         this.matches = matches;
+        this.currentUsername = currentUsername;
+    }
+
+    public String getCurrentUsername() {return currentUsername;}
+
+    public void setCurrentUsername(String currentUsername) {
+        this.currentUsername = currentUsername;
     }
 
     public HashMap<String, List<String>> getMatches() {

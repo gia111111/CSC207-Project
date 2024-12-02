@@ -31,17 +31,18 @@ public class Main {
                         .addProfileView()
                         .addChangePasswordView()
                         .addDashboardView()
+                        .addMatchesView()
                         .addSignupUseCase()
                         .addLoginUseCase()
                         .addChangePasswordUseCase()
                         .addProfileUseCase()
                         .addHomePageUseCase()
                         .addLogoutUseCase()
+                        .addMatchesUseCase()
                         .addFindView()
                         .addFindUseCase()
                         .addRequestsView()
                         .addRequestsUseCase()
-                        .addMatchView()
                         .build();
 
                 // Launch the application
