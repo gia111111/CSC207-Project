@@ -8,23 +8,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Interactor responsible for finding compatible profiles for the current user.
+ * Implements the {@link FindProfilesInputBoundary} interface to define use case behavior.
+ */
 public class FindProfilesInteractor implements FindProfilesInputBoundary {
-//    private final FindUserDataAccessInterface dataAccess; // RemoteDataAccessObject
     private final CompatibilityAlgorithm compatibilityAlgorithm;
     private final FindProfilesOutputBoundary outputBoundary;
     private final RemoteDataAccessObject remoteDataAccessObject;
 
+    /**
+     * Constructs a new FindProfilesInteractor instance.
+     *
+     * @param compatibilityAlgorithm the algorithm used to calculate compatibility scores
+     * @param outputBoundary         the output boundary for presenting results or errors
+     * @param remoteDataAccessObject the remote data access object for interacting with the database
+     */
     public FindProfilesInteractor(CompatibilityAlgorithm compatibilityAlgorithm,
                                   FindProfilesOutputBoundary outputBoundary,
                                   RemoteDataAccessObject remoteDataAccessObject) {
-//        this.dataAccess = dataAccess;
         this.compatibilityAlgorithm = compatibilityAlgorithm;
         this.outputBoundary = outputBoundary;
         this.remoteDataAccessObject = remoteDataAccessObject;
     }
 
 
-
+    /**
+     * Executes the profile finding use case.
+     * Fetches the current user's profile and calculates compatibility scores with other profiles.
+     *
+     * @param findProfileInputData input data containing the request details
+     * @return a map of usernames to their compatibility scores, or null if an error occurs
+     */
     @Override
     public Map<String, Double> execute(FindProfileInputData findProfileInputData) {
         String username = remoteDataAccessObject.getCurrentUsername();
@@ -76,6 +91,13 @@ public class FindProfilesInteractor implements FindProfilesInputBoundary {
         return null;
     }
 
+    /**
+     * Updates the request status for a given user ID.
+     * Delegates the action to the remote data access object.
+     *
+     * @param otherUserId the ID of the other user whose request status is being updated
+     * @param isAccepted  the new status of the request (accepted or rejected)
+     */
     @Override
     public void setRequestStatus(String otherUserId, Boolean isAccepted) {
         System.out.println("Interactor: Updating request status for " + otherUserId + " to " + isAccepted);

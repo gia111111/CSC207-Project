@@ -64,7 +64,7 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         JButton returnButton = new JButton("Dashboard");
         returnButton.addActionListener(e -> findProfilesController.switchToDashBoard());
         returnButton.setBackground(MaterialColors.LIGHT_BLUE_400);
-        returnButton.setForeground(MaterialColors.WHITE);
+        returnButton.setForeground(MaterialColors.PINK_100);
         add(returnButton, BorderLayout.SOUTH);
 
         // Add a Load button at the top
