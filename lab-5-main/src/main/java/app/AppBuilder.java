@@ -28,6 +28,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.matches.MatchesController;
 import interface_adapter.profile.ProfileController;
 import interface_adapter.profile.ProfilePresenter;
+import interface_adapter.requests.RequestsController;
+import interface_adapter.requests.RequestsPresenter;
+import interface_adapter.requests.RequestsViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
@@ -49,6 +52,8 @@ import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
 import use_case.matches.MatchInputBoundary;
+//import use_case.requests.RequestsDataAccessInterface;
+import use_case.requests.*;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -90,6 +95,8 @@ public class AppBuilder {
     private ProfileView profileView;
     private DashBoardViewModel dashBoardViewModel;
     private DashBoardView dashBoardView;
+    private RequestsView requestsView;
+    private RequestsViewModel requestsViewModel;
     private FindViewModel findViewModel;
     private FindView findView;
 
@@ -99,6 +106,8 @@ public class AppBuilder {
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
     private MatchInputBoundary matchInputBoundary;
+    private RequestsInputBoundary requestsInputBoundary;
+    // private final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary);
     private MatchesController matchesController = new MatchesController(viewManagerModel, matchInputBoundary);
     //private FindProfilesController findProfilesController = new FindProfilesController();
 
@@ -149,6 +158,18 @@ public class AppBuilder {
         cardPanel.add(profileView, profileView.getViewName());
         return this;
     }
+
+//    /**
+//     * Adds the Requests View to the application.
+//     * @return this builder
+//     */
+//    public AppBuilder addRequestsView() {
+//        requestsViewModel = new RequestsViewModel();
+//        requestsView = new RequestsView(requestsViewModel);
+//        cardPanel.add(requestsView,requestsView.getViewName());
+//        return this;
+//    }
+
 
     /**
      * Adds the Dashboard View to the application.
@@ -237,6 +258,7 @@ public class AppBuilder {
         return this;
     }
 
+
     public AppBuilder addFindUseCase(){
         // Initialize the compatibility algorithm
         final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
@@ -301,6 +323,43 @@ public class AppBuilder {
         profileView.setProfileController(profileController);
         return this;
     }
+
+
+    /**
+     * Adds the Requests Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addRequestsUseCase() {
+        // Initialize the compatibility algorithm
+        final RequestsOutputBoundary requestsOutputBoundary = new RequestsPresenter(viewManagerModel, requestsViewModel);
+        final CompatibilityAlgorithm2 compatibilityAlgorithm = new BasicCompatibilityAlgorithm2();
+        final RequestsInputBoundary requestsInputBoundary = new RequestsInteractor(requestsOutputBoundary, remoteDataAccessObject,
+                compatibilityAlgorithm);
+
+        final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary,remoteDataAccessObject);
+        requestsView.setRequestsController(requestsController);
+        return this;
+    }
+
+
+    /**
+     * Adds the Requests View to the application.
+     * @return this builder
+     */
+    public AppBuilder addRequestsView(){
+        requestsViewModel = new RequestsViewModel();
+//        final RequestsOutputBoundary requestsOutputBoundary = new RequestsPresenter(viewManagerModel, requestsViewModel);
+//        final CompatibilityAlgorithm2 compatibilityAlgorithm = new BasicCompatibilityAlgorithm2();
+//        final RequestsInputBoundary requestsInputBoundary = new RequestsInteractor(requestsOutputBoundary, remoteDataAccessObject,
+//                compatibilityAlgorithm);
+
+//        final RequestsController requestsController = new RequestsController(viewManagerModel,requestsInputBoundary,remoteDataAccessObject);
+        requestsView = new RequestsView(requestsViewModel);
+        cardPanel.add(requestsView,requestsView.getViewName());
+        return this;
+    }
+
+
 
     public AppBuilder addFindView() {
 
