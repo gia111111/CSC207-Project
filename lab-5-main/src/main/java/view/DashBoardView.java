@@ -60,8 +60,8 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
         // Add buttons to the panel
         this.add(Box.createVerticalStrut(20)); // Add space between components
         this.add(myProfile);
-        this.add(requests);
         this.add(find);
+        this.add(requests);
         this.add(matches);
         this.add(Box.createVerticalStrut(20)); // Add space before logout
         this.add(logout);
