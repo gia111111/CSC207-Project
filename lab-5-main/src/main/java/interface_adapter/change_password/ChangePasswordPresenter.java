@@ -3,23 +3,20 @@ package interface_adapter.change_password;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.signup.SignupState;
-import use_case.change_password.ChangePasswordOutputBoundary;
-import use_case.change_password.ChangePasswordOutputData;
-
-import javax.swing.*;
+import use_case.changePassword.ChangePasswordOutputBoundary;
+import use_case.changePassword.ChangePasswordOutputData;
 
 /**
  * The Presenter for the Change Password Use Case.
  */
 public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
     private final ViewManagerModel viewManagerModel;
-    private final LoggedInViewModel loggedInViewModel;
+    private final ChangePasswordViewModel changePasswordViewModel;
     private final LoginViewModel loginViewModel;
 
-    public ChangePasswordPresenter(LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel,
+    public ChangePasswordPresenter(ChangePasswordViewModel changePasswordViewModel, ViewManagerModel viewManagerModel,
                                    LoginViewModel loginViewModel) {
-        this.loggedInViewModel = loggedInViewModel;
+        this.changePasswordViewModel = changePasswordViewModel;
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
     }
@@ -48,10 +45,10 @@ public class ChangePasswordPresenter implements ChangePasswordOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-       final LoggedInState changePasswordState = loggedInViewModel.getState();
+       final ChangedPasswordState changePasswordState = changePasswordViewModel.getState();
        // changepasswordState.setUserNotExistError(error);
 
        changePasswordState.setPasswordError(error);
-       loggedInViewModel.firePropertyChanged();
+       changePasswordViewModel.firePropertyChanged();
     }
 }

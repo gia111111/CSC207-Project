@@ -1,6 +1,5 @@
 package interface_adapter.profile;
 
-import data_access.InMemoryUserDataAccessObject;
 import data_access.RemoteDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import use_case.createProfile.CreateProfileInputBoundary;

@@ -10,11 +10,11 @@ import java.util.Map;
 
 /**
  * Interactor responsible for finding compatible profiles for the current user.
- * Implements the {@link FindProfilesInputBoundary} interface to define use case behavior.
+ * Implements the {@link FindInputBoundary} interface to define use case behavior.
  */
-public class FindProfilesInteractor implements FindProfilesInputBoundary {
+public class FindInteractor implements FindInputBoundary {
     private final CompatibilityAlgorithm compatibilityAlgorithm;
-    private final FindProfilesOutputBoundary outputBoundary;
+    private final FindOutputBoundary outputBoundary;
     private final RemoteDataAccessObject remoteDataAccessObject;
 
     /**
@@ -24,9 +24,9 @@ public class FindProfilesInteractor implements FindProfilesInputBoundary {
      * @param outputBoundary         the output boundary for presenting results or errors
      * @param remoteDataAccessObject the remote data access object for interacting with the database
      */
-    public FindProfilesInteractor(CompatibilityAlgorithm compatibilityAlgorithm,
-                                  FindProfilesOutputBoundary outputBoundary,
-                                  RemoteDataAccessObject remoteDataAccessObject) {
+    public FindInteractor(CompatibilityAlgorithm compatibilityAlgorithm,
+                          FindOutputBoundary outputBoundary,
+                          RemoteDataAccessObject remoteDataAccessObject) {
         this.compatibilityAlgorithm = compatibilityAlgorithm;
         this.outputBoundary = outputBoundary;
         this.remoteDataAccessObject = remoteDataAccessObject;
@@ -37,11 +37,11 @@ public class FindProfilesInteractor implements FindProfilesInputBoundary {
      * Executes the profile finding use case.
      * Fetches the current user's profile and calculates compatibility scores with other profiles.
      *
-     * @param findProfileInputData input data containing the request details
+     * @param findInputData input data containing the request details
      * @return a map of usernames to their compatibility scores, or null if an error occurs
      */
     @Override
-    public Map<String, Double> execute(FindProfileInputData findProfileInputData) {
+    public Map<String, Double> execute(FindInputData findInputData) {
         String username = remoteDataAccessObject.getCurrentUsername();
         try {
             // Fetch the current user's profile

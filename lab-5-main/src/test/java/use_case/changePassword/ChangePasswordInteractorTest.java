@@ -1,11 +1,10 @@
-package use_case.change_password;
+package use_case.changePassword;
 
-import data_access.InMemoryUserDataAccessObject;
+import data_access.InMemoryDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-import use_case.signup.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class ChangePasswordInteractorTest {
@@ -13,7 +12,7 @@ public class ChangePasswordInteractorTest {
     void successTest() {
         ChangePasswordInputData inputData = new ChangePasswordInputData("Paul", "password",
                 "password","security");
-        ChangePasswordUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        ChangePasswordUserDataAccessInterface userRepository = new InMemoryDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
@@ -60,7 +59,7 @@ public class ChangePasswordInteractorTest {
     void failurePasswordMismatchTest() {
         ChangePasswordInputData inputData = new ChangePasswordInputData("Paul", "password",
                 "wrong","security");
-        ChangePasswordUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        ChangePasswordUserDataAccessInterface userRepository = new InMemoryDataAccessObject();
 
         // For this failure test, we need to add Paul to the data access repository before we change password, and
         // the passwords should not match.
@@ -95,7 +94,7 @@ public class ChangePasswordInteractorTest {
     void failureUserExistsTest() {
         ChangePasswordInputData inputData = new ChangePasswordInputData("Paul", "password",
                 "password","security");
-        ChangePasswordUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        ChangePasswordUserDataAccessInterface userRepository = new InMemoryDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
 //        UserFactory factory = new CommonUserFactory();
@@ -129,7 +128,7 @@ public class ChangePasswordInteractorTest {
     void securityUnmatchTest() {
         ChangePasswordInputData inputData = new ChangePasswordInputData("Paul", "password",
                 "password","wrong");
-        ChangePasswordUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        ChangePasswordUserDataAccessInterface userRepository = new InMemoryDataAccessObject();
 
 //         Add Paul to the repo so that when we check later they already exist
         UserFactory factory = new CommonUserFactory();

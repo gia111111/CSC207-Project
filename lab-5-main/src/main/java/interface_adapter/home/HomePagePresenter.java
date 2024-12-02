@@ -1,31 +1,28 @@
 package interface_adapter.home;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.home.HomePageState;
-import interface_adapter.home.HomePageViewModel;
+import interface_adapter.change_password.ChangePasswordViewModel;
+import interface_adapter.change_password.ChangedPasswordState;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
 import use_case.home.HomeOutputBoundary;
 import use_case.home.HomeOutputData;
-import view.HomePageView;
 
 public class HomePagePresenter implements HomeOutputBoundary{
 
     private final HomePageViewModel homeViewModel;
     private final SignupViewModel signupViewModel;
     private final LoginViewModel loginViewModel;
-    private final LoggedInViewModel loggedInViewModel;
+    private final ChangePasswordViewModel changePasswordViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public HomePagePresenter(HomePageViewModel homeViewModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel) {
+    public HomePagePresenter(HomePageViewModel homeViewModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, ChangePasswordViewModel changePasswordViewModel, ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.loginViewModel = loginViewModel;
-        this.loggedInViewModel = loggedInViewModel;
+        this.changePasswordViewModel = changePasswordViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -58,9 +55,9 @@ public class HomePagePresenter implements HomeOutputBoundary{
 
             case "resetPassword":
                 // Set up the reset password view state with any relevant data from the response
-                final LoggedInState resetPasswordState = loggedInViewModel.getState();
-                loggedInViewModel.setState(resetPasswordState);
-                loggedInViewModel.firePropertyChanged();
+                final ChangedPasswordState resetPasswordState = changePasswordViewModel.getState();
+                changePasswordViewModel.setState(resetPasswordState);
+                changePasswordViewModel.firePropertyChanged();
 
                 // Update ViewManagerModel to switch to the reset password view
                 viewManagerModel.setState("reset password");

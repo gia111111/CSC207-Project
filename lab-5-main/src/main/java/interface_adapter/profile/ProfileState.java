@@ -1,6 +1,5 @@
 package interface_adapter.profile;
 
-import data_access.InMemoryUserDataAccessObject;
 import data_access.RemoteDataAccessObject;
 
 import java.util.HashMap;
