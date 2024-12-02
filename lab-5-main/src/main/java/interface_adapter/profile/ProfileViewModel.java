@@ -34,8 +34,7 @@ public class ProfileViewModel extends ViewModel<ProfileState>{
     public static final String THREE_QFIVE = "Question 5: How often do you use drugs? A: Never B: Rarely C: Occasionally D: Socially E: Regularly";
 
     public static final String SECTION_FOUR = "Section 4";
-    public static final String FOUR_QONE = "Question 1: Which type of communication style do you prefer in a partner? A: Direct B: Passive C: Assertive D: Empathetic E: Open" +
-            " A: grade";
+    public static final String FOUR_QONE = "Question 1: Which type of communication style do you prefer in a partner? A: Direct B: Passive C: Assertive D: Empathetic E: Open";
     public static final String FOUR_QTWO = "Question 2: What pace do you prefer for building a relationship? A: Fast B: Steady C: Slow D: Let it flow naturally E: Situational";
     public static final String FOUR_QTHREE = "Question 3:  How important is physical attraction in a partner? A: Very important B: Somewhat important C: Neutral D: Not important E: Prefer not to say";
     public static final String FOUR_QFOUR = "Question 4: How do you hope your partner supports you in life? A: Emotionally B: Financially C: Mentally D: Practically E: All of the above";
