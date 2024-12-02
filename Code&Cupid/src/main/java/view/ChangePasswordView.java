@@ -15,14 +15,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import interface_adapter.change_password.ChangePasswordController;
-import interface_adapter.change_password.ChangedPasswordState;
 import interface_adapter.change_password.ChangePasswordViewModel;
+import interface_adapter.change_password.ChangedPasswordState;
 import interface_adapter.logout.LogoutController;
 
 /**
  * The View for when the user is logged into the program.
  */
-public class LoggedInView extends JPanel implements PropertyChangeListener {
+public class ChangePasswordView extends JPanel implements PropertyChangeListener {
 
     private final String viewName = "logged in";
     private final ChangePasswordViewModel changePasswordViewModel;
@@ -38,7 +38,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JTextField securityInputField = new JTextField(15);
     private final JButton changePassword;
 
-    public LoggedInView(ChangePasswordViewModel changePasswordViewModel) {
+    public ChangePasswordView(ChangePasswordViewModel changePasswordViewModel) {
         this.changePasswordViewModel = changePasswordViewModel;
         this.changePasswordViewModel.addPropertyChangeListener(this);
 
@@ -52,7 +52,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final LabelTextPanel passwordInfo2 = new LabelTextPanel(
                 new JLabel("Repeat new password"), passwordInputField2);
         final LabelTextPanel securityInfo = new LabelTextPanel(
-                new JLabel("Security question"),securityInputField);
+                new JLabel("Security question"), securityInputField);
 
         final JPanel buttons = new JPanel();
         back = new JButton("cancel");
@@ -80,8 +80,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-
-        back.addActionListener(e -> {
+        back.addActionListener(evt -> {
             if (changePasswordController != null) {
                 changePasswordController.handleCancel();
             }
@@ -91,7 +90,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         addPasswordListener();
         addRepeatPasswordListener();
         addSecurityQuestionListener();
-
 
         this.add(title);
         this.add(usernameInfo);
@@ -127,7 +125,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             }
         });
     }
-
 
     private void addPasswordListener() {
         passwordInputField1.getDocument().addDocumentListener(new DocumentListener() {
@@ -189,7 +186,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 changePasswordViewModel.setState(currentState);
             }
 
-
             @Override
             public void insertUpdate(DocumentEvent e) {
                 documentListenerHelper();
@@ -207,7 +203,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         });
     }
 
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final ChangedPasswordState state = (ChangedPasswordState) evt.getNewValue();
@@ -219,7 +214,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         usernameInputField.setText(state.getUsername());
         passwordInputField1.setText(state.getPassword());
     }
-
 
     public String getViewName() {
         return viewName;

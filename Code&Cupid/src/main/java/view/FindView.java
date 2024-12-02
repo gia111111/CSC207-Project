@@ -1,14 +1,5 @@
 package view;
 
-import interface_adapter.find.FindController;
-import interface_adapter.find.FindState;
-import interface_adapter.find.FindViewModel;
-import mdlaf.utils.MaterialColors;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,12 +7,27 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+
+import interface_adapter.find.FindController;
+import interface_adapter.find.FindState;
+import interface_adapter.find.FindViewModel;
+import mdlaf.utils.MaterialColors;
+
+/**
+ * Initiates Finds view.
+ */
 public class FindView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final FindViewModel findViewModel; // ViewModel
-    private FindController findController; // Controller
+    private final FindViewModel findViewModel;
+    private FindController findController;
     private final DefaultTableModel tableModel;
     private final JTable table;
+    private final String like = "Like";
+    private final String dislike = "Dislike";
 
     public FindView(FindViewModel findViewModel) {
         this.findViewModel = findViewModel;
@@ -56,26 +62,26 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         table.setSelectionBackground(MaterialColors.LIGHT_BLUE_400);
 
         // Add the table to a scroll pane
-        JScrollPane scrollPane = new JScrollPane(table);
+        final JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         add(scrollPane, BorderLayout.CENTER);
 
         // Add "Return to Dashboard" button at the bottom
-        JButton returnButton = new JButton("Dashboard");
-        returnButton.addActionListener(e -> findController.switchToDashBoard());
+        final JButton returnButton = new JButton("Dashboard");
+        returnButton.addActionListener(evt -> findController.switchToDashBoard());
         returnButton.setBackground(MaterialColors.PINK_100);
         returnButton.setForeground(MaterialColors.BLUE_800);
         add(returnButton, BorderLayout.SOUTH);
 
         // Add a Load button at the top
-        JButton loadButton = new JButton("Press to start browsing!");
+        final JButton loadButton = new JButton("Press to start browsing!");
         loadButton.setBackground(MaterialColors.PINK_100);
         loadButton.setForeground(MaterialColors.BLUE_800);
         add(loadButton, BorderLayout.NORTH);
         loadButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(loadButton)) {
-                        refreshTable(); // Refresh the table on Load button click
+                        refreshTable();
                     }
                 }
         );
@@ -92,7 +98,8 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         final FindState currentState = findViewModel.getState();
 
         // Populate table with data from the ViewModel's state
-        Map<String, Double> scores = findController.findProfiles(currentState.getScores(), currentState.getActions());
+        final Map<String, Double> scores = findController.findProfiles(currentState.getScores(),
+                currentState.getActions());
         if (scores != null) {
             for (Map.Entry<String, Double> entry : scores.entrySet()) {
                 tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), "Actions"});
@@ -106,7 +113,7 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {
-            refreshTable(); // Refresh the table whenever the state changes
+            refreshTable();
         }
     }
 
@@ -116,22 +123,49 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     /**
+     * Handles the "Accept" or "Reject" action for a specific row.
+     * @param row in which action is being done.
+     * @param action that is being done.
+     */
+    private void handleAction(int row, String action) {
+        final String otherUserId = (String) table.getValueAt(row, 0);
+
+        System.out.println(action + " button clicked for user: " + otherUserId);
+
+        // Notify the controller to handle the action
+        findController.handleAction(otherUserId, action);
+
+        // Stop editing (if needed)
+        table.editCellAt(row, -1);
+        firePropertyChange("state", null, null);
+    }
+
+    public String getViewName() {
+        return "find";
+    }
+
+    public void setFindProfilesController(FindController controller) {
+        this.findController = controller;
+    }
+
+    /**
      * Custom renderer for the Actions column.
      */
     private class ActionsRenderer extends JPanel implements TableCellRenderer {
-        public ActionsRenderer() {
+        ActionsRenderer() {
             setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         }
 
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        public Component getTableCellRendererComponent(JTable jTable, Object value, boolean isSelected,
+                                                       boolean hasFocus, int row, int column) {
             removeAll();
 
-            JButton acceptButton = new JButton("Like");
-            JButton rejectButton = new JButton("Dislike");
+            final JButton acceptButton = new JButton(like);
+            final JButton rejectButton = new JButton(dislike);
 
-            acceptButton.addActionListener(e -> handleAction(row, "Like"));
-            rejectButton.addActionListener(e -> handleAction(row, "Dislike"));
+            acceptButton.addActionListener(evt -> handleAction(row, like));
+            rejectButton.addActionListener(evt -> handleAction(row, dislike));
 
             add(acceptButton);
             add(rejectButton);
@@ -145,21 +179,22 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
      */
     private class ActionsEditor extends AbstractCellEditor implements TableCellEditor {
         private final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        private final JButton acceptButton = new JButton("Like");
-        private final JButton rejectButton = new JButton("Dislike");
+        private final JButton acceptButton = new JButton(like);
+        private final JButton rejectButton = new JButton(dislike);
         private int currentRow;
 
-        public ActionsEditor() {
-            acceptButton.addActionListener(e -> handleAction(currentRow, "Like"));
-            rejectButton.addActionListener(e -> handleAction(currentRow, "Dislike"));
+        ActionsEditor() {
+            acceptButton.addActionListener(evt -> handleAction(currentRow, like));
+            rejectButton.addActionListener(evt -> handleAction(currentRow, dislike));
 
             panel.add(acceptButton);
             panel.add(rejectButton);
         }
 
         @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            currentRow = row; // Keep track of the row being edited
+        public Component getTableCellEditorComponent(JTable jTable, Object value,
+                                                     boolean isSelected, int row, int column) {
+            currentRow = row;
             return panel;
         }
 
@@ -167,30 +202,5 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         public Object getCellEditorValue() {
             return null;
         }
-    }
-
-    /**
-     * Handles the "Accept" or "Reject" action for a specific row.
-     */
-    private void handleAction(int row, String action) {
-        //String currentUserId = findViewModel.getState().getName(); // Get current user from ViewModel
-        String otherUserId = (String) table.getValueAt(row, 0); // Get other user's ID from the table
-
-        System.out.println(action + " button clicked for user: " + otherUserId);
-
-        // Notify the controller to handle the action
-        findController.handleAction(otherUserId, action);
-
-        // Stop editing (if needed)
-        table.editCellAt(row, -1);
-        firePropertyChange("state", null, null); // Optionally refresh the table
-    }
-
-    public String getViewName() {
-        return "find";
-    }
-
-    public void setFindProfilesController(FindController findController) {
-        this.findController = findController;
     }
 }

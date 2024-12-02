@@ -37,6 +37,14 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
                 createProfileInputData.getWeights(),
                 createProfileInputData.getContactInfo(),
                 createProfileInputData.getContactMethod());
+        System.out.println(profile.getWeights());
+        System.out.println(profile.getAnswer());
+        System.out.println(profile.getName());
+        System.out.println(profile.getAge());
+        System.out.println(profile.getSexualOrientation());
+        System.out.println(profile.getGender());
+        System.out.println(profile.getContactInfo());
+        System.out.println(profile.getContactMethod());
 
         if ((profile.getGender() == "") || (profile.getSexualOrientation() == "")
                 || (profile.getAge() == 0) || (profile.getAnswer().size() != Constants.SECTION_NUMBER)

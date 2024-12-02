@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import interface_adapter.profile.ProfileState;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
@@ -72,14 +71,13 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                                     currentState.getPassword(),
                                     currentState.getRepeatPassword(),
                                     currentState.getSecurityWord()
-                                    );
+                            );
                         }
                     }
                 }
         );
 
-
-        cancel.addActionListener(e -> {
+        cancel.addActionListener(evt -> {
             if (signupController != null) {
                 signupController.handleCancel();
             }
@@ -188,7 +186,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 signupViewModel.setState(currentState);
             }
 
-
             @Override
             public void insertUpdate(DocumentEvent e) {
                 documentListenerHelper();
@@ -227,6 +224,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.signupController = controller;
     }
 
-    public String getUsername() {return usernameInputField.getText();}
-
+    public String getUsername() {
+        return usernameInputField.getText();
+    }
 }
+

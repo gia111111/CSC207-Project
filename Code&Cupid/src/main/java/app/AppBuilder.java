@@ -84,7 +84,7 @@ public class AppBuilder {
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private ChangePasswordViewModel changePasswordViewModel;
-    private LoggedInView loggedInView;
+    private ChangePasswordView changePasswordView;
     private LoginView loginView;
     private ProfileViewModel profileViewModel;
     private ProfileView profileView;
@@ -134,8 +134,8 @@ public class AppBuilder {
      */
     public AppBuilder addLoggedInView() {
         changePasswordViewModel = new ChangePasswordViewModel();
-        loggedInView = new LoggedInView(changePasswordViewModel);
-        cardPanel.add(loggedInView, loggedInView.getViewName());
+        changePasswordView = new ChangePasswordView(changePasswordViewModel);
+        cardPanel.add(changePasswordView, changePasswordView.getViewName());
         return this;
     }
 
@@ -200,8 +200,8 @@ public class AppBuilder {
      */
     public AppBuilder addChangePasswordView() {
         changePasswordViewModel = new ChangePasswordViewModel();
-        loggedInView = new LoggedInView(changePasswordViewModel);
-        cardPanel.add(loggedInView, loggedInView.getViewName());
+        changePasswordView = new ChangePasswordView(changePasswordViewModel);
+        cardPanel.add(changePasswordView, changePasswordView.getViewName());
         return this;
     }
 
@@ -218,7 +218,7 @@ public class AppBuilder {
 
         final ChangePasswordController changePasswordController =
                 new ChangePasswordController(changePasswordInteractor, viewManagerModel, remoteDataAccessObject);
-        loggedInView.setChangePasswordController(changePasswordController);
+        changePasswordView.setChangePasswordController(changePasswordController);
         return this;
     }
 
@@ -234,7 +234,7 @@ public class AppBuilder {
                 new LogoutInteractor(remoteDataAccessObject, logoutOutputBoundary);
 
         final LogoutController logoutController = new LogoutController(logoutInteractor);
-        loggedInView.setLogoutController(logoutController);
+        changePasswordView.setLogoutController(logoutController);
         return this;
     }
 
