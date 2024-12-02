@@ -100,6 +100,7 @@ See the Firestore documentation https://firebase.google.com/docs/firestore for m
 After downloading the credentials, add the credential file and replace the file path in the line #51 src/main/java/data_access/RemoteDataAccessObject.java with your own credentials file path.
 
 ## Usage
+
 To run the program, follow the steps below:
 1. Clone the repository to your local machine.
 2. Open the project in IntelliJ IDEA.

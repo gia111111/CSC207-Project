@@ -24,7 +24,11 @@ public class ChangePasswordInputData {
         return username;
     }
 
-    String getRepeatPassword() {return repeatPassword; }
+    String getRepeatPassword() {
+        return repeatPassword;
+    }
 
-    String getSecurityWord() {return security;}
+    String getSecurityWord() {
+        return security;
+    }
 }

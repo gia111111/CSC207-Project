@@ -46,21 +46,7 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
         System.out.println(profile.getContactInfo());
         System.out.println(profile.getContactMethod());
 
-        if ((profile.getGender() == "") || (profile.getSexualOrientation() == "")
-                || (profile.getAge() == 0) || (profile.getAnswer().size() != Constants.SECTION_NUMBER)
-                || (profile.getAnswer().get(Constants.SECTION_1).size() != Constants.SECTION_ONE_QUESTIONS)
-                || (profile.getAnswer().get(Constants.SECTION_2).size() != Constants.SECTION_TWO_QUESTIONS)
-                || (profile.getAnswer().get(Constants.SECTION_3).size() != Constants.SECTION_THREE_QUESTIONS)
-                || (profile.getAnswer().get(Constants.SECTION_4).size() != Constants.SECTION_FOUR_QUESTIONS)
-                || (profile.getAnswer().get(Constants.SECTION_5).size() != Constants.SECTION_FIVE_QUESTIONS)
-                || (profile.getWeights().size() != Constants.SECTION_NUMBER)
-                || ((profile.getWeights().get(Constants.SECTION_1_WEIGHT)
-                + profile.getWeights().get(Constants.SECTION_2_WEIGHT)
-                + profile.getWeights().get(Constants.SECTION_3_WEIGHT)
-                + profile.getWeights().get(Constants.SECTION_4_WEIGHT)
-                + profile.getWeights().get(Constants.SECTION_5_WEIGHT) != Constants.TOTAL_WEIGHTS))
-                || (profile.getContactMethod() == "")
-                || (profile.getContactInfo() == "")) {
+        if (isProfileInvalid(profile)) {
             profilePresenter.prepareFailView(Constants.ERROR_MESSAGE);
         }
         else {
@@ -69,6 +55,50 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
                     new CreateProfileOutputData(profile.getName(), false);
             profilePresenter.prepareSuccessView(createProfileOutputData);
         }
+    }
+
+    private boolean isProfileInvalid(Profile profile) {
+        return isGenderInvalid(profile) || isSexualOrientationInvalid(profile) || isAgeInvalid(profile)
+                || areAnswersInvalid(profile) || areWeightsInvalid(profile) || isContactMethodInvalid(profile)
+                || isContactInfoInvalid(profile);
+    }
+
+    private boolean isGenderInvalid(Profile profile) {
+        return profile.getGender().equals("");
+    }
+
+    private boolean isSexualOrientationInvalid(Profile profile) {
+        return profile.getSexualOrientation().equals("");
+    }
+
+    private boolean isAgeInvalid(Profile profile) {
+        return profile.getAge() == 0;
+    }
+
+    private boolean areAnswersInvalid(Profile profile) {
+        return profile.getAnswer().size() != Constants.SECTION_NUMBER
+                || profile.getAnswer().get(Constants.SECTION_1).size() != Constants.SECTION_ONE_QUESTIONS
+                || profile.getAnswer().get(Constants.SECTION_2).size() != Constants.SECTION_TWO_QUESTIONS
+                || profile.getAnswer().get(Constants.SECTION_3).size() != Constants.SECTION_THREE_QUESTIONS
+                || profile.getAnswer().get(Constants.SECTION_4).size() != Constants.SECTION_FOUR_QUESTIONS
+                || profile.getAnswer().get(Constants.SECTION_5).size() != Constants.SECTION_FIVE_QUESTIONS;
+    }
+
+    private boolean areWeightsInvalid(Profile profile) {
+        return profile.getWeights().size() != Constants.SECTION_NUMBER
+                || profile.getWeights().get(Constants.SECTION_1_WEIGHT)
+                + profile.getWeights().get(Constants.SECTION_2_WEIGHT)
+                + profile.getWeights().get(Constants.SECTION_3_WEIGHT)
+                + profile.getWeights().get(Constants.SECTION_4_WEIGHT)
+                + profile.getWeights().get(Constants.SECTION_5_WEIGHT) != Constants.TOTAL_WEIGHTS;
+    }
+
+    private boolean isContactMethodInvalid(Profile profile) {
+        return profile.getContactMethod().equals("");
+    }
+
+    private boolean isContactInfoInvalid(Profile profile) {
+        return profile.getContactInfo().equals("");
     }
 
     @Override

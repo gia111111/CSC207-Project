@@ -1,7 +1,8 @@
 package use_case.home;
 
-import use_case.signup.SignupOutputData;
-
+/**
+ * An interface for the Home use case.
+ */
 public interface HomeOutputBoundary {
     /**
      * Prepares the success view for the Home Use Case.
@@ -19,6 +20,14 @@ public interface HomeOutputBoundary {
      * Switches to the Login View.
      */
     void switchToLoginView();
+
+    /**
+     * Switches to the Signup View.
+     */
     void switchToResetPasswordView();
+
+    /**
+     * Switches to the Reset Password View.
+     */
     void switchToSignupView();
 }

@@ -1,10 +1,10 @@
 package use_case.matches;
 
-import entity.Matches;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import entity.Matches;
 
 /**
  * Interactor responsible for finding matches of the current user.
@@ -20,7 +20,8 @@ public class MatchesInteractor implements MatchesInputBoundary {
      * @param matchesDataAccessObject the data access object for interacting with the database
      * @param matchesOutputBoundary the output boundary for presenting results or errors
      */
-    public MatchesInteractor(MatchesDataAccessObject matchesDataAccessObject, MatchesOutputBoundary matchesOutputBoundary) {
+    public MatchesInteractor(MatchesDataAccessObject matchesDataAccessObject,
+                             MatchesOutputBoundary matchesOutputBoundary) {
         this.matchesDataAccessObject = matchesDataAccessObject;
         this.matchesOutputBoundary = matchesOutputBoundary;
     }
@@ -31,25 +32,26 @@ public class MatchesInteractor implements MatchesInputBoundary {
      *
      * @param matchesInputData input data containing match details.
      * @return a map of the current users matches' usernames and a list of their contact information,
-     * or null if an error occurs
+     *      or null if an error occurs.
      */
     @Override
     public Map<String, List<String>> execute(MatchesInputData matchesInputData) {
-        List<String> otherUsers = matchesDataAccessObject.getRequests(matchesInputData.getName());
-        HashMap<String, List<String>> matchContactInfo = new HashMap<>();
+        final List<String> otherUsers = matchesDataAccessObject.getRequests(matchesInputData.getName());
+        final HashMap<String, List<String>> matchContactInfo = new HashMap<>();
         for (String otherUser : otherUsers) {
-            List<String> otherUserContactInfo = matchesDataAccessObject.getContactCard(otherUser);
+            final List<String> otherUserContactInfo = matchesDataAccessObject.getContactCard(otherUser);
             matchContactInfo.put(otherUser, otherUserContactInfo);
         }
         final Matches matches = new Matches(matchesInputData.getName(), matchContactInfo);
-        if (matches.getMatches()!= null) {
+        if (matches.getMatches() != null) {
             matchesDataAccessObject.save(matches);
             final MatchesOutputData matchesOutputData = new MatchesOutputData(matches.getCurrentUsername(), false);
             matchesOutputBoundary.prepareSuccessView(matchesOutputData);
             return matches.getMatches();
         }
         else {
-            matchesOutputBoundary.prepareFailView("Sorry, no current matches. Please access the Finds page from Dashboard to start matching!");
+            matchesOutputBoundary.prepareFailView(
+                    "Sorry, no current matches. Please access the Finds page from Dashboard to start matching!");
             return null;
         }
     }

@@ -1,6 +1,8 @@
 package use_case.requests;
 
-
+/**
+ * The output boundary for the Requests Use Case.
+ */
 public interface RequestsOutputBoundary {
     /**
      * Prepares the success view for the Requests Use Case.

@@ -30,20 +30,19 @@ public class ChangePasswordInteractor implements ChangePasswordInputBoundary {
         }
 
         else if (!changePasswordInputData.getSecurityWord().equals(user.getSecurityWord())) {
-            userPresenter.prepareFailView( username + ": Security word doesn't match.");
+            userPresenter.prepareFailView(username + ": Security word doesn't match.");
         }
 
-
         else {
-            if (!password.equals(repeatPassword)){
+            if (!password.equals(repeatPassword)) {
                 userPresenter.prepareFailView("Passwords don't match.");
             }
-            else{
+            else {
                 user.setPassword(changePasswordInputData.getPassword());
                 userDataAccessObject.changePassword(user);
-                final ChangePasswordOutputData changePasswordOutputData= new ChangePasswordOutputData(user.getName(),false);
+                final ChangePasswordOutputData changePasswordOutputData =
+                        new ChangePasswordOutputData(user.getName(), false);
                 userPresenter.prepareSuccessView(changePasswordOutputData);
-
             }
         }
 

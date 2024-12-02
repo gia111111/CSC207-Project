@@ -29,5 +29,7 @@ public class SignupInputData {
         return repeatPassword;
     }
 
-    String getSecurityWord() { return securityWord; }
+    String getSecurityWord() {
+        return securityWord;
+    }
 }

@@ -1,12 +1,12 @@
 package use_case.find;
 
-import data_access.RemoteDataAccessObject;
-import entity.Finds;
-import entity.Profile;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import data_access.RemoteDataAccessObject;
+import entity.Finds;
+import entity.Profile;
 
 /**
  * Interactor responsible for finding compatible profiles for the current user.
@@ -32,7 +32,6 @@ public class FindInteractor implements FindInputBoundary {
         this.remoteDataAccessObject = remoteDataAccessObject;
     }
 
-
     /**
      * Executes the profile finding use case.
      * Fetches the current user's profile and calculates compatibility scores with other profiles.
@@ -42,16 +41,17 @@ public class FindInteractor implements FindInputBoundary {
      */
     @Override
     public Map<String, Double> execute(FindInputData findInputData) {
-        String username = remoteDataAccessObject.getCurrentUsername();
+        final String username = remoteDataAccessObject.getCurrentUsername();
+        final double threshold = 0.8;
         try {
             // Fetch the current user's profile
-            Profile currentUserProfile = remoteDataAccessObject.getProfile(username);
+            final Profile currentUserProfile = remoteDataAccessObject.getProfile(username);
             if (currentUserProfile == null) {
                 throw new IllegalArgumentException("Profile not found for username: " + username);
             }
 
             // Fetch all usernames from Firebase
-            List<String> allUsernames = remoteDataAccessObject.getNames();
+            final List<String> allUsernames = remoteDataAccessObject.getNames();
             if (allUsernames.isEmpty()) {
                 throw new IllegalArgumentException("No profiles found in the database.");
             }
@@ -60,31 +60,33 @@ public class FindInteractor implements FindInputBoundary {
             allUsernames.remove(username);
 
             // Prepare results
-            HashMap<String, Double> scores = new HashMap<>();
-            HashMap<String, Boolean> matches = new HashMap<>();
+            final HashMap<String, Double> scores = new HashMap<>();
+            final HashMap<String, Boolean> matches = new HashMap<>();
 
             // Fetch each profile and calculate compatibility scores
             for (String otherUsername : allUsernames) {
                 // Fetch other user's profile
-                Profile otherProfile = remoteDataAccessObject.getProfile(otherUsername);
+                final Profile otherProfile = remoteDataAccessObject.getProfile(otherUsername);
                 if (otherProfile != null) {
                     // Calculate compatibility score
-                    double score = compatibilityAlgorithm.calculateScore(currentUserProfile, otherProfile);
+                    final double score = compatibilityAlgorithm.calculateScore(currentUserProfile, otherProfile);
 
                     // Store score and match status
                     scores.put(otherUsername, score);
-                    matches.put(otherUsername, score >= 0.8); // Example threshold
+                    // Example threshold
+                    matches.put(otherUsername, score >= threshold);
                 }
             }
 
             // Package results into a Finds object
-            Finds finds = new Finds(matches, scores);
+            final Finds finds = new Finds(matches, scores);
             remoteDataAccessObject.save(finds);
             // Send results to the output boundary (e.g., Presenter)
             outputBoundary.presentFinds(finds);
             return scores;
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             // Handle exceptions and pass error messages to the presenter
             outputBoundary.presentError("Error finding profiles: " + e.getMessage());
         }
