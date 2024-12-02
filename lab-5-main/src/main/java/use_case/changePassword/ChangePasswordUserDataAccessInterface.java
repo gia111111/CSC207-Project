@@ -12,6 +12,7 @@ public interface ChangePasswordUserDataAccessInterface {
      * @return true if a user with the given username exists; false otherwise
      */
     boolean existsByName(String username);
+
     /**
      * Updates the system to record this user's password.
      * @param user the user whose password is to be updated

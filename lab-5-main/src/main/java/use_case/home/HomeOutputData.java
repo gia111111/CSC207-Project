@@ -1,10 +1,16 @@
 package use_case.home;
 
+/**
+ * The output data for the Home use case.
+ */
 public class HomeOutputData {
     private final boolean useCaseFailed;
-    private final String actionType; // The type of action (login, signup, resetPassword)
-    private final String username; // The username involved in the action (if applicable)
-    private final String errorMessage; // Error message if useCaseFailed is true
+    // The type of action (login, signup, resetPassword)
+    private final String actionType;
+    // The username involved in the action (if applicable)
+    private final String username;
+    // Error message if useCaseFailed is true
+    private final String errorMessage;
 
     // Constructor to initialize all fields
     public HomeOutputData(boolean useCaseFailed, String actionType, String username, String errorMessage) {

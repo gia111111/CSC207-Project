@@ -1,7 +1,7 @@
 package use_case.createProfile;
 
 /**
- * The output boundary for the createProfile Use Case
+ * The output boundary for the createProfile Use Case.
  */
 public class CreateProfileOutputData {
 

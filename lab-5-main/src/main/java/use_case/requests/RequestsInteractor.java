@@ -1,12 +1,11 @@
 package use_case.requests;
 
-import data_access.RemoteDataAccessObject;
-import entity.Profile;
-import entity.Requests;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import entity.Profile;
+import entity.Requests;
 
 /**
  * Interactor responsible for finding requests of the current user.
@@ -38,7 +37,7 @@ public class RequestsInteractor implements RequestsInputBoundary{
      *
      * @param requestsInputData input data containing request details..
      * @return a map of users that requested current user and the status current user has towards them,
-     * or null if an error occurs
+     *      or null if an error occurs
      */
     @Override
     public HashMap<String, Double> execute(RequestsInputData requestsInputData) {
@@ -81,7 +80,7 @@ public class RequestsInteractor implements RequestsInputBoundary{
 
 
     @Override
-    public HashMap<String,Boolean> accept(RequestsInputData requestsInputData) {
+    public HashMap<String, Boolean> accept(RequestsInputData requestsInputData) {
         String myName = requestsDataAccessInterface.getCurrentUsername();
         requestsDataAccessInterface.updateSatus(myName, requestsInputData.getPartnername(), true);
         return requestsDataAccessInterface.getRequestsActionsMap(myName);
@@ -93,7 +92,5 @@ public class RequestsInteractor implements RequestsInputBoundary{
         String myName = requestsDataAccessInterface.getCurrentUsername();
         requestsDataAccessInterface.updateSatus(myName, requestsInputData.getPartnername(), false);
         return requestsDataAccessInterface.getRequestsActionsMap(myName);
-
-
-        }
+    }
 }

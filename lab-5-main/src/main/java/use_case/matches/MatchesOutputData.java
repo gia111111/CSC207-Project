@@ -1,5 +1,8 @@
 package use_case.matches;
 
+/**
+ * The output data for the Matches use case.
+ */
 public class MatchesOutputData {
     private final String name;
     private final boolean useCaseFailed;
@@ -9,7 +12,9 @@ public class MatchesOutputData {
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getName() {return name;}
+    public String getName() {
+        return name;
+    }
 
     public boolean isUseCaseFailed() {
         return useCaseFailed;

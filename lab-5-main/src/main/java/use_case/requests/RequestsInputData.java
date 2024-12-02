@@ -2,6 +2,9 @@ package use_case.requests;
 
 import data_access.RemoteDataAccessObject;
 
+/**
+ * The input data for the Requests use case.
+ */
 public class RequestsInputData {
     private final String username;
     private final String partnername;
@@ -12,7 +15,6 @@ public class RequestsInputData {
         this.username = remoteDataAccessObject.getCurrentUsername();
         this.partnername = partnername;
     }
-
 
     public String getUsername() {
         return username;
