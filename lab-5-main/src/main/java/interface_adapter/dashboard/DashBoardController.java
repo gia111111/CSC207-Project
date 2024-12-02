@@ -24,4 +24,15 @@ public class DashBoardController {
         viewManagerModel.setState("matches");
         viewManagerModel.firePropertyChanged();
     }
+
+    public void switchToFindView(){
+        viewManagerModel.setState("find");
+        viewManagerModel.firePropertyChanged();
+    }
+
+    public void switchToRequestsView(){
+        viewManagerModel.setState("requests");
+        viewManagerModel.firePropertyChanged();
+
+    }
 }

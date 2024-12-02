@@ -22,7 +22,7 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
 
     private final JButton myProfile;
     private final JButton requests;
-    private final JButton compatibility;
+    private final JButton find;
     private final JButton matches;
     private final JButton logout;
 
@@ -46,14 +46,14 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
 
         myProfile = createMaterialButton(DashBoardViewModel.PROFILE_BUTTON_LABEL);
         requests = createMaterialButton(DashBoardViewModel.REQUESTS_BUTTON_LABEL);
-        compatibility = createMaterialButton(DashBoardViewModel.COMPATIBILITY_BUTTON_LABEL);
+        find = createMaterialButton(DashBoardViewModel.COMPATIBILITY_BUTTON_LABEL);
         matches = createMaterialButton(DashBoardViewModel.MATCHES_BUTTON_LABEL);
         logout = createMaterialButton(DashBoardViewModel.LOGOUT_BUTTON_LABEL);
 
         // Set alignment for all buttons
         myProfile.setAlignmentX(Component.CENTER_ALIGNMENT);
         requests.setAlignmentX(Component.CENTER_ALIGNMENT);
-        compatibility.setAlignmentX(Component.CENTER_ALIGNMENT);
+        find.setAlignmentX(Component.CENTER_ALIGNMENT);
         matches.setAlignmentX(Component.CENTER_ALIGNMENT);
         logout.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -61,7 +61,7 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
         this.add(Box.createVerticalStrut(20)); // Add space between components
         this.add(myProfile);
         this.add(requests);
-        this.add(compatibility);
+        this.add(find);
         this.add(matches);
         this.add(Box.createVerticalStrut(20)); // Add space before logout
         this.add(logout);
@@ -78,7 +78,26 @@ public class DashBoardView extends JPanel implements ActionListener, PropertyCha
                 dashBoardController.switchToProfile();
             }
         });
+
+        // Add action listener for the "requests" button
+        requests.addActionListener(evt -> {
+            if (dashBoardController != null) {
+                dashBoardController.switchToRequestsView();
+            }
+        });
+
+        find.addActionListener(e -> {
+            if (dashBoardController != null) {
+                dashBoardController.switchToFindView();
+            }
+        });
         matches.addActionListener(e -> dashBoardController.switchToMatchView()); // Switch to MatchViewFrame
+
+        compatibility.addActionListener(e -> {
+            if (dashBoardController != null) {
+            dashBoardController.switchToMatchView();
+            }
+        });
     }
 
     private JButton createMaterialButton(String text) {
