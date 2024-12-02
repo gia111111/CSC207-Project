@@ -1,6 +1,5 @@
 package use_case.createProfile;
 
-import data_access.InMemoryUserDataAccessObject;
 import data_access.RemoteDataAccessObject;
 
 import java.util.List;

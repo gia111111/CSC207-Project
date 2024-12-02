@@ -2,7 +2,6 @@ package app;
 
 import java.awt.CardLayout;
 import java.io.IOException;
-import java.util.List;
 
 import javax.swing.*;
 
@@ -11,11 +10,11 @@ import entity.*;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
-import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.dashboard.DashBoardController;
 import interface_adapter.dashboard.DashBoardViewModel;
-import interface_adapter.find.FindProfilesController;
-import interface_adapter.find.FindProfilesPresenter;
+import interface_adapter.find.FindController;
+import interface_adapter.find.FindPresenter;
 import interface_adapter.find.FindViewModel;
 import interface_adapter.home.HomePageController;
 import interface_adapter.home.HomePagePresenter;
@@ -35,17 +34,15 @@ import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.profile.ProfileViewModel;
-import interface_adapter.matches.MatchesController;
 import interface_adapter.matches.MatchesViewModel;
 import interface_adapter.matches.MatchesPresenter;
-import use_case.change_password.ChangePasswordInputBoundary;
-import use_case.change_password.ChangePasswordInteractor;
-import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.changePassword.ChangePasswordInputBoundary;
+import use_case.changePassword.ChangePasswordInteractor;
+import use_case.changePassword.ChangePasswordOutputBoundary;
 import use_case.createProfile.CreateProfileInputBoundary;
 import use_case.createProfile.CreateProfileInteractor;
 import use_case.createProfile.CreateProfileOutputBoundary;
 import use_case.find.*;
-import use_case.home.HomeInputBoundary;
 import use_case.home.HomeInteractor;
 import use_case.home.HomeOutputBoundary;
 import use_case.matches.MatchesInputBoundary;
@@ -86,7 +83,7 @@ public class AppBuilder {
     private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
-    private LoggedInViewModel loggedInViewModel;
+    private ChangePasswordViewModel changePasswordViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
     private ProfileViewModel profileViewModel;
@@ -99,7 +96,7 @@ public class AppBuilder {
     private FindViewModel findViewModel;
     private FindView findView;
 
-    private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, loggedInViewModel, viewManagerModel);
+    private final HomeOutputBoundary homeOutputBoundary = new HomePagePresenter(homePageViewModel, signupViewModel, loginViewModel, changePasswordViewModel, viewManagerModel);
     private final HomeInteractor homeInteractor = new HomeInteractor(homeOutputBoundary);
     private final HomePageController homePageController = new HomePageController(viewManagerModel);
     private DashBoardController dashBoardController = new DashBoardController(viewManagerModel);
@@ -136,8 +133,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoggedInView() {
-        loggedInViewModel = new LoggedInViewModel();
-        loggedInView = new LoggedInView(loggedInViewModel);
+        changePasswordViewModel = new ChangePasswordViewModel();
+        loggedInView = new LoggedInView(changePasswordViewModel);
         cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
     }
@@ -188,7 +185,7 @@ public class AppBuilder {
      */
     public AppBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel, dashBoardViewModel);
+                changePasswordViewModel, loginViewModel, dashBoardViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 remoteDataAccessObject, loginOutputBoundary);
 
@@ -202,8 +199,8 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addChangePasswordView() {
-        loggedInViewModel = new LoggedInViewModel();
-        loggedInView = new LoggedInView(loggedInViewModel);
+        changePasswordViewModel = new ChangePasswordViewModel();
+        loggedInView = new LoggedInView(changePasswordViewModel);
         cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
     }
@@ -214,7 +211,7 @@ public class AppBuilder {
      */
     public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(loggedInViewModel, viewManagerModel,loginViewModel);
+                new ChangePasswordPresenter(changePasswordViewModel, viewManagerModel,loginViewModel);
 
         final ChangePasswordInputBoundary changePasswordInteractor =
                 new ChangePasswordInteractor(remoteDataAccessObject, changePasswordOutputBoundary, userFactory);
@@ -231,7 +228,7 @@ public class AppBuilder {
      */
     public AppBuilder addLogoutUseCase() {
         final LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                changePasswordViewModel, loginViewModel);
 
         final LogoutInputBoundary logoutInteractor =
                 new LogoutInteractor(remoteDataAccessObject, logoutOutputBoundary);
@@ -247,20 +244,20 @@ public class AppBuilder {
         final CompatibilityAlgorithm compatibilityAlgorithm = new BasicCompatibilityAlgorithm();
 
         // Initialize the output boundary (Presenter)
-        final FindProfilesOutputBoundary outputBoundary = new FindProfilesPresenter(findViewModel, viewManagerModel);
+        final FindOutputBoundary outputBoundary = new FindPresenter(findViewModel, viewManagerModel);
 
         // Create the FindProfilesInteractor
-        final FindProfilesInteractor findProfilesInteractor = new FindProfilesInteractor(
+        final FindInteractor findProfilesInteractor = new FindInteractor(
                 compatibilityAlgorithm, // The data access interface
                 outputBoundary,
                 remoteDataAccessObject
                 );
 
         // Create the controller and assign the interactor
-        final FindProfilesController findProfilesController = new FindProfilesController(findProfilesInteractor, viewManagerModel, remoteDataAccessObject);
+        final FindController findController = new FindController(findProfilesInteractor, viewManagerModel, remoteDataAccessObject);
 
         // Assign the controller to the FindViewModel or other components if necessary
-        findView.setFindProfilesController(findProfilesController);
+        findView.setFindProfilesController(findController);
 
         return this;
     }

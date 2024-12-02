@@ -1,8 +1,8 @@
 package interface_adapter.logout;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.change_password.ChangedPasswordState;
+import interface_adapter.change_password.ChangePasswordViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import use_case.logout.LogoutOutputBoundary;
@@ -13,16 +13,16 @@ import use_case.logout.LogoutOutputData;
  */
 public class LogoutPresenter implements LogoutOutputBoundary {
 
-    private final LoggedInViewModel loggedInViewModel;
+    private final ChangePasswordViewModel changePasswordViewModel;
     private final ViewManagerModel viewManagerModel;
     private final LoginViewModel loginViewModel;
 
     // Constructor with proper assignment to instance variables
     public LogoutPresenter(ViewManagerModel viewManagerModel,
-                           LoggedInViewModel loggedInViewModel,
+                           ChangePasswordViewModel changePasswordViewModel,
                            LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.loggedInViewModel = loggedInViewModel;
+        this.changePasswordViewModel = changePasswordViewModel;
         this.loginViewModel = loginViewModel;
     }
 
@@ -30,16 +30,16 @@ public class LogoutPresenter implements LogoutOutputBoundary {
     public void prepareSuccessView(LogoutOutputData response) {
         // Step 1: Update the LoggedInState
         // Get the LoggedInState from the LoggedInViewModel
-        LoggedInState loggedInState = loggedInViewModel.getState();
+        ChangedPasswordState changedPasswordState = changePasswordViewModel.getState();
 
         // Step 2: Set the username in the state to an empty string (user is logged out)
-        loggedInState.setUsername("");
+        changedPasswordState.setUsername("");
 
         // Step 3: Update the LoggedInViewModel with the modified state
-        loggedInViewModel.setState(loggedInState);
+        changePasswordViewModel.setState(changedPasswordState);
 
         // Step 4: Fire property change to update the view
-        loggedInViewModel.firePropertyChanged();
+        changePasswordViewModel.firePropertyChanged();
 
         // Step 5: Update the LoginState
         // Get the LoginState from the LoginViewModel

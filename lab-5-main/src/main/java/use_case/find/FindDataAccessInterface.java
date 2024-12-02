@@ -5,7 +5,7 @@ import entity.Profile;
 
 import java.util.List;
 
-public interface FindUserDataAccessInterface {
+public interface FindDataAccessInterface {
     /**
      * Fetches a profile for the given username.
      *

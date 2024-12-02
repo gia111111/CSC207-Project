@@ -1,12 +1,10 @@
 package use_case.login;
 
-import data_access.InMemoryUserDataAccessObject;
+import data_access.InMemoryDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +13,7 @@ class LoginInteractorTest {
     @Test
     void successTest() {
         LoginInputData inputData = new LoginInputData("Paul", "password");
-        LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        LoginUserDataAccessInterface userRepository = new InMemoryDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
@@ -43,7 +41,7 @@ class LoginInteractorTest {
     @Test
     void successUserLoggedInTest() {
         LoginInputData inputData = new LoginInputData("Paul", "password");
-        LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        LoginUserDataAccessInterface userRepository = new InMemoryDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
@@ -72,7 +70,7 @@ class LoginInteractorTest {
     @Test
     void failurePasswordMismatchTest() {
         LoginInputData inputData = new LoginInputData("Paul", "wrong");
-        LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        LoginUserDataAccessInterface userRepository = new InMemoryDataAccessObject();
 
         // For this failure test, we need to add Paul to the data access repository before we log in, and
         // the passwords should not match.
@@ -101,7 +99,7 @@ class LoginInteractorTest {
     @Test
     void failureUserDoesNotExistTest() {
         LoginInputData inputData = new LoginInputData("Paul", "password");
-        LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        LoginUserDataAccessInterface userRepository = new InMemoryDataAccessObject();
 
         // Add Paul to the repo so that when we check later they already exist
 

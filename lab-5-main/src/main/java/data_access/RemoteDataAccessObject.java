@@ -8,14 +8,14 @@ import com.google.firebase.FirebaseOptions;
 
 import com.google.firebase.cloud.FirestoreClient;
 import entity.*;
-import use_case.find.FindUserDataAccessInterface;
-import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.find.FindDataAccessInterface;
+import use_case.changePassword.ChangePasswordUserDataAccessInterface;
 import use_case.createProfile.CreateProfileDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.matches.MatchesDataAccessObject;
 import use_case.requests.RequestsDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
+import use_case.signup.SignupDataAccessInterface;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -26,12 +26,12 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class RemoteDataAccessObject implements SignupUserDataAccessInterface,
+public class RemoteDataAccessObject implements SignupDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         CreateProfileDataAccessInterface,
         MatchesDataAccessObject,
-        FindUserDataAccessInterface,
+        FindDataAccessInterface,
         LogoutUserDataAccessInterface,
         RequestsDataAccessInterface {
 

@@ -2,14 +2,14 @@ package interface_adapter.find;
 
 import entity.Finds;
 import interface_adapter.ViewManagerModel;
-import use_case.find.FindProfilesOutputBoundary;
+import use_case.find.FindOutputBoundary;
 
-public class FindProfilesPresenter implements FindProfilesOutputBoundary {
+public class FindPresenter implements FindOutputBoundary {
 
     private final FindViewModel findViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public FindProfilesPresenter(FindViewModel findViewModel, ViewManagerModel viewManagerModel) {
+    public FindPresenter(FindViewModel findViewModel, ViewManagerModel viewManagerModel) {
         this.findViewModel = findViewModel;
         this.viewManagerModel = viewManagerModel;
 

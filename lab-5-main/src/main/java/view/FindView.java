@@ -1,6 +1,6 @@
 package view;
 
-import interface_adapter.find.FindProfilesController;
+import interface_adapter.find.FindController;
 import interface_adapter.find.FindState;
 import interface_adapter.find.FindViewModel;
 import mdlaf.utils.MaterialColors;
@@ -19,13 +19,13 @@ import java.util.Map;
 public class FindView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final FindViewModel findViewModel; // ViewModel
-    private FindProfilesController findProfilesController; // Controller
+    private FindController findController; // Controller
     private final DefaultTableModel tableModel;
     private final JTable table;
 
     public FindView(FindViewModel findViewModel) {
         this.findViewModel = findViewModel;
-        this.findProfilesController = findProfilesController;
+        this.findController = findController;
 
         // Register as a listener for property changes in the ViewModel
         this.findViewModel.addPropertyChangeListener(this);
@@ -62,7 +62,7 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
 
         // Add "Return to Dashboard" button at the bottom
         JButton returnButton = new JButton("Dashboard");
-        returnButton.addActionListener(e -> findProfilesController.switchToDashBoard());
+        returnButton.addActionListener(e -> findController.switchToDashBoard());
         returnButton.setBackground(MaterialColors.PINK_100);
         returnButton.setForeground(MaterialColors.BLUE_800);
         add(returnButton, BorderLayout.SOUTH);
@@ -92,7 +92,7 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         final FindState currentState = findViewModel.getState();
 
         // Populate table with data from the ViewModel's state
-        Map<String, Double> scores = findProfilesController.findProfiles(currentState.getScores(), currentState.getActions());
+        Map<String, Double> scores = findController.findProfiles(currentState.getScores(), currentState.getActions());
         if (scores != null) {
             for (Map.Entry<String, Double> entry : scores.entrySet()) {
                 tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), "Actions"});
@@ -179,7 +179,7 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         System.out.println(action + " button clicked for user: " + otherUserId);
 
         // Notify the controller to handle the action
-        findProfilesController.handleAction(otherUserId, action);
+        findController.handleAction(otherUserId, action);
 
         // Stop editing (if needed)
         table.editCellAt(row, -1);
@@ -190,7 +190,7 @@ public class FindView extends JPanel implements ActionListener, PropertyChangeLi
         return "find";
     }
 
-    public void setFindProfilesController(FindProfilesController findProfilesController) {
-        this.findProfilesController = findProfilesController;
+    public void setFindProfilesController(FindController findController) {
+        this.findController = findController;
     }
 }

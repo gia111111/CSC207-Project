@@ -1,21 +1,19 @@
 package interface_adapter.find;
 
 import data_access.RemoteDataAccessObject;
-import entity.Finds;
 import interface_adapter.ViewManagerModel;
-import use_case.find.FindProfileInputData;
-import use_case.find.FindProfilesInputBoundary;
-import use_case.find.FindProfilesOutputBoundary;
+import use_case.find.FindInputData;
+import use_case.find.FindInputBoundary;
 
 import java.util.Map;
 
-public class FindProfilesController {
+public class FindController {
 
-    private final FindProfilesInputBoundary findProfilesUseCase; // Interactor to perform the use case
+    private final FindInputBoundary findProfilesUseCase; // Interactor to perform the use case
     private final ViewManagerModel viewManagerModel; // Manages view state
     private final RemoteDataAccessObject remoteDataAccessObject;
 
-    public FindProfilesController(FindProfilesInputBoundary findProfilesUseCase, ViewManagerModel viewManagerModel, RemoteDataAccessObject remoteDataAccessObject) {
+    public FindController(FindInputBoundary findProfilesUseCase, ViewManagerModel viewManagerModel, RemoteDataAccessObject remoteDataAccessObject) {
         this.findProfilesUseCase = findProfilesUseCase;
         this.viewManagerModel = viewManagerModel;
         this.remoteDataAccessObject = remoteDataAccessObject;
@@ -27,8 +25,8 @@ public class FindProfilesController {
      *
      */
     public Map<String, Double> findProfiles(Map<String, Double> scores, Map<String, Boolean> matches) {
-        final FindProfileInputData findProfileInputData = new FindProfileInputData(scores, matches, remoteDataAccessObject);
-        return findProfilesUseCase.execute(findProfileInputData);
+        final FindInputData findInputData = new FindInputData(scores, matches, remoteDataAccessObject);
+        return findProfilesUseCase.execute(findInputData);
     }
 
 //    private void findProfiles (Map<String, Double> scores, Map<String, Boolean> actions) {

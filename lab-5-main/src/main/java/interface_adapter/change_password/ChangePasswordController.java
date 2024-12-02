@@ -2,8 +2,8 @@ package interface_adapter.change_password;
 
 import data_access.RemoteDataAccessObject;
 import interface_adapter.ViewManagerModel;
-import use_case.change_password.ChangePasswordInputBoundary;
-import use_case.change_password.ChangePasswordInputData;
+import use_case.changePassword.ChangePasswordInputBoundary;
+import use_case.changePassword.ChangePasswordInputData;
 
 /**
  * Controller for the Change Password Use Case.
