@@ -37,13 +37,16 @@ public class MatchesInteractor implements MatchesInputBoundary {
     @Override
     public Map<String, List<String>> execute(MatchesInputData matchesInputData) {
         final List<String> otherUsers = matchesDataAccessObject.getRequests(matchesInputData.getName());
+        System.out.println("interactorblah" + otherUsers);
         final HashMap<String, List<String>> matchContactInfo = new HashMap<>();
         for (String otherUser : otherUsers) {
             final List<String> otherUserContactInfo = matchesDataAccessObject.getContactCard(otherUser);
             matchContactInfo.put(otherUser, otherUserContactInfo);
         }
         final Matches matches = new Matches(matchesInputData.getName(), matchContactInfo);
-        if (matches.getMatches() != null) {
+        System.out.println(matches.getMatches() + "aaaahhhhh");
+        if (matches.getMatches().size() != 0) {
+            System.out.println("Interactor" + matches.getMatches());
             matchesDataAccessObject.save(matches);
             final MatchesOutputData matchesOutputData = new MatchesOutputData(matches.getCurrentUsername(), false);
             matchesOutputBoundary.prepareSuccessView(matchesOutputData);
@@ -52,14 +55,7 @@ public class MatchesInteractor implements MatchesInputBoundary {
         else {
             matchesOutputBoundary.prepareFailView(
                     "Sorry, no current matches. Please access the Finds page from Dashboard to start matching!");
-            return null;
+            return matches.getMatches();
         }
-    }
-
-    /**
-     * Switch view to DashboardView.
-     */
-    @Override
-    public void switchToDashBoardView() {
     }
 }
