@@ -56,32 +56,6 @@ Users can securely log out when done.
 - Cathy wants to message her added friend. She logs into the app with her password and her username previously generated. She goes to the menu bar in her home screen and selects "matches" to open a new window which has a list of all her matches (people she has “liked” and have “liked” her back) with their contact methods and contact information. She can contact them through this information. **[Victoria's Story] -> matches**
 - Cathy is happy since she can chat with a cool person. She clicks the “log out” button to exit the app. **[Team Story] -> log out**  
 
-## Entities for the Domain:  
-
-User:
-- String username 
-- String password 
-- String securityWord
-
-Profile: 
-- String name
-- String gender
-- String SexualOrientation
-- int age
-- Map<String, List<String>> answers
-- Map<String, Integer> weights
-- String contactInfo
-- String contactMethod
-
-Finds:
-- HashMap<String, Boolean> finds
-
-Requests:
-- HashMap<String, Boolean> requests
-
-Matches:
-- HashMap<String, List<String>> matches;
-
 ## Installation
 
 Before you begin, ensure you have the following software installed on your system:  

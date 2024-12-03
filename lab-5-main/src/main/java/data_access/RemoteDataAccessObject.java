@@ -1,22 +1,5 @@
 package data_access;
 
-import com.google.api.core.ApiFuture;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.*;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-
-import com.google.firebase.cloud.FirestoreClient;
-import entity.*;
-import use_case.find.FindDataAccessInterface;
-import use_case.changePassword.ChangePasswordUserDataAccessInterface;
-import use_case.createProfile.CreateProfileDataAccessInterface;
-import use_case.login.LoginUserDataAccessInterface;
-import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.matches.MatchesDataAccessObject;
-import use_case.requests.RequestsDataAccessInterface;
-import use_case.signup.SignupDataAccessInterface;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +9,26 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.google.api.core.ApiFuture;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.*;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
+import entity.*;
+import use_case.changePassword.ChangePasswordUserDataAccessInterface;
+import use_case.createProfile.CreateProfileDataAccessInterface;
+import use_case.find.FindDataAccessInterface;
+import use_case.login.LoginUserDataAccessInterface;
+import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.matches.MatchesDataAccessObject;
+import use_case.requests.RequestsDataAccessInterface;
+import use_case.signup.SignupDataAccessInterface;
+
+/**
+ * Remote implementation of the DAO for storing user data. This implementation persists data
+ * between runs of the program using Firestore.
+ */
 public class RemoteDataAccessObject implements SignupDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
@@ -48,8 +51,8 @@ public class RemoteDataAccessObject implements SignupDataAccessInterface,
 
 
     public RemoteDataAccessObject() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
-        FirebaseOptions options = new FirebaseOptions.Builder()
+        final FileInputStream serviceAccount = new FileInputStream("/Users/chenxiaoping/IdeaProjects/yangqif7/CSC207-Project/lab-5-main/src/credential.json");
+        final FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
         FirebaseApp.initializeApp(options);
@@ -63,17 +66,18 @@ public class RemoteDataAccessObject implements SignupDataAccessInterface,
      */
     @Override
     public void changePassword(User user) {
-        DocumentReference docRef = db.collection("users").document(user.getName());
+        final DocumentReference docRef = db.collection("users").document(user.getName());
         docRef.update("password", user.getPassword());
     }
 
     @Override
     public boolean existsByName(String username) {
-        DocumentReference docRef = db.collection("users").document(username);
+        final DocumentReference docRef = db.collection("users").document(username);
         try {
-            DocumentSnapshot document = docRef.get().get();
+            final DocumentSnapshot document = docRef.get().get();
             return document.exists();
-        } catch (InterruptedException | ExecutionException e) {
+        }
+        catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return false;
@@ -81,13 +85,13 @@ public class RemoteDataAccessObject implements SignupDataAccessInterface,
 
     @Override
     public User get(String username) {
-        DocumentReference docRef = db.collection("users").document(username);
+        final DocumentReference docRef = db.collection("users").document(username);
         try {
-            DocumentSnapshot document = docRef.get().get();
+            final DocumentSnapshot document = docRef.get().get();
             if (document.exists()) {
-                String name = document.getString("name");
-                String password = document.getString("password");
-                String securityWord = document.getString("securityWord");
+                final String name = document.getString("name");
+                final String password = document.getString("password");
+                final String securityWord = document.getString("securityWord");
                 return new CommonUser(name, password, securityWord);
             }
         } catch (InterruptedException | ExecutionException e) {
@@ -98,7 +102,7 @@ public class RemoteDataAccessObject implements SignupDataAccessInterface,
 
     @Override
     public void save(User user) {
-        DocumentReference docRef = db.collection("users").document(user.getName());
+        final DocumentReference docRef = db.collection("users").document(user.getName());
         System.out.println("save" + user.getName());
         docRef.set(user);
     }
@@ -179,6 +183,11 @@ public class RemoteDataAccessObject implements SignupDataAccessInterface,
     @Override
     public String getContactInfo() {
         return this.contactInfo;
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return false;
     }
 
     @Override

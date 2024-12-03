@@ -22,8 +22,7 @@ public class ProfileState {
     private RemoteDataAccessObject dataAccessObject;
     private String errorMessage = "Please fill in all fields.";
 
-    public String getName() {return name;}
-
+    public String getName() { return name; }
 
     public String getGender() {
         return gender;

@@ -106,4 +106,11 @@ public interface CreateProfileDataAccessInterface {
      */
     String getContactInfo();
 
+    /**
+     * Checks if the given username exists.
+     * @param username the username to look for
+     * @return true if a user with the given username exists; false otherwise
+     */
+    boolean existsByUsername(String username);
+
 }

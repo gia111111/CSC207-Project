@@ -18,5 +18,6 @@ public class Constants {
     public static final int SECTION_FOUR_QUESTIONS = 5;
     public static final int SECTION_FIVE_QUESTIONS = 5;
     public static final int TOTAL_WEIGHTS = 100;
-    public static final String ERROR_MESSAGE = "Please answer every question!";
+    public static final String ERROR_MESSAGE_one = "Please answer every question!";
+    public static final String ERROR_MESSAGE_two = "Weights do not add up to 100!";
 }

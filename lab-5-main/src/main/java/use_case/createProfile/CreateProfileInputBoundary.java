@@ -10,8 +10,4 @@ public interface CreateProfileInputBoundary {
      */
     void execute(CreateProfileInputData createProfileInputData);
 
-    /**
-    * Executes the switch to dash broad view use case.
-    */
-    void switchToDashBroadView();
 }

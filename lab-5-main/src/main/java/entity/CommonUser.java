@@ -26,7 +26,9 @@ public class CommonUser implements User {
     }
 
     @Override
-    public String getSecurityWord() { return securityCode; }
+    public String getSecurityWord() {
+        return securityCode;
+    }
 
     @Override
     public void setPassword(String password) {

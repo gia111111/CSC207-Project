@@ -23,8 +23,9 @@ public interface User {
      */
     String getSecurityWord();
 
+    /**
+     * Sets the password of the user.
+     * @param password the new password of the user.
+     */
     void setPassword(String password);
-
-
-
 }
