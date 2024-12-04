@@ -46,8 +46,11 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
         System.out.println(profile.getContactInfo());
         System.out.println(profile.getContactMethod());
 
-        if (isProfileInvalid(profile)) {
-            profilePresenter.prepareFailView(Constants.ERROR_MESSAGE);
+        if (isProfileIncomplete(profile)) {
+            profilePresenter.prepareFailView(Constants.ERROR_MESSAGE_one);
+        }
+        else if (areWeightsInvalid(profile)) {
+            profilePresenter.prepareFailView(Constants.ERROR_MESSAGE_two);
         }
         else {
             profileDataAccessObject.save(profile);
@@ -57,18 +60,18 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
         }
     }
 
-    private boolean isProfileInvalid(Profile profile) {
+    private boolean isProfileIncomplete(Profile profile) {
         return isGenderInvalid(profile) || isSexualOrientationInvalid(profile) || isAgeInvalid(profile)
-                || areAnswersInvalid(profile) || areWeightsInvalid(profile) || isContactMethodInvalid(profile)
+                || areAnswersInvalid(profile) || isContactMethodInvalid(profile)
                 || isContactInfoInvalid(profile);
     }
 
     private boolean isGenderInvalid(Profile profile) {
-        return profile.getGender().equals("");
+        return profile.getGender().isEmpty();
     }
 
     private boolean isSexualOrientationInvalid(Profile profile) {
-        return profile.getSexualOrientation().equals("");
+        return profile.getSexualOrientation().isEmpty();
     }
 
     private boolean isAgeInvalid(Profile profile) {
@@ -94,15 +97,11 @@ public class CreateProfileInteractor implements CreateProfileInputBoundary {
     }
 
     private boolean isContactMethodInvalid(Profile profile) {
-        return profile.getContactMethod().equals("");
+        return profile.getContactMethod().isEmpty();
     }
 
     private boolean isContactInfoInvalid(Profile profile) {
-        return profile.getContactInfo().equals("");
+        return profile.getContactInfo().isEmpty();
     }
 
-    @Override
-    public void switchToDashBroadView() {
-        profilePresenter.switchToDashBoardView();
-    }
 }
