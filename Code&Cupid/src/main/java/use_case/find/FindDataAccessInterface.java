@@ -36,4 +36,6 @@ public interface FindDataAccessInterface {
      * @param isAccepted The request status between the current user and the other user.
      */
     void setRequestStatus(String otherUserId, Boolean isAccepted);
+
+    String getCurrentUsername();
 }

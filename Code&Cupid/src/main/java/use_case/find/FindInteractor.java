@@ -15,7 +15,7 @@ import entity.Profile;
 public class FindInteractor implements FindInputBoundary {
     private final CompatibilityAlgorithm compatibilityAlgorithm;
     private final FindOutputBoundary outputBoundary;
-    private final RemoteDataAccessObject remoteDataAccessObject;
+    private final FindDataAccessInterface remoteDataAccessObject;
 
     /**
      * Constructs a new FindProfilesInteractor instance.
@@ -26,7 +26,7 @@ public class FindInteractor implements FindInputBoundary {
      */
     public FindInteractor(CompatibilityAlgorithm compatibilityAlgorithm,
                           FindOutputBoundary outputBoundary,
-                          RemoteDataAccessObject remoteDataAccessObject) {
+                          FindDataAccessInterface remoteDataAccessObject) {
         this.compatibilityAlgorithm = compatibilityAlgorithm;
         this.outputBoundary = outputBoundary;
         this.remoteDataAccessObject = remoteDataAccessObject;

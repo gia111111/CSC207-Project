@@ -16,9 +16,5 @@ public interface MatchesInputBoundary {
      */
     Map<String, List<String>> execute(MatchesInputData matchesInputData);
 
-    /**
-     * Executes the switch to dashboard view use case.
-     */
-    void switchToDashBoardView();
 
 }
