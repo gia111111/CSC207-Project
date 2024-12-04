@@ -21,4 +21,12 @@ public class Requests {
     public HashMap<String, Double> getScoresMap() {
         return scoresMap;
     }
+
+    public void setActionsToRequests(HashMap<String, Boolean> actionsToRequests) {
+        this.actionsToRequests = actionsToRequests;
+    }
+
+    public void setScoresMap(HashMap<String, Double> scoresMap) {
+        this.scoresMap = scoresMap;
+    }
 }
