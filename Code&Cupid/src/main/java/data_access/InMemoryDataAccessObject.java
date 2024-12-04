@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import entity.Matches;
-import entity.Profile;
-import entity.Requests;
-import entity.User;
+import entity.*;
 import use_case.changePassword.ChangePasswordUserDataAccessInterface;
+import use_case.find.FindDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.matches.MatchesDataAccessObject;
@@ -23,7 +21,7 @@ import use_case.signup.SignupDataAccessInterface;
 public class InMemoryDataAccessObject implements SignupDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
-        LogoutUserDataAccessInterface, MatchesDataAccessObject, RequestsDataAccessInterface {
+        LogoutUserDataAccessInterface, MatchesDataAccessObject, RequestsDataAccessInterface, FindDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
     private final Map<String, Matches> matches = new HashMap<>();
@@ -63,6 +61,11 @@ public class InMemoryDataAccessObject implements SignupDataAccessInterface,
     }
 
     @Override
+    public void setRequestStatus(String otherUserId, Boolean isAccepted) {
+
+    }
+
+    @Override
     public Boolean isValidRequest(String myname, String partnerName) {
         return null;
     }
@@ -75,6 +78,11 @@ public class InMemoryDataAccessObject implements SignupDataAccessInterface,
     @Override
     public Profile getProfile(String myname) {
         return null;
+    }
+
+    @Override
+    public void save(Finds finds) {
+
     }
 
     @Override
